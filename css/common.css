@@ -1,0 +1,355 @@
+:root {
+  /* --- TEKS COLORS (DITAMBAHKAN KEMBALI) --- */
+  --text-primary: #18181b;   /* Warna Utama (Hampir Hitam) */
+  --text-secondary: #52525b; /* Warna Sekunder (Abu-abu Gelap) */
+
+  /* --- Palette Warna Utama --- */
+  --bg-base: #F5F5F7;
+  --bg-blue-tint: rgba(71, 140, 191);
+  --bg-orange-tint: rgba(234, 118, 0);
+  --bg-red-tint: rgba(238, 39, 34);
+  
+  /* --- CENTRALIZED GLASS SETTINGS --- */
+  --glass-bg: rgba(255, 255, 255, 0.5);
+  --glass-bg-hover: rgba(255, 255, 255, 0.9);
+  --glass-border: rgba(255, 255, 255, 0.8);
+  --glass-blur: 16px;
+  
+  /* --- Variables Lain --- */
+  --shadow-soft: 0 10px 40px -10px rgba(0,0,0,0.08);
+  --shadow-hover: 0 20px 50px -12px rgba(0,0,0,0.15);
+  --radius-card: 24px;
+  --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  --accent: #e5e7eb;
+  --footer: #232326;
+  --space-1: 8px;
+  --space-2: 16px;
+  --space-3: 24px;
+  --space-4: 32px;
+  --space-5: 48px;
+  --space-6: 64px;
+  --radius-nav: 8px;
+  --focus-ring: 0 0 0 3px #b3d4fc;
+  --section-max: 1000px;
+}
+
+/* === Global Page Setup === */
+html {
+  box-sizing: border-box;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  scroll-behavior: smooth;
+  color: var(--text-primary); /* Sekarang variabel ini sudah ada isinya */
+  background-color: var(--bg-base);
+  overflow-x: hidden;
+  position: relative;
+}
+
+*, *::before, *::after { box-sizing: inherit; }
+
+/* === LAYER 1: GEOMETRI EKSTRA (HTML Pseudos) === */
+html::before {
+  content: "";
+  position: fixed;
+  top: -10%;
+  left: -5%;
+  width: 500px;
+  height: 120px;
+  background: linear-gradient(45deg, rgba(71, 140, 191, 0.15), rgba(71, 140, 191, 0.05));
+  transform: rotate(-35deg);
+  border-radius: 60px;
+  z-index: -2;
+  pointer-events: none;
+}
+
+html::after {
+  content: "";
+  position: fixed;
+  top: 40%;
+  right: -10%;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(234, 118, 0, 0.15) 0%, transparent 70%);
+  z-index: -2;
+  pointer-events: none;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  
+  /* === LAYER 2: GLOW BACKGROUND UTAMA === */
+  background-image: 
+    radial-gradient(circle at 10% 10%, rgba(71, 140, 191, 0.35) 0%, transparent 50%),
+    radial-gradient(circle at 90% 90%, rgba(238, 39, 34, 0.30) 0%, transparent 45%),
+    radial-gradient(circle at 80% 30%, rgba(234, 118, 0, 0.28) 0%, transparent 55%),
+    radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.8) 0%, transparent 60%);
+    
+  background-attachment: fixed;
+  z-index: 0;
+}
+
+/* === LAYER 3: GEOMETRI DETIL (Body Pseudos) === */
+body::before {
+  content: "";
+  position: fixed;
+  bottom: 8%;
+  left: 5%;
+  width: 350px;
+  height: 350px;
+  background: linear-gradient(135deg, rgba(71, 140, 191, 0.18), rgba(255,255,255,0.05));
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 40px;
+  transform: rotate(15deg);
+  z-index: -1;
+  pointer-events: none;
+  backdrop-filter: blur(8px);
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  top: 15%;
+  right: 5%;
+  width: 300px;
+  height: 400px;
+  background: linear-gradient(to bottom, rgba(238, 39, 34, 0.12), rgba(234, 118, 0, 0.12));
+  border-radius: 50px;
+  transform: rotate(-10deg);
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* === Header/Navbar === */
+.navbar-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.navbar-wrapper--hidden {
+  transform: translateY(-100%);
+}
+
+.navbar {
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 32px; 
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border-bottom: 1px solid var(--glass-border);
+  box-sizing: border-box;
+}
+
+.navbar__logo svg {
+  width: 40px;
+  height: 40px;
+}
+
+.navbar__nav {
+  display: flex;
+  gap: 32px;
+}
+
+.navbar__link {
+  text-decoration: none;
+  color: var(--text-secondary); /* Sekarang valid, jadi warnanya abu-abu */
+  font-weight: 500;
+  font-size: 0.95rem;
+  transition: color 0.2s;
+  padding: 0;
+}
+
+.navbar__link:hover, .navbar__link--active {
+  color: var(--text-primary); /* Sekarang valid, jadi warnanya hitam */
+}
+
+.navbar__link:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
+  border-radius: var(--radius-nav);
+}
+
+.navbar__menu-toggle {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--text-primary);
+  padding: 0;
+  margin-left: var(--space-2);
+}
+.navbar__menu-icon {
+  width: 28px;
+  height: 28px;
+  display: block;
+  fill: currentColor;
+}
+
+/* === Main Content Area === */
+main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 120px 20px 60px;
+  width: 100%;
+  z-index: 1; 
+}
+
+.glass-badge {
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border: 1px solid var(--glass-border);
+  border-radius: 999px;
+  padding: 12px 32px;
+  color: var(--text-secondary);
+  font-weight: 500;
+  box-shadow: var(--shadow-soft);
+}
+
+/* === Section Headers === */
+.section__title {
+  font-size: 2.5rem;
+  font-weight: 800;
+  text-align: center;
+  margin-bottom: var(--space-2);
+  letter-spacing: -1px;
+  color: var(--text-primary);
+}
+
+.section-description {
+  font-size: 1.25rem;
+  font-weight: 400;
+  color: var(--text-secondary);
+  text-align: center;
+  margin-bottom: var(--space-5);
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* === Animations === */
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.slide-in {
+  opacity: 0;
+  animation: slideInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.delay-1 { animation-delay: 0.1s; }
+.delay-2 { animation-delay: 0.2s; }
+.delay-3 { animation-delay: 0.3s; }
+.delay-4 { animation-delay: 0.4s; }
+.delay-5 { animation-delay: 0.5s; }
+
+/* === Footer === */
+footer {
+  width: 100%;
+  background: var(--footer);
+  color: #fff;
+  font-size: 0.95rem;
+  text-align: center;
+  padding: var(--space-3) 0 var(--space-2) 0;
+  margin-top: auto;
+  position: relative;
+  z-index: 2;
+}
+.footer__star {
+  position: absolute;
+  right: var(--space-3);
+  bottom: var(--space-2);
+  opacity: 0.12;
+  width: 32px;
+  height: 32px;
+  pointer-events: none;
+}
+
+/* === Mobile Media Queries === */
+@media (max-width: 768px) {
+  .navbar {
+    padding: 1rem 20px;
+  }
+  .navbar__menu-toggle {
+    display: block;
+  }
+  .navbar__nav {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: #fff;
+    flex-direction: column;
+    padding: 20px;
+    gap: 16px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+    text-align: center;
+  }
+  .navbar__nav--open {
+    display: flex;
+  }
+  
+  main { 
+    padding: 120px 20px 32px 20px;
+  }
+  
+  /* --- PENYESUAIAN GEOMETRIS MOBILE --- */
+  html::before {
+    width: 300px;
+    height: 80px;
+    top: -5%;
+  }
+  
+  html::after {
+    width: 300px;
+    height: 300px;
+    top: 30%;
+  }
+
+  body::before {
+    width: 200px;
+    height: 200px;
+    bottom: 5%;
+    left: -10%;
+  }
+  
+  body::after {
+    width: 180px;
+    height: 250px;
+    top: 15%;
+    right: -10%;
+  }
+}
+
+@media (max-width: 400px) {
+  /* Padding atas dikembalikan ke 110px agar tidak tertutup Navbar */
+  main { 
+    padding: 110px var(--space-1) var(--space-3) var(--space-1); 
+  }
+}

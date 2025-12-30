@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CAD Design Portfolio | Jonathan Sinaga</title>
+  <link rel="stylesheet" href="css/common.css">
+  <link rel="stylesheet" href="css/cad.css">
+</head>
+<body>
+
+  <header class="navbar-wrapper">
+    <nav class="navbar" id="mainNav" aria-label="Main navigation">
+      <a href="index.html" class="navbar__logo" aria-label="Jonathan Sinaga Logo">
+        <svg viewBox="0 0 36 36" fill="none" aria-hidden="true" focusable="false">
+          <rect x="6" y="6" width="24" height="24" rx="8" fill="#18181b"/>
+          <path d="M13 13v10h10V13" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M13 13h10" stroke="#fff" stroke-width="2.2" stroke-linecap="round"/>
+        </svg>
+      </a>
+      <div class="navbar__nav" id="navbarNav">
+        <a href="index.html" class="navbar__link">Home</a>
+        <a href="Cad.html" class="navbar__link navbar__link--active" aria-current="page">3D Designs</a>
+        <a href="Game.html" class="navbar__link">Game Dev</a>
+        <a href="Blender.html" class="navbar__link">3D Modeling</a>
+      </div>
+      <button class="navbar__menu-toggle" id="menuToggle" aria-label="Open navigation menu" aria-controls="navbarNav" aria-expanded="false">
+        <svg class="navbar__menu-icon" viewBox="0 0 28 28" aria-hidden="true" focusable="false">
+          <rect y="5" width="28" height="3" rx="1.5" fill="currentColor"/>
+          <rect y="12" width="28" height="3" rx="1.5" fill="currentColor"/>
+          <rect y="19" width="28" height="3" rx="1.5" fill="currentColor"/>
+        </svg>
+      </button>
+    </nav>
+  </header>
+
+  <main>
+    <h1 class="section__title">CAD Design Portfolio</h1>
+    <p class="section-description">Showcasing Mechanical &amp; Industrial Design Projects</p>
+
+    <section class="carousel-section" aria-label="Featured CAD Projects">
+      <button class="carousel-arrow carousel-arrow--left" id="carouselPrev" aria-label="Previous Project">
+        <svg viewBox="0 0 24 24"><path d="M15 19l-7-7 7-7" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      
+      <div class="carousel-viewport">
+        <div class="carousel-track" id="carouselTrack">
+          <div class="carousel-card" data-category="assembly">
+            <img src="Imagery/cad_assembly_1.png" alt="Mechanical Assembly">
+            <div class="carousel-card-title">Mechanical Assembly</div>
+            <div class="carousel-card-desc">Complex robotic arm assembly with detailed exploded view.</div>
+          </div>
+          <div class="carousel-card" data-category="component">
+            <img src="Imagery/cad_component_1.png" alt="Industrial Component">
+            <div class="carousel-card-title">Industrial Component</div>
+            <div class="carousel-card-desc">Ergonomic & durable housing for industrial automation.</div>
+          </div>
+          <div class="carousel-card" data-category="gearbox">
+            <img src="Imagery/cad_assembly_2.png" alt="Gearbox Module">
+            <div class="carousel-card-title">Gearbox Module</div>
+            <div class="carousel-card-desc">Precision gearbox design for mechanical transmission.</div>
+          </div>
+          <div class="carousel-card" data-category="enclosure">
+            <img src="Imagery/cad_component_2.png" alt="Sheet Metal Enclosure">
+            <div class="carousel-card-title">Sheet Metal Enclosure</div>
+            <div class="carousel-card-desc">Custom sheet metal enclosure for control systems.</div>
+          </div>
+        </div>
+      </div>
+
+      <button class="carousel-arrow carousel-arrow--right" id="carouselNext" aria-label="Next Project">
+        <svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </section>
+
+    <section class="gallery-section" aria-label="Project Gallery">
+      <h2 class="gallery-title">Gallery to Assembly</h2>
+      <div class="gallery-masonry" id="galleryMasonry">
+        
+        <div class="gallery-item gallery-item--drawing" data-category="assembly">
+          <img src="Imagery/gallery_drawing_1.png" alt="Exploded View">
+          <div class="gallery-item-title">Exploded View</div>
+          <div class="gallery-item-desc">Detailed exploded drawing of robotic assembly.</div>
+        </div>
+        <div class="gallery-item gallery-item--render" data-category="assembly">
+          <img src="Imagery/gallery_render_3.png" alt="Robot Arm Render">
+          <div class="gallery-item-title">Robot Arm Render</div>
+          <div class="gallery-item-desc">3D render of robot arm.</div>
+        </div>
+        <div class="gallery-item gallery-item--render" data-category="assembly">
+          <img src="Imagery/gallery_render_1.png" alt="Sheet Analysis Render">
+          <div class="gallery-item-title">Sheet Analysis Render</div>
+          <div class="gallery-item-desc">3D render of sheet metal analysis.</div>
+        </div>
+        <div class="gallery-item gallery-item--render" data-category="assembly">
+          <img src="Imagery/gallery_render_4.png" alt="Boxcase">
+          <div class="gallery-item-title">Boxcase</div>
+          <div class="gallery-item-desc">3D render of industrial boxcase.</div>
+        </div>
+
+        <div class="gallery-item gallery-item--drawing" data-category="component">
+          <img src="Imagery/gallery_drawing_2.png" alt="Assembly Drawing">
+          <div class="gallery-item-title">Assembly Drawing</div>
+          <div class="gallery-item-desc">Mechanical assembly drawing with annotations.</div>
+        </div>
+        <div class="gallery-item gallery-item--render" data-category="component">
+          <img src="Imagery/gallery_render_1.png" alt="Sheet Analysis Render">
+          <div class="gallery-item-title">Sheet Analysis Render</div>
+          <div class="gallery-item-desc">3D render of sheet metal analysis.</div>
+        </div>
+        <div class="gallery-item gallery-item--render" data-category="component">
+          <img src="Imagery/gallery_render_4.png" alt="Boxcase">
+          <div class="gallery-item-title">Boxcase</div>
+          <div class="gallery-item-desc">3D render of industrial boxcase.</div>
+        </div>
+        <div class="gallery-item gallery-item--render" data-category="component">
+          <img src="Imagery/gallery_render_3.png" alt="Robot Arm Render">
+          <div class="gallery-item-title">Robot Arm Render</div>
+          <div class="gallery-item-desc">3D render of robot arm.</div>
+        </div>
+
+        <div class="gallery-item gallery-item--drawing" data-category="gearbox">
+          <img src="Imagery/gallery_drawing_3.png" alt="Schematic View">
+          <div class="gallery-item-title">Schematic View</div>
+          <div class="gallery-item-desc">Schematic drawing for control system.</div>
+        </div>
+        <div class="gallery-item gallery-item--render" data-category="gearbox">
+          <img src="Imagery/gallery_render_2.png" alt="Gearbox Render">
+          <div class="gallery-item-title">Gearbox Render</div>
+          <div class="gallery-item-desc">3D render of gearbox module.</div>
+        </div>
+        <div class="gallery-item gallery-item--render" data-category="gearbox">
+          <img src="Imagery/gallery_render_1.png" alt="Sheet Analysis Render">
+          <div class="gallery-item-title">Sheet Analysis Render</div>
+          <div class="gallery-item-desc">3D render of sheet metal analysis.</div>
+        </div>
+        <div class="gallery-item gallery-item--render" data-category="gearbox">
+          <img src="Imagery/gallery_render_4.png" alt="Boxcase">
+          <div class="gallery-item-title">Boxcase</div>
+          <div class="gallery-item-desc">3D render of industrial boxcase.</div>
+        </div>
+
+        <div class="gallery-item gallery-item--drawing" data-category="enclosure">
+          <img src="Imagery/gallery_drawing_4.png" alt="Rendered Sheet">
+          <div class="gallery-item-title">Rendered Sheet</div>
+          <div class="gallery-item-desc">Technical drawing of sheet metal.</div>
+        </div>
+        <div class="gallery-item gallery-item--render" data-category="enclosure">
+          <img src="Imagery/gallery_render_4.png" alt="Boxcase">
+          <div class="gallery-item-title">Boxcase</div>
+          <div class="gallery-item-desc">3D render of industrial boxcase.</div>
+        </div>
+        <div class="gallery-item gallery-item--render" data-category="enclosure">
+          <img src="Imagery/gallery_render_1.png" alt="Sheet Analysis Render">
+          <div class="gallery-item-title">Sheet Analysis Render</div>
+          <div class="gallery-item-desc">3D render of sheet metal analysis.</div>
+        </div>
+        <div class="gallery-item gallery-item--render" data-category="enclosure">
+          <img src="Imagery/gallery_render_2.png" alt="Gearbox Render">
+          <div class="gallery-item-title">Gearbox Render</div>
+          <div class="gallery-item-desc">3D render of gearbox module.</div>
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div>© 2024 Jonathan Sinaga. All rights reserved.</div>
+    <span class="footer__star" aria-hidden="true">
+      <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+        <polygon points="16,4 20,14 30,14 22,20 25,30 16,24 7,30 10,20 2,14 12,14" fill="#fff"/>
+      </svg>
+    </span>
+  </footer>
+
+  <script src="js/common.js"></script>
+  <script src="js/cad.js"></script>
+</body>
+</html>

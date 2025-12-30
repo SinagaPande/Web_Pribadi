@@ -1,0 +1,198 @@
+/* Styling spesifik untuk Index.html */
+/* Variable global diambil dari common.css */
+
+.gateway__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  width: 100%;
+}
+
+/* Glass Card Style - Konsisten untuk semua tombol */
+.gateway__card {
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-card);
+  padding: 40px 20px;
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-soft);
+  transition: var(--transition);
+  position: relative;
+  overflow: hidden;
+}
+
+.gateway__card:hover {
+  transform: translateY(-8px) scale(1.01);
+  box-shadow: var(--shadow-hover);
+  background: var(--glass-bg-hover);
+}
+
+.card__visual {
+  height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 24px;
+  width: 100%;
+}
+
+.card__visual img {
+  max-height: 100%;
+  max-width: 80%;
+  object-fit: contain;
+  filter: drop-shadow(0 4px 6px rgba(0,0,0,0.05));
+}
+
+/* Wide Card for Game Projects */
+.gateway__card--wide {
+  grid-column: span 2;
+  /* Background override dihapus agar konsisten dengan glass settings */
+}
+
+.card__visual--dual {
+  gap: 32px;
+}
+
+.card__visual--dual img {
+  max-width: 40%;
+}
+
+.card__visual--dual .divider {
+  width: 2px;
+  height: 60px;
+  background-color: var(--accent);
+  border-radius: 2px;
+}
+
+.card__label {
+  text-align: center;
+}
+
+.card__title {
+  display: block;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 4px;
+  letter-spacing: -0.5px;
+}
+
+.card__sub {
+  display: block;
+  font-size: 1rem;
+  color: var(--text-secondary);
+  font-weight: 400;
+}
+
+/* === Intro Section === */
+.intro {
+  text-align: center;
+  max-width: 700px;
+  margin: 0 auto;
+  padding-bottom: 40px;
+}
+
+.intro__container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.intro__image-wrapper {
+  margin-bottom: 24px;
+  position: relative;
+}
+
+.intro__photo {
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid #fff;
+  box-shadow: var(--shadow-soft);
+}
+
+.intro__text h1 {
+  font-size: 2.5rem;
+  font-weight: 800;
+  letter-spacing: -1px;
+  margin: 0 0 8px 0;
+  color: var(--text-primary);
+}
+
+.intro__role {
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: #2563eb;
+  margin: 0 0 16px 0;
+}
+
+.intro__desc {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: var(--text-secondary);
+  margin-bottom: 24px;
+}
+
+/* Social Buttons */
+.intro__socials {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+}
+
+.social-btn {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-primary);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  transition: var(--transition);
+}
+
+.social-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+  color: #2563eb;
+}
+
+.social-btn svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* === Mobile Responsiveness === */
+@media (max-width: 768px) {
+  .gateway__grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .gateway__card--wide {
+    grid-column: span 1;
+  }
+  
+  .card__visual {
+    height: 100px;
+  }
+  
+  .intro__text h1 {
+    font-size: 2rem;
+  }
+  
+  .card__visual--dual {
+    gap: 16px;
+  }
+  .card__visual--dual .divider {
+    height: 40px;
+  }
+}

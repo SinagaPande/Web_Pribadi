@@ -1,0 +1,206 @@
+/* Custom properties for Blender Page */
+:root {
+  /* Variabel lokal spesifik Blender */
+  --accent-color: #3b82f6; 
+  --transition-fast: 0.3s ease;
+}
+
+/* Portfolio Section Header */
+.portfolio-section {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.section-description {
+    color: var(--text-secondary);
+    margin-bottom: var(--space-5);
+    font-size: 1.1rem;
+    text-align: center;
+    max-width: 600px;
+}
+
+.section__title {
+    color: var(--text-primary);
+    font-size: 2.5rem;
+    font-weight: 800;
+    margin-bottom: 0.5rem;
+    text-align: center;
+}
+
+.section__title::after {
+    content: "";
+    display: block;
+    width: 80px;
+    height: 4px;
+    background: var(--accent-color);
+    margin: var(--space-2) auto;
+    border-radius: 2px;
+}
+
+/* ===== CUSTOM CARD SECTION LAYOUT ===== */
+.cards-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+  width: 100%;
+}
+
+.card-wrapper {
+  width: 100%;
+  max-width: 900px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Glassmorphism Card Style (Light Theme) */
+.card {
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-card);
+  padding: var(--space-4);
+  box-shadow: var(--shadow-soft);
+  width: 100%;
+  min-height: 250px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: var(--transition-fast);
+  color: var(--text-primary);
+  position: relative;
+  z-index: 1; /* Pastikan di atas details */
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-hover);
+  background: var(--glass-bg-hover);
+}
+
+.card-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  flex: 1;
+  margin-bottom: var(--space-3);
+}
+
+.main-image {
+  max-width: 60%;
+  height: auto;
+  flex-shrink: 0;
+  border-radius: 12px;
+}
+
+.text-content h1 {
+  margin: 0 0 var(--space-2) 0;
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.text-content p {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+/* Toggle Button Styling */
+.toggle-button {
+  background: #fff;
+  border: 1px solid var(--accent);
+  border-radius: 999px;
+  padding: 10px 24px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  color: var(--text-primary);
+  margin-top: var(--space-2);
+  transition: var(--transition-fast);
+  align-self: center;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.toggle-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  color: var(--accent-color);
+  border-color: var(--accent-color);
+}
+
+/* Tampilan Tambahan (Hidden Content) */
+.additional-images {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: -20px; /* Overlap dengan card atas */
+  padding-top: 40px; /* Kompensasi overlap */
+  background: var(--glass-bg); /* Menggunakan glass agar konsisten */
+  border-bottom-left-radius: var(--radius-card);
+  border-bottom-right-radius: var(--radius-card);
+  padding-bottom: var(--space-3);
+  padding-left: var(--space-3);
+  padding-right: var(--space-3);
+  width: 96%;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-top: none;
+  z-index: 0;
+  position: relative;
+}
+
+.additional-images img {
+  width: 100%;
+  max-width: 700px;
+  margin: 16px 0;
+  border-radius: 12px;
+  object-fit: cover;
+}
+
+/* Utility Class */
+.hidden {
+  display: none !important;
+}
+
+/* Responsiveness */
+@media (max-width: 768px) {
+  .card-content {
+    flex-direction: column;
+    text-align: center;
+    gap: var(--space-3);
+  }
+  
+  .main-image {
+    max-width: 100%;
+    margin-bottom: var(--space-1);
+  }
+
+  .text-content h1 {
+      font-size: 1.5rem;
+  }
+  
+  .additional-images {
+      width: 100%;
+      margin-top: var(--space-2);
+      border-radius: var(--radius-card);
+      border-top: 1px solid rgba(255, 255, 255, 0.4);
+  }
+}
+
+@media (max-width: 480px) {
+    .card {
+        padding: var(--space-3);
+    }
+    .text-content h1 {
+        font-size: 1.25rem;
+    }
+}
