@@ -1,0 +1,99 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+import '../styles/blender.css'; // Import CSS spesifik halaman ini
+---
+
+<MainLayout title="3D Modeling Portfolio | Jonathan Sinaga">
+  
+  <section class="section portfolio-section" aria-labelledby="portfolio-title">
+    <h2 id="portfolio-title" class="section__title">3D Modeling Portfolio</h2>
+    <p class="section-description">
+      Models and renders created using <strong>Blender</strong> and <strong>Cycles/Eevee</strong>
+    </p>
+    
+    <div class="cards-container">
+      
+      <div class="card-wrapper">
+        <div class="card">
+          <div class="card-content">
+            <img src="/Imagery/blender/m16_samping.png" alt="3D Model of M16 Rifle" class="main-image"/>
+            <div class="text-content">
+              <h1>M16 Rifle - Hard Surface Modeling</h1>
+              <p>
+                A detailed hard surface model of an M16 rifle. Focus on clean
+                topology, realistic texturing using PBR workflow, and studio lighting.
+              </p>
+            </div>
+          </div>
+          <button class="toggle-button down" aria-expanded="false">&#x25BC; Detail</button>
+        </div>
+        
+        <div class="additional-images hidden">
+          <img src="/Imagery/blender/m16_sampingkiri.png" alt="M16 Rifle - Left View"/>
+          <img src="https://via.placeholder.com/600x337?text=Wireframe+View" alt="Wireframe of the M16 Model"/>
+          <img src="https://via.placeholder.com/600x337?text=Texture+Set+Overview" alt="PBR Texture Overview"/>
+          <button class="toggle-button up" aria-label="Sembunyikan detail">&#x25B2; Tutup</button>
+        </div>
+      </div>
+
+      <div class="card-wrapper card-spacing">
+        <div class="card">
+          <div class="card-content">
+            <img src="https://via.placeholder.com/600x200?text=ArchViz+Main+Render" alt="Architectural Visualization Project" class="main-image"/>
+            <div class="text-content">
+              <h1>Modern Living Room - ArchViz</h1>
+              <p>
+                Realistic rendering project focusing on interior lighting,
+                material simulation, and composition to achieve a professional architectural look.
+              </p>
+            </div>
+          </div>
+          <button class="toggle-button down" aria-expanded="false">&#x25BC; Detail</button>
+        </div>
+        
+        <div class="additional-images hidden">
+          <img src="https://via.placeholder.com/600x337?text=Night+Render" alt="ArchViz Night Render"/>
+          <img src="https://via.placeholder.com/600x337?text=Detail+Shot+1" alt="Detail Shot of the Coffee Table"/>
+          <img src="https://via.placeholder.com/600x337?text=Detail+Shot+2" alt="Detail Shot of the Bookcase"/>
+          <button class="toggle-button up" aria-label="Sembunyikan detail">&#x25B2; Tutup</button>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+</MainLayout>
+
+<script>
+  // Mengambil logika dari file blender.js asli
+  document.addEventListener('click', (event) => {
+      // @ts-ignore
+      const btn = event.target.closest('.toggle-button');
+      
+      // Pastikan yang diklik adalah tombol toggle
+      if (!btn) return;
+
+      const cardWrapper = btn.closest('.card-wrapper');
+      if (!cardWrapper) return;
+      
+      const additionalImages = cardWrapper.querySelector('.additional-images');
+      const downButton = cardWrapper.querySelector('.toggle-button.down');
+      
+      if (!additionalImages) return;
+
+      // Logika untuk tombol "Detail" (▼)
+      if (btn.classList.contains('down')) {
+          additionalImages.classList.remove('hidden');
+          btn.classList.add('hidden');
+          btn.setAttribute('aria-expanded', 'true');
+      } 
+      // Logika untuk tombol "Tutup" (▲)
+      else if (btn.classList.contains('up')) {
+          additionalImages.classList.add('hidden');
+          if (downButton) {
+              downButton.classList.remove('hidden');
+              downButton.setAttribute('aria-expanded', 'false');
+          }
+      }
+  });
+</script>

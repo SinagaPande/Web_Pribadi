@@ -1,0 +1,101 @@
+---
+/* Tidak ada logic server-side yang dibutuhkan saat ini */
+---
+
+<header class="navbar-wrapper">
+  <nav class="navbar" id="mainNav" aria-label="Main navigation">
+    <a href="/" class="navbar__logo" aria-label="Jonathan Sinaga Logo">
+      <svg viewBox="0 0 36 36" fill="none" aria-hidden="true" focusable="false">
+        <rect x="6" y="6" width="24" height="24" rx="8" fill="#18181b"/>
+        <path d="M13 13v10h10V13" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M13 13h10" stroke="#fff" stroke-width="2.2" stroke-linecap="round"/>
+      </svg>
+    </a>
+    
+    <div class="navbar__nav" id="navbarNav">
+      <a href="/" class="navbar__link">Home</a>
+      <a href="/cad" class="navbar__link">3D Designs</a>
+      <a href="/game" class="navbar__link">Game Dev</a>
+      <a href="/blender" class="navbar__link">3D Modeling</a>
+    </div>
+
+    <button class="navbar__menu-toggle" id="menuToggle" aria-label="Open navigation menu" aria-controls="navbarNav" aria-expanded="false">
+      <svg class="navbar__menu-icon" viewBox="0 0 28 28" aria-hidden="true" focusable="false">
+        <rect y="5" width="28" height="3" rx="1.5" fill="currentColor"/>
+        <rect y="12" width="28" height="3" rx="1.5" fill="currentColor"/>
+        <rect y="19" width="28" height="3" rx="1.5" fill="currentColor"/>
+      </svg>
+    </button>
+  </nav>
+</header>
+
+<script>
+  // === MIGRATED LOGIC FROM common.js ===
+  // Astro memproses ini sebagai module script
+  
+  const menuToggle = document.getElementById("menuToggle");
+  const navbarNav = document.getElementById("navbarNav");
+  const navbarWrapper = document.querySelector(".navbar-wrapper");
+
+  // 1. Mobile Menu Toggle
+  if (menuToggle && navbarNav) {
+    menuToggle.addEventListener("click", () => {
+      const isExpanded = navbarNav.classList.toggle("navbar__nav--open");
+      menuToggle.setAttribute("aria-expanded", isExpanded ? "true" : "false");
+    });
+
+    // Close on outside click
+    document.addEventListener("click", (e) => {
+      if (window.innerWidth < 768 && navbarNav.classList.contains("navbar__nav--open")) {
+        // @ts-ignore
+        if (!navbarNav.contains(e.target) && !menuToggle.contains(e.target)) {
+          navbarNav.classList.remove("navbar__nav--open");
+          menuToggle.setAttribute("aria-expanded", "false");
+        }
+      }
+    });
+  }
+
+  // 2. Hide-on-Scroll Logic (Diperbaiki)
+  if (navbarWrapper) {
+    let lastScrollY = window.scrollY;
+    let ticking = false;
+    const SCROLL_THRESHOLD = 50;
+    const SCROLL_TOLERANCE = 5;
+
+    function updateNavbar() {
+      const currentScrollY = window.scrollY;
+      
+      // FIX: Jangan sembunyikan navbar jika menu mobile sedang terbuka!
+      const isMenuOpen = navbarNav?.classList.contains("navbar__nav--open");
+      if (isMenuOpen) {
+        ticking = false;
+        return; 
+      }
+
+      if (currentScrollY > lastScrollY + SCROLL_TOLERANCE && currentScrollY > SCROLL_THRESHOLD) {
+        if (!navbarWrapper.classList.contains('navbar-wrapper--hidden')) {
+          navbarWrapper.classList.add('navbar-wrapper--hidden');
+        }
+      } else if (currentScrollY < lastScrollY - SCROLL_TOLERANCE) {
+        if (navbarWrapper.classList.contains('navbar-wrapper--hidden')) {
+          navbarWrapper.classList.remove('navbar-wrapper--hidden');
+        }
+      }
+      
+      if (currentScrollY < SCROLL_THRESHOLD) {
+        navbarWrapper.classList.remove('navbar-wrapper--hidden');
+      }
+      
+      lastScrollY = currentScrollY;
+      ticking = false;
+    }
+
+    window.addEventListener("scroll", () => {
+      if (!ticking) {
+        window.requestAnimationFrame(updateNavbar);
+        ticking = true;
+      }
+    }, { passive: true });
+  }
+</script>

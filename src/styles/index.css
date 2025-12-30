@@ -1,6 +1,7 @@
 /* Styling spesifik untuk Index.html */
 /* Variable global diambil dari common.css */
 
+/* === GATEWAY SECTION (Menu Cards) === */
 .gateway__grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -8,7 +9,7 @@
   width: 100%;
 }
 
-/* Glass Card Style - Konsisten untuk semua tombol */
+/* Glass Card Style */
 .gateway__card {
   background: var(--glass-bg);
   backdrop-filter: blur(var(--glass-blur));
@@ -52,7 +53,6 @@
 /* Wide Card for Game Projects */
 .gateway__card--wide {
   grid-column: span 2;
-  /* Background override dihapus agar konsisten dengan glass settings */
 }
 
 .card__visual--dual {
@@ -90,89 +90,133 @@
   font-weight: 400;
 }
 
-/* === Intro Section === */
+/* === INTRO SECTION (Redesigned Profile Card) === */
 .intro {
-  text-align: center;
-  max-width: 700px;
-  margin: 0 auto;
+  width: 100%;
+  max-width: 100%;
+  margin: 40px auto 0;
   padding-bottom: 40px;
 }
 
-.intro__container {
+.intro__card {
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  flex-direction: row;
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-soft);
+  overflow: hidden;
+  min-height: 320px;
+  transition: var(--transition);
 }
 
-.intro__image-wrapper {
-  margin-bottom: 24px;
+.intro__card:hover {
+  box-shadow: var(--shadow-hover);
+  background: var(--glass-bg-hover);
+}
+
+/* Bagian Kiri: Visual */
+.intro__visual {
+  flex: 0 0 35%;
   position: relative;
+  background-color: #e5e5e5;
+  overflow: hidden;
+}
+
+/* Efek inner border halus */
+.intro__visual::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-right: 1px solid rgba(255,255,255,0.3);
+  pointer-events: none;
 }
 
 .intro__photo {
-  width: 160px;
-  height: 160px;
-  border-radius: 50%;
+  width: 100%;
+  height: 100%;
   object-fit: cover;
-  border: 4px solid #fff;
-  box-shadow: var(--shadow-soft);
+  display: block;
 }
 
-.intro__text h1 {
+/* Bagian Kanan: Konten Teks */
+.intro__content {
+  flex: 1;
+  padding: 48px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: left;
+}
+
+.intro__header {
+  margin-bottom: 20px;
+}
+
+.intro__content h1 {
   font-size: 2.5rem;
   font-weight: 800;
   letter-spacing: -1px;
   margin: 0 0 8px 0;
   color: var(--text-primary);
+  line-height: 1.1;
 }
 
+/* -- STYLE JABATAN (KEMBALI KE BIRU) -- */
 .intro__role {
-  font-size: 1.2rem;
-  font-weight: 500;
-  color: #2563eb;
-  margin: 0 0 16px 0;
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #2563eb; /* Warna Biru Cerah */
+  margin: 0;
+  opacity: 1;
 }
 
 .intro__desc {
-  font-size: 1.1rem;
-  line-height: 1.6;
+  font-size: 1rem;
+  line-height: 1.7;
   color: var(--text-secondary);
-  margin-bottom: 24px;
+  margin-bottom: 32px;
+  max-width: 90%;
 }
 
-/* Social Buttons */
 .intro__socials {
   display: flex;
-  gap: 16px;
-  justify-content: center;
+  gap: 12px;
+  justify-content: flex-start;
 }
 
 .social-btn {
-  width: 48px;
-  height: 48px;
+  width: 42px;
+  height: 42px;
   border-radius: 50%;
-  background: #fff;
+  background: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.5);
   display: flex;
   align-items: center;
   justify-content: center;
   color: var(--text-primary);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
   transition: var(--transition);
 }
 
 .social-btn:hover {
   transform: translateY(-3px);
-  box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+  background: #fff;
   color: #2563eb;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
 
 .social-btn svg {
-  width: 24px;
-  height: 24px;
+  width: 20px;
+  height: 20px;
 }
 
-/* === Mobile Responsiveness === */
+/* === MOBILE RESPONSIVENESS (CONSOLIDATED) === */
+/* Semua aturan mobile digabung di sini agar rapi & tidak bentrok */
 @media (max-width: 768px) {
+  
+  /* --- 1. Gateway Section (Menu Cards) --- */
   .gateway__grid {
     grid-template-columns: 1fr;
   }
@@ -185,14 +229,43 @@
     height: 100px;
   }
   
-  .intro__text h1 {
-    font-size: 2rem;
-  }
-  
   .card__visual--dual {
     gap: 16px;
   }
+  
   .card__visual--dual .divider {
     height: 40px;
+  }
+
+  /* --- 2. Intro Section (Profile Card) --- */
+  .intro__card {
+    flex-direction: column;
+    min-height: auto;
+  }
+  
+  .intro__visual {
+    width: 100%;
+    aspect-ratio: 4/3; /* Agar foto proporsional di HP */
+    height: auto; 
+    flex: none;
+    border-bottom: 1px solid var(--glass-border);
+  }
+  
+  .intro__visual::after {
+    border-right: none;
+    border-bottom: 1px solid rgba(255,255,255,0.3);
+  }
+
+  .intro__content {
+    padding: 32px 24px;
+    text-align: left;
+  }
+  
+  .intro__content h1 {
+    font-size: 2rem;
+  }
+  
+  .intro__desc {
+    max-width: 100%;
   }
 }

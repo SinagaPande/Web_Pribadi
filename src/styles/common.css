@@ -280,15 +280,6 @@ footer {
   position: relative;
   z-index: 2;
 }
-.footer__star {
-  position: absolute;
-  right: var(--space-3);
-  bottom: var(--space-2);
-  opacity: 0.12;
-  width: 32px;
-  height: 32px;
-  pointer-events: none;
-}
 
 /* === Mobile Media Queries === */
 @media (max-width: 768px) {
