@@ -125,7 +125,6 @@
   overflow: hidden;
 }
 
-/* Efek inner border halus */
 .intro__visual::after {
   content: "";
   position: absolute;
@@ -148,7 +147,7 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  text-align: left;
+  text-align: left; /* Default Desktop: Rata Kiri */
 }
 
 .intro__header {
@@ -156,7 +155,7 @@
 }
 
 .intro__content h1 {
-  font-size: 2.5rem;
+  font-size: 3rem;
   font-weight: 800;
   letter-spacing: -1px;
   margin: 0 0 8px 0;
@@ -164,56 +163,57 @@
   line-height: 1.1;
 }
 
-/* -- STYLE JABATAN (KEMBALI KE BIRU) -- */
 .intro__role {
-  font-size: 1.125rem;
+  font-size: 1.5rem;
   font-weight: 600;
-  color: #2563eb; /* Warna Biru Cerah */
+  color: #2563eb; 
   margin: 0;
   opacity: 1;
 }
 
 .intro__desc {
-  font-size: 1rem;
-  line-height: 1.7;
+  font-size: 1.125rem;
+  line-height: 1.6;
   color: var(--text-secondary);
-  margin-bottom: 32px;
+  margin-bottom: 48px;
   max-width: 90%;
 }
 
 .intro__socials {
   display: flex;
-  gap: 12px;
-  justify-content: flex-start;
+  gap: 16px;
+  justify-content: center; /* <-- UBAH KE CENTER (Agar logo di tengah pada Desktop & Mobile) */
 }
 
+/* Style tombol tetap sama */
 .social-btn {
-  width: 42px;
-  height: 42px;
+  width: 56px;
+  height: 56px;
   border-radius: 50%;
   background: rgba(255, 255, 255, 0.8);
   border: 1px solid rgba(255, 255, 255, 0.5);
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--text-primary);
   transition: var(--transition);
+  /* color: var(--text-primary); <-- DIHAPUS: PNG tidak butuh text color */
 }
 
 .social-btn:hover {
   transform: translateY(-3px);
   background: #fff;
-  color: #2563eb;
   box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  /* color: #2563eb; <-- DIHAPUS: Warna PNG tidak bisa diubah lewat CSS ini */
 }
 
-.social-btn svg {
-  width: 20px;
-  height: 20px;
+.social-btn img {
+  width: 32px;  /* Sesuaikan ukuran ikon PNG di sini (misal 28px atau 32px) */
+  height: 32px;
+  object-fit: contain; /* Agar gambar tidak gepeng */
+  display: block;
 }
 
 /* === MOBILE RESPONSIVENESS (CONSOLIDATED) === */
-/* Semua aturan mobile digabung di sini agar rapi & tidak bentrok */
 @media (max-width: 768px) {
   
   /* --- 1. Gateway Section (Menu Cards) --- */
@@ -245,7 +245,7 @@
   
   .intro__visual {
     width: 100%;
-    aspect-ratio: 4/3; /* Agar foto proporsional di HP */
+    aspect-ratio: 4/3;
     height: auto; 
     flex: none;
     border-bottom: 1px solid var(--glass-border);
@@ -258,14 +258,17 @@
 
   .intro__content {
     padding: 32px 24px;
-    text-align: left;
+    text-align: center; /* <-- UBAH KE CENTER (Khusus Mobile: Teks jadi rata tengah) */
   }
   
   .intro__content h1 {
     font-size: 2rem;
   }
-  
+
   .intro__desc {
     max-width: 100%;
+    /* Margin auto agar teks deskripsi tetap center secara visual jika ada max-width */
+    margin-left: auto;
+    margin-right: auto;
   }
 }
