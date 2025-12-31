@@ -196,18 +196,18 @@
   align-items: center;
   justify-content: center;
   transition: var(--transition);
-  /* color: var(--text-primary); <-- DIHAPUS: PNG tidak butuh text color */
+  /* color: var(--text-primary); <-- DIHAPUS: webp tidak butuh text color */
 }
 
 .social-btn:hover {
   transform: translateY(-3px);
   background: #fff;
   box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-  /* color: #2563eb; <-- DIHAPUS: Warna PNG tidak bisa diubah lewat CSS ini */
+  /* color: #2563eb; <-- DIHAPUS: Warna webp tidak bisa diubah lewat CSS ini */
 }
 
 .social-btn img {
-  width: 32px;  /* Sesuaikan ukuran ikon PNG di sini (misal 28px atau 32px) */
+  width: 32px;  /* Sesuaikan ukuran ikon webp di sini (misal 28px atau 32px) */
   height: 32px;
   object-fit: contain; /* Agar gambar tidak gepeng */
   display: block;
@@ -243,9 +243,9 @@
     min-height: auto;
   }
   
-  .intro__visual {
+.intro__visual {
     width: 100%;
-    aspect-ratio: 4/3;
+    aspect-ratio: 3/4; 
     height: auto; 
     flex: none;
     border-bottom: 1px solid var(--glass-border);

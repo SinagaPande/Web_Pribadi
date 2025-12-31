@@ -136,24 +136,30 @@
   border-color: var(--accent-color);
 }
 
-/* Hidden Content Area */
+/* Hidden Content Area - FINAL FIX */
 .additional-images {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: -20px; 
-  padding-top: 40px;
-  background: var(--glass-bg); 
-  border-bottom-left-radius: var(--radius-card);
-  border-bottom-right-radius: var(--radius-card);
-  padding-bottom: var(--space-3);
-  padding-left: var(--space-3);
-  padding-right: var(--space-3);
-  width: 96%;
-  border: 1px solid rgba(255, 255, 255, 0.4);
-  border-top: none;
-  z-index: 0;
+  
+  /* PERBAIKAN UTAMA: */
+  margin-top: 10px; /* Memberi jarak sedikit dari kartu utama */
+  z-index: 1;       /* Memastikan dia tidak tenggelam di belakang background */
   position: relative;
+  
+  /* Styling tampilan */
+  width: 96%;
+  background: var(--glass-bg); 
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: var(--radius-card); /* Membuat sudut membulat di semua sisi */
+  
+  padding: 20px;
+  box-shadow: var(--shadow-soft);
+}
+
+.transition-wrapper.square {
+  aspect-ratio: 1 / 1; /* Mengubah rasio dari 16:9 menjadi 1:1 */
+  max-width: 500px;    /* Membatasi lebar agar tidak terlalu raksasa ke bawah */
 }
 
 .additional-images img {

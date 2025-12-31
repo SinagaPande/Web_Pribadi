@@ -16,7 +16,7 @@ import '../styles/blender.css';
       <div class="card-wrapper" id="card-l300">
         <div class="card">
           <div class="card-content">
-            <img src="/Imagery/projects/blender/l300/L300_Tampak_Depan_Kanan.png" alt="3D Model of Mitsubishi L300 Pickup" class="main-image"/>
+            <img src="/Imagery/projects/blender/l300/L300_Tampak_Depan_Kanan.webp" alt="3D Model of Mitsubishi L300 Pickup" class="main-image"/>
             <div class="text-content">
               <h1>Mitsubishi L300 - Automotive Modeling</h1>
               <p>
@@ -30,35 +30,35 @@ import '../styles/blender.css';
         </div>
         
         <div class="additional-images hidden">
-          
           <div class="transition-wrapper">
-            <img src="/Imagery/projects/blender/l300/L300_Tampak_Belakang_Kanan.png" class="img-normal" alt="Normal View"/>
-            <img src="/Imagery/projects/blender/l300/L300_Tampak_Belakang_Kanan_Wireframe.png" class="img-wireframe" alt="Wireframe View"/>
+            <img src="/Imagery/projects/blender/l300/L300_Tampak_Belakang_Kanan.webp" class="img-normal" alt="Normal View"/>
+            <img src="/Imagery/projects/blender/l300/L300_Tampak_Belakang_Kanan_Wireframe.webp" class="img-wireframe" alt="Wireframe View"/>
           </div>
 
           <div class="transition-wrapper">
-            <img src="/Imagery/projects/blender/l300/L300_Tampak_Depan_Kanan.png" class="img-normal" alt="Normal View"/>
-            <img src="/Imagery/projects/blender/l300/L300_Tampak_Depan_Kanan_Wireframe.png" class="img-wireframe" alt="Wireframe View"/>
+            <img src="/Imagery/projects/blender/l300/L300_Tampak_Depan_Kanan.webp" class="img-normal" alt="Normal View"/>
+            <img src="/Imagery/projects/blender/l300/L300_Tampak_Depan_Kanan_Wireframe.webp" class="img-wireframe" alt="Wireframe View"/>
           </div>
 
           <div class="transition-wrapper">
-            <img src="/Imagery/projects/blender/l300/L300_Tampak_Samping_Kanan.png" class="img-normal" alt="Normal View"/>
-            <img src="/Imagery/projects/blender/l300/L300_Tampak_Samping_Kanan_Wireframe.png" class="img-wireframe" alt="Wireframe View"/>
+            <img src="/Imagery/projects/blender/l300/L300_Tampak_Samping_Kanan.webp" class="img-normal" alt="Normal View"/>
+            <img src="/Imagery/projects/blender/l300/L300_Tampak_Samping_Kanan_Wireframe.webp" class="img-wireframe" alt="Wireframe View"/>
           </div>
 
           <button class="toggle-button up" aria-label="Sembunyikan detail">&#x25B2; Tutup</button>
         </div>
       </div>
 
-      <div class="card-wrapper card-spacing">
+      <div class="card-wrapper" id="card-sawit">
         <div class="card">
           <div class="card-content">
-            <img src="https://via.placeholder.com/600x200?text=ArchViz+Main+Render" alt="Architectural Visualization Project" class="main-image"/>
+            <img src="/Imagery/projects/blender/sawit/Sawit_Tampak_Depan.webp" alt="3D Model Buah Sawit" class="main-image"/>
             <div class="text-content">
-              <h1>Modern Living Room - ArchViz</h1>
+              <h1>Palm Fruit (Sawit) - Organic Modeling</h1>
               <p>
-                Realistic rendering project focusing on interior lighting,
-                material simulation, and composition to achieve a professional architectural look.
+                Studi pemodelan organik detail dari Buah Kelapa Sawit. 
+                Fokus pada pembentukan geometri alami buah, tekstur organik, 
+                dan topologi yang rapi (quad-based topology).
               </p>
             </div>
           </div>
@@ -66,9 +66,22 @@ import '../styles/blender.css';
         </div>
         
         <div class="additional-images hidden">
-          <img src="https://via.placeholder.com/600x337?text=Night+Render" alt="ArchViz Night Render"/>
-          <img src="https://via.placeholder.com/600x337?text=Detail+Shot+1" alt="Detail Shot"/>
-          <img src="https://via.placeholder.com/600x337?text=Detail+Shot+2" alt="Detail Shot"/>
+
+          <div class="transition-wrapper square">
+            <img src="/Imagery/projects/blender/sawit/Sawit_Tampak_Depan_Kanan.webp" class="img-normal" alt="Sawit Kanan Normal"/>
+            <img src="/Imagery/projects/blender/sawit/Sawit_Tampak_Depan_Kanan_Wireframe.webp" class="img-wireframe" alt="Sawit Kanan Wireframe"/>
+          </div>
+
+          <div class="transition-wrapper"> 
+            <img src="/Imagery/projects/blender/sawit/Sawit_Tampak_Depan_Atas.webp" class="img-normal" alt="Sawit Atas Normal"/>
+            <img src="/Imagery/projects/blender/sawit/Sawit_Tampak_Depan_Atas_Wireframe.webp" class="img-wireframe" alt="Sawit Atas Wireframe"/>
+          </div>
+
+          <div class="transition-wrapper square">
+            <img src="/Imagery/projects/blender/sawit/Sawit_Tampak_Depan.webp" class="img-normal" alt="Sawit Depan Normal"/>
+            <img src="/Imagery/projects/blender/sawit/Sawit_Tampak_Depan_Wireframe.webp" class="img-wireframe" alt="Sawit Depan Wireframe"/>
+          </div>
+
           <button class="toggle-button up" aria-label="Sembunyikan detail">&#x25B2; Tutup</button>
         </div>
       </div>
@@ -118,6 +131,11 @@ import '../styles/blender.css';
   function startAnimation(cardWrapper) {
     const wrappers = cardWrapper.querySelectorAll('.transition-wrapper');
     if (wrappers.length === 0) return;
+    
+    // Trigger sekali di awal supaya tidak menunggu 4 detik
+    wrappers.forEach(wrapper => {
+        wrapper.classList.toggle('show-wireframe');
+      });
 
     // Loop: 3s hold + 1s transition (Total 4000ms)
     const intervalId = setInterval(() => {
