@@ -1,6 +1,6 @@
 ---
 import MainLayout from '../layouts/MainLayout.astro';
-import '../styles/blender.css'; // Import CSS spesifik halaman ini
+import '../styles/blender.css';
 ---
 
 <MainLayout title="3D Modeling Portfolio | Jonathan Sinaga">
@@ -13,14 +13,14 @@ import '../styles/blender.css'; // Import CSS spesifik halaman ini
     
     <div class="cards-container">
       
-      <div class="card-wrapper">
+      <div class="card-wrapper" id="card-l300">
         <div class="card">
           <div class="card-content">
             <img src="/Imagery/projects/blender/l300/L300_Tampak_Depan_Kanan.png" alt="3D Model of Mitsubishi L300 Pickup" class="main-image"/>
             <div class="text-content">
               <h1>Mitsubishi L300 - Automotive Modeling</h1>
               <p>
-                A detailed 3D model of the legendary Mitsubishi L300 pickup. 
+                A detailed 3D model of the legendary Mitsubishi L300 pickup.
                 Focused on automotive hard surface techniques, accurate vehicle proportions, 
                 and realistic shading using Blender.
               </p>
@@ -30,9 +30,22 @@ import '../styles/blender.css'; // Import CSS spesifik halaman ini
         </div>
         
         <div class="additional-images hidden">
-          <img src="/Imagery/projects/blender/l300/L300_Tampak_Belakang_Kanan.png" alt="L300 Rear Right View"/>
-          <img src="/Imagery/projects/blender/l300/L300_Tampak_Depan_Kanan.png" alt="L300 Front Right View"/>
-          <img src="/Imagery/projects/blender/l300/L300_Tampak_Samping_Kanan.png" alt="L300 Side View"/>
+          
+          <div class="transition-wrapper">
+            <img src="/Imagery/projects/blender/l300/L300_Tampak_Belakang_Kanan.png" class="img-normal" alt="Normal View"/>
+            <img src="/Imagery/projects/blender/l300/L300_Tampak_Belakang_Kanan_Wireframe.png" class="img-wireframe" alt="Wireframe View"/>
+          </div>
+
+          <div class="transition-wrapper">
+            <img src="/Imagery/projects/blender/l300/L300_Tampak_Depan_Kanan.png" class="img-normal" alt="Normal View"/>
+            <img src="/Imagery/projects/blender/l300/L300_Tampak_Depan_Kanan_Wireframe.png" class="img-wireframe" alt="Wireframe View"/>
+          </div>
+
+          <div class="transition-wrapper">
+            <img src="/Imagery/projects/blender/l300/L300_Tampak_Samping_Kanan.png" class="img-normal" alt="Normal View"/>
+            <img src="/Imagery/projects/blender/l300/L300_Tampak_Samping_Kanan_Wireframe.png" class="img-wireframe" alt="Wireframe View"/>
+          </div>
+
           <button class="toggle-button up" aria-label="Sembunyikan detail">&#x25B2; Tutup</button>
         </div>
       </div>
@@ -54,8 +67,8 @@ import '../styles/blender.css'; // Import CSS spesifik halaman ini
         
         <div class="additional-images hidden">
           <img src="https://via.placeholder.com/600x337?text=Night+Render" alt="ArchViz Night Render"/>
-          <img src="https://via.placeholder.com/600x337?text=Detail+Shot+1" alt="Detail Shot of the Coffee Table"/>
-          <img src="https://via.placeholder.com/600x337?text=Detail+Shot+2" alt="Detail Shot of the Bookcase"/>
+          <img src="https://via.placeholder.com/600x337?text=Detail+Shot+1" alt="Detail Shot"/>
+          <img src="https://via.placeholder.com/600x337?text=Detail+Shot+2" alt="Detail Shot"/>
           <button class="toggle-button up" aria-label="Sembunyikan detail">&#x25B2; Tutup</button>
         </div>
       </div>
@@ -66,12 +79,11 @@ import '../styles/blender.css'; // Import CSS spesifik halaman ini
 </MainLayout>
 
 <script>
-  // Mengambil logika dari file blender.js asli
+  const animationIntervals = new Map();
+
   document.addEventListener('click', (event) => {
       // @ts-ignore
       const btn = event.target.closest('.toggle-button');
-      
-      // Pastikan yang diklik adalah tombol toggle
       if (!btn) return;
 
       const cardWrapper = btn.closest('.card-wrapper');
@@ -82,19 +94,51 @@ import '../styles/blender.css'; // Import CSS spesifik halaman ini
       
       if (!additionalImages) return;
 
-      // Logika untuk tombol "Detail" (▼)
+      // Logic: Open Detail
       if (btn.classList.contains('down')) {
           additionalImages.classList.remove('hidden');
           btn.classList.add('hidden');
           btn.setAttribute('aria-expanded', 'true');
+
+          startAnimation(cardWrapper);
       } 
-      // Logika untuk tombol "Tutup" (▲)
+      
+      // Logic: Close Detail
       else if (btn.classList.contains('up')) {
           additionalImages.classList.add('hidden');
           if (downButton) {
               downButton.classList.remove('hidden');
               downButton.setAttribute('aria-expanded', 'false');
           }
+
+          stopAnimation(cardWrapper);
       }
   });
+
+  function startAnimation(cardWrapper) {
+    const wrappers = cardWrapper.querySelectorAll('.transition-wrapper');
+    if (wrappers.length === 0) return;
+
+    // Loop: 3s hold + 1s transition (Total 4000ms)
+    const intervalId = setInterval(() => {
+      wrappers.forEach(wrapper => {
+        wrapper.classList.toggle('show-wireframe');
+      });
+    }, 4000);
+
+    animationIntervals.set(cardWrapper, intervalId);
+  }
+
+  function stopAnimation(cardWrapper) {
+    if (animationIntervals.has(cardWrapper)) {
+      clearInterval(animationIntervals.get(cardWrapper));
+      animationIntervals.delete(cardWrapper);
+    }
+
+    // Reset to Normal view
+    const wrappers = cardWrapper.querySelectorAll('.transition-wrapper');
+    wrappers.forEach(wrapper => {
+      wrapper.classList.remove('show-wireframe');
+    });
+  }
 </script>

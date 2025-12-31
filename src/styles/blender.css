@@ -1,11 +1,9 @@
-/* Custom properties for Blender Page */
 :root {
-  /* Variabel lokal spesifik Blender */
   --accent-color: #3b82f6; 
   --transition-fast: 0.3s ease;
 }
 
-/* Portfolio Section Header */
+/* ===== PORTFOLIO HEADER ===== */
 .portfolio-section {
     width: 100%;
     display: flex;
@@ -39,7 +37,7 @@
     border-radius: 2px;
 }
 
-/* ===== CUSTOM CARD SECTION LAYOUT ===== */
+/* ===== CARD LAYOUT ===== */
 .cards-container {
   display: flex;
   flex-direction: column;
@@ -56,7 +54,7 @@
   align-items: center;
 }
 
-/* Glassmorphism Card Style (Light Theme) */
+/* Glassmorphism Card */
 .card {
   background: var(--glass-bg);
   backdrop-filter: blur(var(--glass-blur));
@@ -73,7 +71,7 @@
   transition: var(--transition-fast);
   color: var(--text-primary);
   position: relative;
-  z-index: 1; /* Pastikan di atas details */
+  z-index: 1; 
 }
 
 .card:hover {
@@ -112,7 +110,7 @@
   margin: 0;
 }
 
-/* Toggle Button Styling */
+/* Toggle Button */
 .toggle-button {
   background: #fff;
   border: 1px solid var(--accent);
@@ -138,14 +136,14 @@
   border-color: var(--accent-color);
 }
 
-/* Tampilan Tambahan (Hidden Content) */
+/* Hidden Content Area */
 .additional-images {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: -20px; /* Overlap dengan card atas */
-  padding-top: 40px; /* Kompensasi overlap */
-  background: var(--glass-bg); /* Menggunakan glass agar konsisten */
+  margin-top: -20px; 
+  padding-top: 40px;
+  background: var(--glass-bg); 
   border-bottom-left-radius: var(--radius-card);
   border-bottom-right-radius: var(--radius-card);
   padding-bottom: var(--space-3);
@@ -166,7 +164,6 @@
   object-fit: cover;
 }
 
-/* Utility Class */
 .hidden {
   display: none !important;
 }
@@ -178,16 +175,13 @@
     text-align: center;
     gap: var(--space-3);
   }
-  
   .main-image {
     max-width: 100%;
     margin-bottom: var(--space-1);
   }
-
   .text-content h1 {
       font-size: 1.5rem;
   }
-  
   .additional-images {
       width: 100%;
       margin-top: var(--space-2);
@@ -203,4 +197,47 @@
     .text-content h1 {
         font-size: 1.25rem;
     }
+}
+
+/* ===== SCAN/MASK ANIMATION ===== */
+
+.transition-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 700px;
+  margin: 16px 0;
+  border-radius: 12px;
+  overflow: hidden;
+  aspect-ratio: 16 / 9;
+  display: grid; 
+  grid-template-columns: 1fr;
+}
+
+.transition-wrapper img {
+  grid-column: 1;
+  grid-row: 1;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  margin: 0 !important;
+}
+
+/* Base Image (Normal) - Bottom Layer */
+.transition-wrapper .img-normal {
+  z-index: 1;
+}
+
+/* Overlay Image (Wireframe) - Top Layer */
+.transition-wrapper .img-wireframe {
+  z-index: 2;
+  
+  /* Initial State: Fully clipped from left (Hidden) */
+  clip-path: inset(0 0 0 100%);
+  transition: clip-path 1s ease-in-out;
+}
+
+/* Active State: Scanning Reveal */
+.transition-wrapper.show-wireframe .img-wireframe {
+  /* Reveal from Right to Left */
+  clip-path: inset(0 0 0 0%);
 }
