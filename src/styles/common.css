@@ -1,27 +1,32 @@
 :root {
-  /* --- TEKS COLORS (DITAMBAHKAN KEMBALI) --- */
-  --text-primary: #18181b;   /* Warna Utama (Hampir Hitam) */
-  --text-secondary: #52525b; /* Warna Sekunder (Abu-abu Gelap) */
+  /* --- LIGHT MODE VARIABLES --- */
+  --bg-base: #FFFFFF; /* Putih bersih */
+  --text-primary: #18181B;   
+  --text-secondary: #52525B; 
 
-  /* --- Palette Warna Utama --- */
-  --bg-base: #F5F5F7;
-  --bg-blue-tint: rgba(71, 140, 191);
-  --bg-orange-tint: rgba(234, 118, 0);
-  --bg-red-tint: rgba(238, 39, 34);
-  
-  /* --- CENTRALIZED GLASS SETTINGS --- */
-  --glass-bg: rgba(255, 255, 255, 0.5);
-  --glass-bg-hover: rgba(255, 255, 255, 0.9);
-  --glass-border: rgba(255, 255, 255, 0.8);
-  --glass-blur: 16px;
-  
-  /* --- Variables Lain --- */
-  --shadow-soft: 0 10px 40px -10px rgba(0,0,0,0.08);
-  --shadow-hover: 0 20px 50px -12px rgba(0,0,0,0.15);
+  /* --- LIGHT GLASS SETTINGS --- */
+  --glass-bg: rgba(255, 255, 255, 0.65);
+  --glass-bg-hover: rgba(255, 255, 255, 0.95);
+  --glass-border: rgba(255, 255, 255, 0.9);
+  --glass-blur: 24px;
+  --shadow-soft: 0 10px 40px -10px rgba(0,0,0,0.06);
+  --shadow-hover: 0 20px 50px -12px rgba(0,0,0,0.12);
+
+  --card-img-filter: drop-shadow(0 4px 6px rgba(0,0,0,0.05));
+
+  /* --- LOGO DNA COLORS (Untuk Hover) --- */
+  --color-cad: rgba(238, 39, 34, 0.6);
+  --color-3d: rgba(234, 118, 0, 0.6);
+  --color-game: rgba(71, 140, 191, 0.6);
+
+  --footer: #18181B;
   --radius-card: 24px;
-  --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  --transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  
+  --logo-glow: drop-shadow(0 10px 15px rgba(0, 0, 0, 0.15));
+
+  /* --- EXISTING VARIABLES --- */
   --accent: #e5e7eb;
-  --footer: #232326;
   --space-1: 8px;
   --space-2: 16px;
   --space-3: 24px;
@@ -33,6 +38,25 @@
   --section-max: 1000px;
 }
 
+[data-theme="dark"] {
+  /* --- DARK MODE VARIABLES --- */
+  --bg-base: #0B1120; /* Biru gelap pekat dan bersih */
+  --text-primary: #F5F5F7;
+  --text-secondary: #A1A1AA;
+
+  /* --- PREMIUM DARK GLASS SETTINGS --- */
+  --glass-bg: rgba(25, 30, 42, 0.55); 
+  --glass-bg-hover: rgba(35, 45, 60, 0.85);
+  --glass-border: rgba(255, 255, 255, 0.15);
+  --glass-blur: 24px;
+  --shadow-soft: 0 10px 40px -10px rgba(0,0,0,0.6);
+  --shadow-hover: 0 20px 50px -12px rgba(0,0,0,0.9);
+  --footer: #08090A;
+
+  --card-img-filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.5)) drop-shadow(0 0 4px rgba(255, 255, 255, 0.7));
+  --logo-glow: drop-shadow(0 0 30px rgba(71, 140, 191, 0.4)) drop-shadow(0 0 60px rgba(128, 128, 0, 0.15));
+}
+
 /* === Global Page Setup === */
 html {
   box-sizing: border-box;
@@ -40,40 +64,13 @@ html {
   font-size: 16px;
   line-height: 1.6;
   scroll-behavior: smooth;
-  color: var(--text-primary); /* Sekarang variabel ini sudah ada isinya */
+  color: var(--text-primary);
   background-color: var(--bg-base);
   overflow-x: hidden;
-  position: relative;
+  transition: background-color 0.5s ease, color 0.5s ease;
 }
 
 *, *::before, *::after { box-sizing: inherit; }
-
-/* === LAYER 1: GEOMETRI EKSTRA (HTML Pseudos) === */
-html::before {
-  content: "";
-  position: fixed;
-  top: -10%;
-  left: -5%;
-  width: 500px;
-  height: 120px;
-  background: linear-gradient(45deg, rgba(71, 140, 191, 0.15), rgba(71, 140, 191, 0.05));
-  transform: rotate(-35deg);
-  border-radius: 60px;
-  z-index: -2;
-  pointer-events: none;
-}
-
-html::after {
-  content: "";
-  position: fixed;
-  top: 40%;
-  right: -10%;
-  width: 600px;
-  height: 600px;
-  background: radial-gradient(circle, rgba(234, 118, 0, 0.15) 0%, transparent 70%);
-  z-index: -2;
-  pointer-events: none;
-}
 
 body {
   margin: 0;
@@ -82,46 +79,10 @@ body {
   flex-direction: column;
   position: relative;
   
-  /* === LAYER 2: GLOW BACKGROUND UTAMA === */
-  background-image: 
-    radial-gradient(circle at 10% 10%, rgba(71, 140, 191, 0.35) 0%, transparent 50%),
-    radial-gradient(circle at 90% 90%, rgba(238, 39, 34, 0.30) 0%, transparent 45%),
-    radial-gradient(circle at 80% 30%, rgba(234, 118, 0, 0.28) 0%, transparent 55%),
-    radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.8) 0%, transparent 60%);
-    
+  background-color: var(--bg-base);
   background-attachment: fixed;
   z-index: 0;
-}
-
-/* === LAYER 3: GEOMETRI DETIL (Body Pseudos) === */
-body::before {
-  content: "";
-  position: fixed;
-  bottom: 8%;
-  left: 5%;
-  width: 350px;
-  height: 350px;
-  background: linear-gradient(135deg, rgba(71, 140, 191, 0.18), rgba(255,255,255,0.05));
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  border-radius: 40px;
-  transform: rotate(15deg);
-  z-index: -1;
-  pointer-events: none;
-  backdrop-filter: blur(8px);
-}
-
-body::after {
-  content: "";
-  position: fixed;
-  top: 15%;
-  right: 5%;
-  width: 300px;
-  height: 400px;
-  background: linear-gradient(to bottom, rgba(238, 39, 34, 0.12), rgba(234, 118, 0, 0.12));
-  border-radius: 50px;
-  transform: rotate(-10deg);
-  z-index: -1;
-  pointer-events: none;
+  transition: background-color 0.5s ease, color 0.5s ease;
 }
 
 /* === Header/Navbar === */
@@ -165,7 +126,7 @@ body::after {
 
 .navbar__link {
   text-decoration: none;
-  color: var(--text-secondary); /* Sekarang valid, jadi warnanya abu-abu */
+  color: var(--text-secondary);
   font-weight: 500;
   font-size: 0.95rem;
   transition: color 0.2s;
@@ -173,7 +134,7 @@ body::after {
 }
 
 .navbar__link:hover, .navbar__link--active {
-  color: var(--text-primary); /* Sekarang valid, jadi warnanya hitam */
+  color: var(--text-primary);
 }
 
 .navbar__link:focus-visible {
@@ -191,11 +152,12 @@ body::after {
   padding: 0;
   margin-left: var(--space-2);
 }
+
 .navbar__menu-icon {
   width: 28px;
   height: 28px;
   display: block;
-  fill: currentColor;
+  fill: var(--text-primary);
 }
 
 /* === Main Content Area === */
@@ -308,33 +270,6 @@ footer {
   
   main { 
     padding: 120px 20px 32px 20px;
-  }
-  
-  /* --- PENYESUAIAN GEOMETRIS MOBILE --- */
-  html::before {
-    width: 300px;
-    height: 80px;
-    top: -5%;
-  }
-  
-  html::after {
-    width: 300px;
-    height: 300px;
-    top: 30%;
-  }
-
-  body::before {
-    width: 200px;
-    height: 200px;
-    bottom: 5%;
-    left: -10%;
-  }
-  
-  body::after {
-    width: 180px;
-    height: 250px;
-    top: 15%;
-    right: -10%;
   }
 }
 

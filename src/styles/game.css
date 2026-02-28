@@ -1,0 +1,202 @@
+/* === GAME PORTFOLIO STYLES === */
+
+.game-header {
+  text-align: center;
+  margin-bottom: var(--space-5);
+}
+
+.game-container {
+  display: flex;
+  flex-direction: column;
+  gap: 60px; /* Jarak antar kartu game */
+  width: 100%;
+  max-width: 900px;
+  padding-bottom: var(--space-5);
+}
+
+/* === GAME CARD (GLASSMORPHISM) === */
+.game-card {
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-card);
+  padding: var(--space-4);
+  box-shadow: var(--shadow-soft);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  overflow: hidden;
+}
+
+.game-card:hover {
+  box-shadow: var(--shadow-hover);
+  border-color: rgba(255, 255, 255, 0.9);
+}
+
+/* === HEADER SECTION === */
+.game-card__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: var(--space-3);
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.header-text {
+  flex: 1;
+}
+
+.game-title {
+  margin: 0;
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  line-height: 1.2;
+}
+
+.game-genre {
+  display: inline-block;
+  margin-top: 4px;
+  font-size: 0.9rem;
+  color: #2563eb; /* Accent Blue */
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* === GALLERY SCROLL (Horizontal Snap) === */
+.game-gallery-viewport {
+  position: relative;
+  margin: 0 -20px; /* Negative margin untuk melebar ke tepi di mobile */
+}
+
+.game-gallery {
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  scroll-snap-type: x mandatory;
+  padding: 0 20px 20px 20px; /* Padding bawah untuk ruang scrollbar */
+  
+  /* Sembunyikan scrollbar tapi tetap bisa scroll */
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0,0,0,0.2) transparent;
+}
+
+.game-gallery::-webkit-scrollbar {
+  height: 6px;
+}
+.game-gallery::-webkit-scrollbar-thumb {
+  background-color: rgba(0,0,0,0.2);
+  border-radius: 10px;
+}
+.game-gallery::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.game-gallery img {
+  height: 280px; /* Tinggi tetap agar rapi */
+  width: auto;   /* Lebar menyesuaikan rasio */
+  border-radius: 12px;
+  scroll-snap-align: center;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease;
+  flex-shrink: 0;
+  background-color: rgba(0,0,0,0.05); /* Placeholder warna saat loading */
+}
+
+/* Hover effect pada gambar */
+.game-gallery img:hover {
+  transform: scale(1.02);
+}
+
+.scroll-hint {
+  text-align: center;
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  opacity: 0.7;
+  margin-top: -10px;
+  margin-bottom: var(--space-3);
+  font-style: italic;
+}
+
+/* === FOOTER & BUTTONS === */
+.game-card__footer {
+  border-top: 1px solid rgba(0,0,0,0.05);
+  padding-top: var(--space-2);
+}
+
+.game-card__footer p {
+  margin: 0;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+.game-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  border-radius: 99px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: all 0.2s ease;
+  border: none;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.game-btn--primary {
+  background: #fa5c5c; /* Warna Itch.io tone */
+  color: white;
+  box-shadow: 0 4px 12px rgba(250, 92, 92, 0.3);
+}
+
+.game-btn--primary:hover {
+  background: #ff4747;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(250, 92, 92, 0.4);
+}
+
+.game-btn--secondary {
+  background: rgba(255,255,255,0.5);
+  color: var(--text-primary);
+  border: 1px solid rgba(0,0,0,0.1);
+}
+
+.game-btn--secondary:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  background: rgba(200,200,200,0.2);
+}
+
+.game-btn--secondary:not(:disabled):hover {
+  background: white;
+  border-color: var(--text-primary);
+}
+
+/* === RESPONSIVE === */
+@media (max-width: 768px) {
+  .game-card__header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .game-btn {
+    justify-content: center;
+    width: 100%;
+  }
+
+  .game-gallery img {
+    height: 200px; /* Lebih kecil di mobile */
+  }
+  
+  .game-gallery-viewport {
+    margin: 0 -24px; /* Jebol padding kartu agar full width di mobile */
+  }
+  
+  .game-gallery {
+    padding: 0 24px 20px 24px;
+  }
+}

@@ -1,6 +1,75 @@
 /* Styling spesifik untuk Index.html */
 /* Variable global diambil dari common.css */
 
+/* === HERO SECTION (Full Screen) === */
+.hero {
+  position: relative;
+  /* Mengambil tinggi layar dikurangi padding navbar (kira-kira 120px) */
+  min-height: calc(100vh - 120px); 
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 60px; /* Jarak sebelum masuk ke kartu */
+}
+
+.hero__content {
+  text-align: center;
+  z-index: 1;
+}
+
+.hero__logo {
+  width: 280px; 
+  max-width: 80%;
+  height: auto;
+  filter: var(--logo-glow);
+  transition: filter 0.5s ease, transform 0.3s ease;
+}
+
+.hero__logo:hover {
+  transform: scale(1.02);
+}
+
+.hero__tagline {
+  font-size: 1.25rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-top: 32px;
+  opacity: 0.8;
+}
+
+.hero__scroll {
+  position: absolute;
+  bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: var(--text-secondary);
+  animation: floatBounce 2.5s infinite ease-in-out;
+  opacity: 0.7;
+}
+
+.scroll-text {
+  font-size: 0.8rem;
+  font-weight: 500;
+  margin-bottom: 4px;
+  letter-spacing: 1px;
+}
+
+@keyframes floatBounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(10px); }
+}
+
+/* Penyesuaian jarak Gateway karena ada Hero di atasnya */
+.gateway {
+  padding-top: 40px;
+  border-top: 1px solid var(--glass-border); /* Garis batas pemisah tipis */
+}
+
 /* === GATEWAY SECTION (Menu Cards) === */
 .gateway__grid {
   display: grid;
@@ -9,7 +78,7 @@
   width: 100%;
 }
 
-/* Glass Card Style */
+/* Glass Card Style Premium */
 .gateway__card {
   background: var(--glass-bg);
   backdrop-filter: blur(var(--glass-blur));
@@ -23,15 +92,37 @@
   align-items: center;
   justify-content: center;
   box-shadow: var(--shadow-soft);
-  transition: var(--transition);
+  transition: transform 0.4s ease, background 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease;
   position: relative;
   overflow: hidden;
 }
 
+/* Hover Umum */
 .gateway__card:hover {
   transform: translateY(-8px) scale(1.01);
-  box-shadow: var(--shadow-hover);
   background: var(--glass-bg-hover);
+  box-shadow: var(--shadow-hover);
+}
+
+/* --- EFEK HOVER SPESIFIK BERDASARKAN LOGO --- */
+/* (Anda perlu menambahkan class ini ke tag <a> di index.astro) */
+
+/* 1. CAD Portfolio (SolidWorks Red Glow) */
+.card--cad:hover {
+  border-color: rgba(238, 39, 34, 0.4);
+  box-shadow: 0 15px 40px -10px rgba(238, 39, 34, 0.15), var(--shadow-hover);
+}
+
+/* 2. 3D Modeling (Blender Orange Glow) */
+.card--3d:hover {
+  border-color: rgba(234, 118, 0, 0.4);
+  box-shadow: 0 15px 40px -10px rgba(234, 118, 0, 0.15), var(--shadow-hover);
+}
+
+/* 3. Game Projects (Godot/Unity Blue Glow) */
+.card--game:hover {
+  border-color: rgba(71, 140, 191, 0.4);
+  box-shadow: 0 15px 40px -10px rgba(71, 140, 191, 0.15), var(--shadow-hover);
 }
 
 .card__visual {
@@ -47,7 +138,9 @@
   max-height: 100%;
   max-width: 80%;
   object-fit: contain;
-  filter: drop-shadow(0 4px 6px rgba(0,0,0,0.05));
+  /* Tambahkan dua baris ini: */
+  filter: var(--card-img-filter);
+  transition: filter 0.5s ease;
 }
 
 /* Wide Card for Game Projects */
