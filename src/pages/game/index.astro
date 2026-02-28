@@ -1,0 +1,122 @@
+---
+import MainLayout from "../../layouts/MainLayout.astro";
+import "./game.css";
+---
+
+<MainLayout title="Game Dev Portfolio | Jonathan Sinaga">
+  <section class="game-header slide-in delay-1">
+    <h1 class="section__title">Game Development</h1>
+    <p class="section-description">
+      Eksperimen interaktif dan prototipe game menggunakan <strong>Unity</strong
+      > & <strong>Godot</strong>.
+    </p>
+  </section>
+
+  <div class="game-container">
+    <article class="game-card slide-in delay-2">
+      <div class="game-card__header">
+        <div class="header-text">
+          <h2 class="game-title">Sawit Harvester</h2>
+          <span class="game-genre">Simulation / Arcade</span>
+        </div>
+        <a
+          href="https://chillguys.itch.io/sawit-harvester"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="game-btn game-btn--primary"
+        >
+          Play on Itch.io
+          <span class="icon">►</span>
+        </a>
+      </div>
+
+      <div class="game-gallery-viewport">
+        <div class="game-gallery">
+          <img
+            src="/Imagery/projects/games/Sawit Harvester/1_Sawit_Harvester.webp"
+            alt="Sawit Harvester Gameplay 1"
+            loading="lazy"
+          />
+          <img
+            src="/Imagery/projects/games/Sawit Harvester/2_Sawit_Harvester.webp"
+            alt="Sawit Harvester Gameplay 2"
+            loading="lazy"
+          />
+          <img
+            src="/Imagery/projects/games/Sawit Harvester/3_Sawit_Harvester.webp"
+            alt="Sawit Harvester Gameplay 3"
+            loading="lazy"
+          />
+          <img
+            src="/Imagery/projects/games/Sawit Harvester/4_Sawit_Harvester.webp"
+            alt="Sawit Harvester Gameplay 4"
+            loading="lazy"
+          />
+          <img
+            src="/Imagery/projects/games/Sawit Harvester/5_Sawit_Harvester.webp"
+            alt="Sawit Harvester Gameplay 5"
+            loading="lazy"
+          />
+        </div>
+        <div class="scroll-hint">Geser untuk melihat galeri →</div>
+      </div>
+
+      <div class="game-card__footer">
+        <p>
+          Game simulasi panen kelapa sawit dengan mekanisme arcade yang
+          menantang.
+        </p>
+      </div>
+    </article>
+
+    <article class="game-card slide-in delay-3">
+      <div class="game-card__header">
+        <div class="header-text">
+          <h2 class="game-title">Zombie Prototype Game</h2>
+          <span class="game-genre">Top-Down Shooter / Survival</span>
+        </div>
+        <button
+          class="game-btn game-btn--secondary"
+          disabled
+          title="Video coming soon"
+        >
+          Watch Gameplay
+          <span class="icon">Instagram</span>
+        </button>
+      </div>
+
+      <div class="game-gallery-viewport">
+        <div class="game-gallery">
+          <img
+            src="/Imagery/projects/games/Zombie Prototype Game/1_Zombie_Shooter.webp"
+            alt="Zombie Shooter Gameplay 1"
+            loading="lazy"
+          />
+          <img
+            src="/Imagery/projects/games/Zombie Prototype Game/2_Zombie_Shooter.webp"
+            alt="Zombie Shooter Gameplay 2"
+            loading="lazy"
+          />
+          <img
+            src="/Imagery/projects/games/Zombie Prototype Game/3_Zombie_Shooter.webp"
+            alt="Zombie Shooter Gameplay 3"
+            loading="lazy"
+          />
+          <img
+            src="/Imagery/projects/games/Zombie Prototype Game/4_Zombie_Shooter.webp"
+            alt="Zombie Shooter Gameplay 4"
+            loading="lazy"
+          />
+        </div>
+        <div class="scroll-hint">Geser untuk melihat galeri →</div>
+      </div>
+
+      <div class="game-card__footer">
+        <p>
+          Prototipe game survival shooter melawan gelombang zombie dengan sistem
+          weapon mechanics dasar.
+        </p>
+      </div>
+    </article>
+  </div>
+</MainLayout>

@@ -1,0 +1,384 @@
+---
+import MainLayout from '../../layouts/MainLayout.astro';
+import "./cad.css";
+---
+
+<MainLayout title="CAD Design Portfolio | Jonathan Sinaga">
+  <main>
+    <h1 class="section__title">CAD Design Portfolio</h1>
+    <p class="section-description">
+      Showcasing Mechanical &amp; Industrial Design Projects
+    </p>
+
+    <section class="carousel-section" aria-label="Featured CAD Projects">
+      <button
+        class="carousel-arrow carousel-arrow--left"
+        id="carouselPrev"
+        aria-label="Previous Project"
+      >
+        <svg viewBox="0 0 24 24"
+          ><path
+            d="M15 19l-7-7 7-7"
+            stroke="currentColor"
+            stroke-width="2"
+            fill="none"
+            stroke-linecap="round"
+            stroke-linejoin="round"></path></svg
+        >
+      </button>
+
+      <div class="carousel-viewport">
+        <div class="carousel-track" id="carouselTrack">
+          <div class="carousel-card" data-category="assembly">
+            <img src="/Imagery/cad_assembly_1.webp" alt="Mechanical Assembly" />
+            <div class="carousel-card-title">Mechanical Assembly</div>
+            <div class="carousel-card-desc">
+              Complex robotic arm assembly with detailed exploded view.
+            </div>
+          </div>
+          <div class="carousel-card" data-category="component">
+            <img
+              src="/Imagery/cad_component_1.webp"
+              alt="Industrial Component"
+            />
+            <div class="carousel-card-title">Industrial Component</div>
+            <div class="carousel-card-desc">
+              Ergonomic & durable housing for industrial automation.
+            </div>
+          </div>
+          <div class="carousel-card" data-category="gearbox">
+            <img src="/Imagery/cad_assembly_2.webp" alt="Gearbox Module" />
+            <div class="carousel-card-title">Gearbox Module</div>
+            <div class="carousel-card-desc">
+              Precision gearbox design for mechanical transmission.
+            </div>
+          </div>
+          <div class="carousel-card" data-category="enclosure">
+            <img
+              src="/Imagery/cad_component_2.webp"
+              alt="Sheet Metal Enclosure"
+            />
+            <div class="carousel-card-title">Sheet Metal Enclosure</div>
+            <div class="carousel-card-desc">
+              Custom sheet metal enclosure for control systems.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <button
+        class="carousel-arrow carousel-arrow--right"
+        id="carouselNext"
+        aria-label="Next Project"
+      >
+        <svg viewBox="0 0 24 24"
+          ><path
+            d="M9 5l7 7-7 7"
+            stroke="currentColor"
+            stroke-width="2"
+            fill="none"
+            stroke-linecap="round"
+            stroke-linejoin="round"></path></svg
+        >
+      </button>
+    </section>
+
+    <section class="gallery-section" aria-label="Project Gallery">
+      <h2 class="gallery-title">Gallery to Assembly</h2>
+      <div class="gallery-masonry" id="galleryMasonry">
+        <div
+          class="gallery-item gallery-item--drawing"
+          data-category="assembly"
+        >
+          <img src="/Imagery/gallery_drawing_1.webp" alt="Exploded View" />
+          <div class="gallery-item-title">Exploded View</div>
+          <div class="gallery-item-desc">
+            Detailed exploded drawing of robotic assembly.
+          </div>
+        </div>
+        <div class="gallery-item gallery-item--render" data-category="assembly">
+          <img src="/Imagery/gallery_render_3.webp" alt="Robot Arm Render" />
+          <div class="gallery-item-title">Robot Arm Render</div>
+          <div class="gallery-item-desc">3D render of robot arm.</div>
+        </div>
+        <div class="gallery-item gallery-item--render" data-category="assembly">
+          <img
+            src="/Imagery/gallery_render_1.webp"
+            alt="Sheet Analysis Render"
+          />
+          <div class="gallery-item-title">Sheet Analysis Render</div>
+          <div class="gallery-item-desc">
+            3D render of sheet metal analysis.
+          </div>
+        </div>
+        <div class="gallery-item gallery-item--render" data-category="assembly">
+          <img src="/Imagery/gallery_render_4.webp" alt="Boxcase" />
+          <div class="gallery-item-title">Boxcase</div>
+          <div class="gallery-item-desc">3D render of industrial boxcase.</div>
+        </div>
+
+        <div
+          class="gallery-item gallery-item--drawing"
+          data-category="component"
+        >
+          <img src="/Imagery/gallery_drawing_2.webp" alt="Assembly Drawing" />
+          <div class="gallery-item-title">Assembly Drawing</div>
+          <div class="gallery-item-desc">
+            Mechanical assembly drawing with annotations.
+          </div>
+        </div>
+        <div
+          class="gallery-item gallery-item--render"
+          data-category="component"
+        >
+          <img
+            src="/Imagery/gallery_render_1.webp"
+            alt="Sheet Analysis Render"
+          />
+          <div class="gallery-item-title">Sheet Analysis Render</div>
+          <div class="gallery-item-desc">
+            3D render of sheet metal analysis.
+          </div>
+        </div>
+        <div
+          class="gallery-item gallery-item--render"
+          data-category="component"
+        >
+          <img src="/Imagery/gallery_render_4.webp" alt="Boxcase" />
+          <div class="gallery-item-title">Boxcase</div>
+          <div class="gallery-item-desc">3D render of industrial boxcase.</div>
+        </div>
+        <div
+          class="gallery-item gallery-item--render"
+          data-category="component"
+        >
+          <img src="/Imagery/gallery_render_3.webp" alt="Robot Arm Render" />
+          <div class="gallery-item-title">Robot Arm Render</div>
+          <div class="gallery-item-desc">3D render of robot arm.</div>
+        </div>
+
+        <div class="gallery-item gallery-item--drawing" data-category="gearbox">
+          <img src="/Imagery/gallery_drawing_3.webp" alt="Schematic View" />
+          <div class="gallery-item-title">Schematic View</div>
+          <div class="gallery-item-desc">
+            Schematic drawing for control system.
+          </div>
+        </div>
+        <div class="gallery-item gallery-item--render" data-category="gearbox">
+          <img src="/Imagery/gallery_render_2.webp" alt="Gearbox Render" />
+          <div class="gallery-item-title">Gearbox Render</div>
+          <div class="gallery-item-desc">3D render of gearbox module.</div>
+        </div>
+        <div class="gallery-item gallery-item--render" data-category="gearbox">
+          <img
+            src="/Imagery/gallery_render_1.webp"
+            alt="Sheet Analysis Render"
+          />
+          <div class="gallery-item-title">Sheet Analysis Render</div>
+          <div class="gallery-item-desc">
+            3D render of sheet metal analysis.
+          </div>
+        </div>
+        <div class="gallery-item gallery-item--render" data-category="gearbox">
+          <img src="/Imagery/gallery_render_4.webp" alt="Boxcase" />
+          <div class="gallery-item-title">Boxcase</div>
+          <div class="gallery-item-desc">3D render of industrial boxcase.</div>
+        </div>
+
+        <div
+          class="gallery-item gallery-item--drawing"
+          data-category="enclosure"
+        >
+          <img src="/Imagery/gallery_drawing_4.webp" alt="Rendered Sheet" />
+          <div class="gallery-item-title">Rendered Sheet</div>
+          <div class="gallery-item-desc">Technical drawing of sheet metal.</div>
+        </div>
+        <div
+          class="gallery-item gallery-item--render"
+          data-category="enclosure"
+        >
+          <img src="/Imagery/gallery_render_4.webp" alt="Boxcase" />
+          <div class="gallery-item-title">Boxcase</div>
+          <div class="gallery-item-desc">3D render of industrial boxcase.</div>
+        </div>
+        <div
+          class="gallery-item gallery-item--render"
+          data-category="enclosure"
+        >
+          <img
+            src="/Imagery/gallery_render_1.webp"
+            alt="Sheet Analysis Render"
+          />
+          <div class="gallery-item-title">Sheet Analysis Render</div>
+          <div class="gallery-item-desc">
+            3D render of sheet metal analysis.
+          </div>
+        </div>
+        <div
+          class="gallery-item gallery-item--render"
+          data-category="enclosure"
+        >
+          <img src="/Imagery/gallery_render_2.webp" alt="Gearbox Render" />
+          <div class="gallery-item-title">Gearbox Render</div>
+          <div class="gallery-item-desc">3D render of gearbox module.</div>
+        </div>
+      </div>
+    </section>
+  </main>
+</MainLayout>
+
+<script>
+  // === MIGRATED LOGIC FROM cad.js ===
+  // Carousel and Gallery Filtering Script
+
+  const carouselTrack = document.getElementById("carouselTrack");
+  const carouselPrev = document.getElementById("carouselPrev");
+  const carouselNext = document.getElementById("carouselNext");
+  // @ts-ignore
+  const carouselCards = carouselTrack ? Array.from(carouselTrack.children) : [];
+  const galleryItems = Array.from(document.querySelectorAll(".gallery-item"));
+
+  let carouselIndex = 0;
+
+  function setActiveCard(idx) {
+    carouselCards.forEach((card, i) => {
+      card.classList.toggle("active", i === idx);
+    });
+  }
+
+  function filterGallery(category) {
+    let drawingShown = false;
+    let renderCount = 0;
+
+    galleryItems.forEach((item) => {
+      // @ts-ignore
+      const isMatch = item.dataset.category === category;
+      let shouldShow = false;
+
+      if (isMatch) {
+        if (item.classList.contains("gallery-item--drawing") && !drawingShown) {
+          shouldShow = true;
+          drawingShown = true;
+        } else if (
+          item.classList.contains("gallery-item--render") &&
+          renderCount < 3
+        ) {
+          shouldShow = true;
+          renderCount++;
+        }
+      }
+
+      if (shouldShow) {
+        item.classList.remove("fade-out", "hidden");
+        item.classList.add("fade-in");
+      } else {
+        item.classList.remove("fade-in");
+        item.classList.add("fade-out");
+      }
+    });
+
+    // Delay adding 'hidden' to allow fade-out animation to finish
+    setTimeout(() => {
+      galleryItems.forEach((item) => {
+        if (item.classList.contains("fade-out")) {
+          item.classList.add("hidden");
+        }
+      });
+    }, 400);
+  }
+
+  function updateCarousel(triggerGallery = true) {
+    if (!carouselTrack || carouselCards.length === 0) return;
+
+    const isMobile = window.innerWidth <= 600;
+    // @ts-ignore
+    const gap = parseInt(getComputedStyle(carouselTrack).gap) || 0;
+
+    const cardWidth = carouselCards[0].getBoundingClientRect().width;
+    const cardFullWidth = cardWidth + gap;
+    const viewportWidth = carouselTrack.parentElement?.offsetWidth || 0;
+
+    const maxIndex = Math.max(0, carouselCards.length - 1);
+
+    // Safety check index
+    if (carouselIndex < 0) carouselIndex = 0;
+    if (carouselIndex > maxIndex) carouselIndex = maxIndex;
+
+    let calculateValue = 0;
+
+    if (isMobile) {
+      // === LOGIKA MOBILE (CENTERING) ===
+      const currentCardCenter = carouselIndex * cardFullWidth + cardWidth / 2;
+      const centerScreen = viewportWidth / 2;
+
+      // Hitung selisih jarak
+      calculateValue = currentCardCenter - centerScreen;
+    } else {
+      // === LOGIKA DESKTOP (ALIGN LEFT) ===
+      calculateValue = carouselIndex * cardFullWidth;
+
+      // Batasi agar tidak scroll berlebih di desktop
+      const trackWidth = carouselCards.length * cardFullWidth;
+      const maxTranslate = Math.max(0, trackWidth - viewportWidth);
+      if (calculateValue > maxTranslate) calculateValue = maxTranslate;
+    }
+
+    // Mencegah double minus pada CSS string
+    const finalTranslateX = -calculateValue;
+
+    carouselTrack.style.transform = `translateX(${finalTranslateX}px)`;
+
+    setActiveCard(carouselIndex);
+
+    if (triggerGallery) {
+      // @ts-ignore
+      const activeCategory = carouselCards[carouselIndex].dataset.category;
+      filterGallery(activeCategory);
+    }
+
+    // Update status tombol panah
+    if (carouselPrev) {
+      // @ts-ignore
+      carouselPrev.disabled = carouselIndex === 0;
+      carouselPrev.style.opacity = carouselIndex === 0 ? "0.3" : "1";
+    }
+    if (carouselNext) {
+      // @ts-ignore
+      carouselNext.disabled = carouselIndex === maxIndex;
+      carouselNext.style.opacity = carouselIndex === maxIndex ? "0.3" : "1";
+    }
+  }
+
+  // --- Event Listeners ---
+  if (carouselTrack) {
+    if (carouselPrev) {
+      carouselPrev.addEventListener("click", () => {
+        carouselIndex = Math.max(0, carouselIndex - 1);
+        updateCarousel();
+      });
+    }
+
+    if (carouselNext) {
+      carouselNext.addEventListener("click", () => {
+        carouselIndex = Math.min(carouselCards.length - 1, carouselIndex + 1);
+        updateCarousel();
+      });
+    }
+
+    carouselCards.forEach((card, idx) => {
+      card.addEventListener("click", () => {
+        carouselIndex = idx;
+        updateCarousel();
+      });
+    });
+
+    window.addEventListener("resize", () => {
+      updateCarousel(false);
+    });
+
+    // Initial Run
+    setTimeout(() => {
+      updateCarousel();
+    }, 100);
+  }
+</script>
