@@ -1,8 +1,12 @@
 ---
-import '../styles/common.css'; // Import Global CSS
-import Navbar from '../components/Navbar.astro';
+// src/layouts/MainLayout.astro
+import '../styles/variables.css'; 
+import '../styles/base.css';      
 
-// Menerima props 'title' agar setiap halaman bisa punya judul beda
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+import BackgroundManager from '../components/backgrounds/BackgroundManager.astro';
+
 const { title } = Astro.props;
 ---
 
@@ -12,23 +16,28 @@ const { title } = Astro.props;
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{title}</title>
-  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-  
+
   <script is:inline>
-    const savedTheme = localStorage.getItem('theme');
-// Jika ada di storage, gunakan itu. Jika tidak, default light.
-if (savedTheme === 'dark') {
-      document.documentElement.setAttribute('data-theme', 'dark');
-} else {
-      document.documentElement.setAttribute('data-theme', 'light');
-}
+    const theme = (() => {
+      // 1. Cek apakah ada tema yang tersimpan di localStorage
+      if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
+        return localStorage.getItem('theme');
+      }
+      // 2. Jika tidak ada, cek preferensi tema sistem (OS) pengguna
+      if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        return 'dark';
+      }
+      // 3. Default ke light mode
+      return 'light';
+    })();
+
+    // Terapkan tema ke tag <html> sebelum body dirender
+    document.documentElement.setAttribute('data-theme', theme);
   </script>
-  
-  <link rel="preload" as="image" href="/Imagery/icons/SolidWorks_logo.webp">
-  <link rel="preload" as="image" href="/Imagery/icons/Blender_Logo.webp">
-  <link rel="preload" as="image" href="/Imagery/icons/Unity_logo.webp">
 </head>
 <body>
+
+  <BackgroundManager />
 
   <Navbar />
 
@@ -36,10 +45,7 @@ if (savedTheme === 'dark') {
     <slot />
   </main>
 
-  <footer>
-    <div>© 2024 Jonathan Sinaga.
-All rights reserved.</div>
-  </footer>
+  <Footer />
 
 </body>
 </html>

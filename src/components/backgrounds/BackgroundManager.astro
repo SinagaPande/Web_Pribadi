@@ -1,0 +1,42 @@
+---
+// src/components/backgrounds/BackgroundManager.astro
+import LightThemeBg from './light/LightThemeBg.astro';
+import DarkThemeBg from './dark/DarkThemeBg.astro';
+---
+
+<div id="global-background">
+  <div class="layer layer-light">
+    <LightThemeBg />
+  </div>
+  <div class="layer layer-dark">
+    <DarkThemeBg />
+  </div>
+</div>
+
+<style>
+  #global-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1; /* Pastikan selalu berada di belakang seluruh UI */
+    pointer-events: none; /* Agar tidak menghalangi klik pada halaman */
+  }
+
+  .layer {
+    position: absolute;
+    inset: 0;
+    transition: opacity 0.5s ease-in-out;
+  }
+
+  /* Logic Transisi Berdasarkan Global Theme */
+  
+  /* Default (Light Mode): Dark disembunyikan */
+  :global([data-theme="light"]) .layer-light { opacity: 1; }
+  :global([data-theme="light"]) .layer-dark { opacity: 0; }
+
+  /* Dark Mode: Light disembunyikan */
+  :global([data-theme="dark"]) .layer-light { opacity: 0; }
+  :global([data-theme="dark"]) .layer-dark { opacity: 1; }
+</style>

@@ -1,0 +1,17 @@
+---
+// src/components/backgrounds/light/LightThemeBg.astro
+---
+<div class="bg-light" aria-hidden="true"></div>
+
+<style>
+  .bg-light {
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #FFFFFF;
+    background-image: radial-gradient(circle at 15% 50%, rgba(238, 39, 34, 0.04), transparent 40%),
+                      radial-gradient(circle at 85% 30%, rgba(71, 140, 191, 0.04), transparent 40%);
+    /* Script animasi Light bisa ditambahkan ke sini nanti */
+  }
+</style>

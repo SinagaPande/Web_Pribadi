@@ -1,0 +1,264 @@
+---
+// src/components/home/Gateway.astro
+---
+
+<section class="gateway" aria-label="Portfolio Categories">
+  <div class="gateway__grid">
+    <a href="/cad" class="gateway__card card--cad slide-in delay-1">
+      <div class="card__glow"></div>
+      <div class="card__sweep"></div>
+      
+      <div class="card__visual">
+        <img src="/Imagery/icons/SolidWorks_logo.webp" alt="SolidWorks Logo" loading="eager" />
+      </div>
+      <div class="card__label">
+        <span class="card__title">CAD Portfolio</span>
+        <span class="card__sub">Engineering & Design</span>
+      </div>
+    </a>
+
+    <a href="/blender" class="gateway__card card--3d slide-in delay-2">
+      <div class="card__glow"></div>
+      <div class="card__sweep"></div>
+
+      <div class="card__visual">
+        <img src="/Imagery/icons/Blender_Logo.webp" alt="Blender Logo" loading="eager" />
+      </div>
+      <div class="card__label">
+        <span class="card__title">3D Modeling</span>
+        <span class="card__sub">Artistic & Assets</span>
+      </div>
+    </a>
+
+    <a href="/game" class="gateway__card gateway__card--wide card--game slide-in delay-3">
+      <div class="card__glow"></div>
+      <div class="card__sweep"></div>
+
+      <div class="card__visual card__visual--dual">
+        <img src="/Imagery/icons/Unity_logo.webp" alt="Unity Logo" loading="eager" />
+        <div class="divider"></div>
+        <img src="/Imagery/icons/Godot_logo.svg" alt="Godot Logo" loading="eager" />
+      </div>
+      <div class="card__label">
+        <span class="card__title">Game Projects</span>
+        <span class="card__sub">Interactive Experiences</span>
+      </div>
+    </a>
+  </div>
+</section>
+
+<style>
+  /* === GATEWAY SECTION STYLES === */
+  .gateway {
+    padding-top: 40px;
+    border-top: 1px solid var(--glass-border);
+  }
+
+  .gateway__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    width: 100%;
+  }
+
+  /* === HYBRID: GLASSMORPHISM + DISCORD ANIMATION === */
+  .gateway__card {
+    /* Efek Glass Blur Transparan Mengikuti Tema Portofolio */
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    border-radius: var(--radius-card);
+    padding: 40px 20px;
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    
+    /* Animasi transisi smooth ala Discord (duration-500 ease-out) */
+    transition: all 0.5s cubic-bezier(0, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+  }
+
+  /* Interaksi Fisik: Hover & Active (Discord style) */
+  .gateway__card:hover {
+    transform: translateY(-4px) scale(1.02);
+    background: var(--glass-bg-hover);
+  }
+
+  /* Efek mengecil saat diklik (active:scale-95) */
+  .gateway__card:active {
+    transform: scale(0.95);
+  }
+
+  /* === EFEK CAHAYA (GLOW & SWEEP) === */
+  .card__glow {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    z-index: 0;
+    border-radius: inherit;
+    pointer-events: none;
+  }
+
+  .card__sweep {
+    position: absolute;
+    inset: 0;
+    transform: translateX(-100%);
+    transition: transform 1s cubic-bezier(0, 0, 0.2, 1);
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  .gateway__card:hover .card__glow {
+    opacity: 1;
+  }
+
+  .gateway__card:hover .card__sweep {
+    transform: translateX(100%);
+  }
+
+  /* === GAYA SPESIFIK BERDASARKAN LOGO (WARNA BRAND + GLASS) === */
+  
+  /* 1. CAD Portfolio (#DA291C - SolidWorks Red) */
+  .card--cad {
+    /* Border kaca transparan dengan sentuhan merah */
+    border: 2px solid rgba(218, 41, 28, 0.2);
+    box-shadow: var(--shadow-soft);
+  }
+  .card--cad:hover {
+    border-color: rgba(218, 41, 28, 0.6);
+    /* Menggabungkan shadow glow merah dengan shadow default tema */
+    box-shadow: 0 20px 40px -10px rgba(218, 41, 28, 0.25), var(--shadow-hover);
+  }
+  .card--cad .card__sweep {
+    background: linear-gradient(to right, transparent, rgba(218, 41, 28, 0.25), transparent);
+  }
+  .card--cad .card__glow {
+    /* Gradasi diagonal yang halus menyatu dengan kaca */
+    background: linear-gradient(135deg, rgba(218, 41, 28, 0.15) 0%, transparent 50%, rgba(218, 41, 28, 0.05) 100%);
+  }
+
+  /* 2. 3D Modeling (#EA7600 - Blender Orange) */
+  .card--3d {
+    border: 2px solid rgba(234, 118, 0, 0.2);
+    box-shadow: var(--shadow-soft);
+  }
+  .card--3d:hover {
+    border-color: rgba(234, 118, 0, 0.6);
+    box-shadow: 0 20px 40px -10px rgba(234, 118, 0, 0.25), var(--shadow-hover);
+  }
+  .card--3d .card__sweep {
+    background: linear-gradient(to right, transparent, rgba(234, 118, 0, 0.25), transparent);
+  }
+  .card--3d .card__glow {
+    background: linear-gradient(135deg, rgba(234, 118, 0, 0.15) 0%, transparent 50%, rgba(234, 118, 0, 0.05) 100%);
+  }
+
+  /* 3. Game Projects (#478CBF - Game Engine Blue) */
+  .card--game {
+    border: 2px solid rgba(71, 140, 191, 0.2);
+    box-shadow: var(--shadow-soft);
+  }
+  .card--game:hover {
+    border-color: rgba(71, 140, 191, 0.6);
+    box-shadow: 0 20px 40px -10px rgba(71, 140, 191, 0.25), var(--shadow-hover);
+  }
+  .card--game .card__sweep {
+    background: linear-gradient(to right, transparent, rgba(71, 140, 191, 0.25), transparent);
+  }
+  .card--game .card__glow {
+    background: linear-gradient(135deg, rgba(71, 140, 191, 0.15) 0%, transparent 50%, rgba(71, 140, 191, 0.05) 100%);
+  }
+
+  /* === KONTEN KARTU Z-INDEX & ADAPTASI TEMA === */
+  .card__visual, .card__label {
+    position: relative;
+    z-index: 10;
+  }
+
+  .card__visual {
+    height: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 24px;
+    width: 100%;
+  }
+
+  .card__visual img {
+    max-height: 100%;
+    max-width: 80%;
+    object-fit: contain;
+    /* Menggunakan variabel filter tema agar menyatu saat Light/Dark mode */
+    filter: var(--card-img-filter); 
+    transition: transform 0.4s cubic-bezier(0, 0, 0.2, 1);
+  }
+
+  /* Efek Zoom Logo saat Hover ala Discord */
+  .gateway__card:hover .card__visual img {
+    transform: scale(1.1);
+  }
+
+  .gateway__card--wide {
+    grid-column: span 2;
+  }
+
+  .card__visual--dual {
+    gap: 32px;
+  }
+
+  .card__visual--dual img {
+    max-width: 40%;
+  }
+
+  .card__visual--dual .divider {
+    width: 2px;
+    height: 60px;
+    background-color: var(--accent); /* Mengikuti garis aksen bawaan tema */
+    border-radius: 2px;
+  }
+
+  .card__label {
+    text-align: center;
+  }
+
+  /* Warna Teks Dikembalikan ke Variabel Tema (Adaptif Light/Dark) */
+  .card__title {
+    display: block;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-primary); 
+    margin-bottom: 4px;
+    letter-spacing: -0.5px;
+  }
+
+  .card__sub {
+    display: block;
+    font-size: 1rem;
+    color: var(--text-secondary);
+    font-weight: 400;
+  }
+
+  /* === MOBILE RESPONSIVE === */
+  @media (max-width: 768px) {
+    .gateway__grid {
+      grid-template-columns: 1fr;
+    }
+    .gateway__card--wide {
+      grid-column: span 1;
+    }
+    .card__visual {
+      height: 100px;
+    }
+    .card__visual--dual {
+      gap: 16px;
+    }
+    .card__visual--dual .divider {
+      height: 40px;
+    }
+  }
+</style>

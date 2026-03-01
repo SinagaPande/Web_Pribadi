@@ -1,0 +1,187 @@
+---
+// src/components/home/ProfileIntro.astro
+---
+
+<section class="intro slide-in delay-4" aria-labelledby="intro-title">
+  <div class="intro__card">
+    <div class="intro__visual">
+      <img src="/Imagery/profile/foto_saya.webp" alt="Jonathan Sinaga" class="intro__photo" />
+    </div>
+
+    <div class="intro__content">
+      <div class="intro__header">
+        <h1 id="intro-title">Jonathan Sinaga</h1>
+        <p class="intro__role">Developing Skills in 3D Design & Game Development</p>
+      </div>
+
+      <p class="intro__desc">
+        Mahasiswa Teknik Informatika Institut Teknologi Sumatra angkatan 2023
+        yang sedang mengeksplorasi desain 3D serta pengembangan game
+      </p>
+
+      <div class="intro__socials">
+        <a href="mailto:jonathan.sinaga@email.com" class="social-btn" aria-label="Email">
+          <img src="/Imagery/icons/Gmail_logo.webp" alt="Gmail Icon" loading="lazy" />
+        </a>
+        <a href="https://instagram.com/" class="social-btn" aria-label="Instagram" target="_blank" rel="noopener">
+          <img src="/Imagery/icons/Instagram_logo.webp" alt="Instagram Icon" loading="lazy" />
+        </a>
+        <a href="https://wa.me/6281234567890" class="social-btn" aria-label="WhatsApp" target="_blank" rel="noopener">
+          <img src="/Imagery/icons/WhatsApp_logo.webp" alt="WhatsApp Icon" loading="lazy" />
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* === INTRO SECTION STYLES === */
+  .intro {
+    width: 100%;
+    max-width: 100%;
+    margin: 40px auto 0;
+    padding-bottom: 40px;
+  }
+
+  .intro__card {
+    display: flex;
+    flex-direction: row;
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-card);
+    box-shadow: var(--shadow-soft);
+    overflow: hidden;
+    min-height: 320px;
+    transition: var(--transition);
+  }
+
+  .intro__card:hover {
+    box-shadow: var(--shadow-hover);
+    background: var(--glass-bg-hover);
+  }
+
+  .intro__visual {
+    flex: 0 0 35%;
+    position: relative;
+    background-color: #e5e5e5;
+    overflow: hidden;
+  }
+
+  .intro__visual::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-right: 1px solid rgba(255,255,255,0.3);
+    pointer-events: none;
+  }
+
+  .intro__photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .intro__content {
+    flex: 1;
+    padding: 48px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: left;
+  }
+
+  .intro__header { margin-bottom: 20px; }
+
+  .intro__content h1 {
+    font-size: 3rem;
+    font-weight: 800;
+    letter-spacing: -1px;
+    margin: 0 0 8px 0;
+    color: var(--text-primary);
+    line-height: 1.1;
+  }
+
+  .intro__role {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #2563eb; 
+    margin: 0;
+    opacity: 1;
+  }
+
+  .intro__desc {
+    font-size: 1.125rem;
+    line-height: 1.6;
+    color: var(--text-secondary);
+    margin-bottom: 48px;
+    max-width: 90%;
+  }
+
+  .intro__socials {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+  }
+
+  .social-btn {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition);
+  }
+
+  .social-btn:hover {
+    transform: translateY(-3px);
+    background: #fff;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  }
+
+  .social-btn img {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+    display: block;
+  }
+
+  /* === MOBILE RESPONSIVE UNTUK INTRO === */
+  @media (max-width: 768px) {
+    .intro__card {
+      flex-direction: column;
+      min-height: auto;
+    }
+    
+    .intro__visual {
+      width: 100%;
+      aspect-ratio: 3/4; 
+      height: auto; 
+      flex: none;
+      border-bottom: 1px solid var(--glass-border);
+    }
+    
+    .intro__visual::after {
+      border-right: none;
+      border-bottom: 1px solid rgba(255,255,255,0.3);
+    }
+
+    .intro__content {
+      padding: 32px 24px;
+      text-align: center; 
+    }
+    
+    .intro__content h1 { font-size: 2rem; }
+
+    .intro__desc {
+      max-width: 100%;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }
+</style>

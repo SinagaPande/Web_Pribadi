@@ -1,0 +1,17 @@
+---
+// src/components/backgrounds/dark/DarkThemeBg.astro
+---
+<div class="bg-dark" aria-hidden="true"></div>
+
+<style>
+  .bg-dark {
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #0B1120;
+    background-image: radial-gradient(circle at 15% 50%, rgba(238, 39, 34, 0.12), transparent 40%),
+                      radial-gradient(circle at 85% 30%, rgba(71, 140, 191, 0.12), transparent 40%);
+    /* Script animasi Dark bisa ditambahkan ke sini nanti */
+  }
+</style>

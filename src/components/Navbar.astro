@@ -1,5 +1,5 @@
 ---
-/* Tidak ada logic server-side yang dibutuhkan saat ini */
+/* src/components/Navbar.astro */
 ---
 
 <header class="navbar-wrapper">
@@ -35,14 +35,80 @@
 </header>
 
 <style>
-  /* CSS Khusus Toggle Button */
+  /* === Header/Navbar Styles === */
+  .navbar-wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000; /* Pastikan selalu di atas background */
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .navbar-wrapper--hidden {
+    transform: translateY(-100%);
+  }
+
+  .navbar {
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 32px; 
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    border-bottom: 1px solid var(--glass-border);
+    box-sizing: border-box;
+  }
+
+  .navbar__logo svg { width: 40px; height: 40px; }
+  .navbar__nav { display: flex; gap: 32px; }
+
+  .navbar__link {
+    text-decoration: none;
+    color: var(--text-secondary);
+    font-weight: 500;
+    font-size: 0.95rem;
+    transition: color 0.2s;
+    padding: 0;
+  }
+
+  .navbar__link:hover, .navbar__link--active { color: var(--text-primary); }
+
+  .navbar__link:focus-visible {
+    outline: none;
+    box-shadow: var(--focus-ring);
+    border-radius: var(--radius-nav);
+  }
+
+  .navbar__menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--text-primary);
+    padding: 0;
+    margin-left: var(--space-2);
+  }
+
+  .navbar__menu-icon {
+    width: 28px;
+    height: 28px;
+    display: block;
+    fill: var(--text-primary);
+  }
+
+  /* --- Toggle Button Styles --- */
   .theme-toggle {
     background: none;
     border: none;
     cursor: pointer;
     color: var(--text-secondary);
     padding: 0;
-    margin-left: 8px; /* Jarak dari menu terakhir di desktop */
+    margin-left: 8px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -50,45 +116,52 @@
   }
   .theme-toggle:hover { color: var(--text-primary); }
   
-  /* Menyembunyikan icon yang tidak relevan dengan tema aktif */
   :global([data-theme="light"]) .icon-sun { display: none; }
   :global([data-theme="dark"]) .icon-moon { display: none; }
   
+  /* === Mobile Media Queries untuk Navbar === */
   @media (max-width: 768px) {
-    .theme-toggle {
-      margin-left: 0;
-      padding: 8px 0; /* Area sentuh lebih besar di mobile */
+    .navbar { padding: 1rem 20px; }
+    .navbar__menu-toggle { display: block; }
+    .navbar__nav {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background: #fff;
+      flex-direction: column;
+      padding: 20px;
+      gap: 16px;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+      text-align: center;
     }
+    .navbar__nav--open { display: flex; }
+    .theme-toggle { margin-left: 0; padding: 8px 0; }
   }
 </style>
 
 <script>
-  // === MIGRATED LOGIC FROM common.js ===
-  // Astro memproses ini sebagai module script
-  
+  // === LOGIC THEME & MOBILE MENU ===
   const menuToggle = document.getElementById("menuToggle");
   const navbarNav = document.getElementById("navbarNav");
   const navbarWrapper = document.querySelector(".navbar-wrapper");
   const themeToggle = document.getElementById("themeToggle");
 
-  // --- LOGIC THEME TOGGLE ---
   if (themeToggle) {
     themeToggle.addEventListener("click", () => {
       const currentTheme = document.documentElement.getAttribute("data-theme");
       const newTheme = currentTheme === "dark" ? "light" : "dark";
-      
       document.documentElement.setAttribute("data-theme", newTheme);
       localStorage.setItem("theme", newTheme);
     });
   }
 
-  // 1. Mobile Menu Toggle
   if (menuToggle && navbarNav) {
     menuToggle.addEventListener("click", () => {
       const isExpanded = navbarNav.classList.toggle("navbar__nav--open");
       menuToggle.setAttribute("aria-expanded", isExpanded ? "true" : "false");
     });
-    // Close on outside click
     document.addEventListener("click", (e) => {
       if (window.innerWidth < 768 && navbarNav.classList.contains("navbar__nav--open")) {
         // @ts-ignore
@@ -100,7 +173,7 @@
     });
   }
 
-  // 2. Hide-on-Scroll Logic (Diperbaiki)
+  // === Hide-on-Scroll Logic ===
   if (navbarWrapper) {
     let lastScrollY = window.scrollY;
     let ticking = false;
@@ -109,9 +182,8 @@
 
     function updateNavbar() {
       const currentScrollY = window.scrollY;
-
-      // FIX: Jangan sembunyikan navbar jika menu mobile sedang terbuka!
       const isMenuOpen = navbarNav?.classList.contains("navbar__nav--open");
+      
       if (isMenuOpen) {
         ticking = false;
         return;

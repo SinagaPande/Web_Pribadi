@@ -1,0 +1,214 @@
+---
+// src/components/home/Hero.astro
+---
+
+<section class="hero slide-in" aria-label="Hero Introduction">
+  <div class="hero__container">
+    <div class="hero__text">
+      <p class="hero__subtitle">Jonathan Sinaga | 3D Modeling & Game Development</p>
+      <h1 class="hero__title">
+        Developing Skills in <br />
+        <span class="typewriter-text"></span>
+      </h1>
+    </div>
+
+    <div class="hero__visual">
+      <img
+        src="/Imagery/icons/INGENTI_logo.webp"
+        alt="INGENTI Logo"
+        class="hero__logo"
+        loading="eager"
+      />
+    </div>
+  </div>
+
+  <div class="hero__scroll">
+    <span class="scroll-text">Scroll to Explore</span>
+    <svg class="scroll-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="6 9 12 15 18 9"></polyline>
+    </svg>
+  </div>
+</section>
+
+<style>
+  /* === HERO SECTION STYLES === */
+  .hero {
+    position: relative;
+    min-height: calc(100vh - 120px); 
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 60px; 
+  }
+
+  .hero__container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 1100px;
+    gap: 40px;
+    padding: 0 20px;
+    z-index: 1;
+  }
+
+  .hero__text {
+    flex: 1;
+    text-align: left;
+  }
+
+  .hero__subtitle {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    letter-spacing: 1.5px;
+    margin-bottom: 16px;
+    text-transform: uppercase;
+    opacity: 0.9;
+    white-space: nowrap;
+  }
+
+  .hero__title {
+    font-size: 3.5rem;
+    font-weight: 800;
+    color: var(--text-primary);
+    line-height: 1.3;
+    margin: 0;
+  }
+
+  /* Typewriter Effect Styles */
+  .typewriter-text {
+    color: #2563eb;
+    position: relative;
+  }
+
+  .typewriter-text::after {
+    content: '|';
+    position: absolute;
+    right: -15px;
+    color: var(--text-primary);
+    animation: blink 1s step-end infinite;
+  }
+
+  @keyframes blink {
+    50% { opacity: 0; }
+  }
+
+  .hero__visual {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .hero__logo {
+    width: 450px;
+    max-width: 100%;
+    height: auto;
+    filter: var(--logo-glow);
+    transition: filter 0.5s ease, transform 0.3s ease;
+  }
+
+  .hero__logo:hover {
+    transform: scale(1.02);
+  }
+
+  .hero__scroll {
+    position: absolute;
+    bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: var(--text-secondary);
+    animation: floatBounce 2.5s infinite ease-in-out;
+    opacity: 0.7;
+  }
+
+  .scroll-text {
+    font-size: 0.8rem;
+    font-weight: 500;
+    margin-bottom: 4px;
+    letter-spacing: 1px;
+  }
+
+  @keyframes floatBounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(10px); }
+  }
+
+  /* === MOBILE RESPONSIVE UNTUK HERO === */
+  @media (max-width: 768px) {
+    .hero__container {
+      flex-direction: column-reverse; 
+      text-align: center;
+      gap: 32px;
+    }
+
+    .hero__text {
+      text-align: center;
+    }
+
+    .hero__subtitle {
+      font-size: 0.8rem;
+      white-space: normal; 
+    }
+
+    .hero__title {
+      font-size: 2.25rem;
+    }
+
+    .hero__visual {
+      justify-content: center;
+    }
+    
+    .hero__logo {
+      width: 280px; 
+    }
+  }
+</style>
+
+<script>
+  // === TYPEWRITER BEHAVIOUR ===
+  const texts = [
+    "Game Development",
+    "3D Design",
+    "3D CAD",
+    "Web Development",
+    "Mobile App Development"
+  ];
+  let count = 0;
+  let index = 0;
+  let isDeleting = false;
+
+  function type() {
+    const typewriterElement = document.querySelector('.typewriter-text');
+    if (!typewriterElement) return;
+
+    const currentText = texts[count % texts.length];
+    
+    if (isDeleting) {
+      typewriterElement.textContent = currentText.substring(0, index - 1);
+      index--;
+    } else {
+      typewriterElement.textContent = currentText.substring(0, index + 1);
+      index++;
+    }
+
+    let typeSpeed = isDeleting ? 50 : 100;
+
+    if (!isDeleting && index === currentText.length) {
+      typeSpeed = 2000;
+      isDeleting = true;
+    } else if (isDeleting && index === 0) {
+      isDeleting = false;
+      count++;
+      typeSpeed = 500;
+    }
+
+    setTimeout(type, typeSpeed);
+  }
+
+  document.addEventListener("DOMContentLoaded", type);
+</script>
