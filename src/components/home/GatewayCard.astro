@@ -1,0 +1,266 @@
+---
+// src/components/home/GatewayCard.astro
+
+export interface Props {
+  href: string;
+  delayClass: string;
+  colorRGB: string;
+  electricColor: string;
+  title: string;
+  sub: string;
+  isWide: boolean;
+  visuals: { src: string; alt: string }[];
+}
+
+const { href, delayClass, colorRGB, electricColor, title, sub, isWide, visuals } = Astro.props;
+---
+
+<a 
+  href={href} 
+  class={`gateway__card slide-in ${delayClass} ${isWide ? 'gateway__card--wide' : ''}`}
+  style={`--card-color: ${colorRGB}; --electric-border-color: ${electricColor};`}
+>
+  <div class="card__glass-bg">
+    <div class="card__glow"></div>
+    <div class="card__sweep"></div>
+  </div>
+  
+  <div class="electric-container">
+    <div class="electric-inner-container">
+      <div class="electric-border-outer"></div>
+      <div class="electric-main-card"></div>
+      <div class="electric-glow-layer-1"></div>
+      <div class="electric-glow-layer-2"></div>
+    </div>
+    <div class="electric-overlay-1"></div>
+    <div class="electric-overlay-2"></div>
+    <div class="electric-background-glow"></div>
+  </div>
+  
+  <div class="card__content">
+    <div class={`card__visual ${visuals.length > 1 ? 'card__visual--dual' : ''}`}>
+      {visuals.map((vis, index) => (
+        <>
+          <img src={vis.src} alt={vis.alt} loading="eager" />
+          {visuals.length > 1 && index === 0 && <div class="divider"></div>}
+        </>
+      ))}
+    </div>
+    
+    <div class="card__label">
+      <span class="card__title">{title}</span>
+      <span class="card__sub">{sub}</span>
+    </div>
+  </div>
+</a>
+
+<style>
+  /* === ROOT KARTU === */
+  .gateway__card {
+    border-radius: var(--radius-card);
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.5s cubic-bezier(0, 0, 0.2, 1);
+    position: relative;
+    cursor: pointer;
+    box-shadow: var(--shadow-soft);
+  }
+
+  /* === LAYER BACKGROUND GLASS === */
+  .card__glass-bg {
+    position: absolute;
+    inset: 0;
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    border-radius: inherit;
+    border: 2px solid rgba(var(--card-color), 0.2);
+    overflow: hidden;
+    transition: all 0.5s ease;
+    z-index: 0;
+  }
+
+  .gateway__card:hover .card__glass-bg {
+    background: var(--glass-bg-hover);
+    border-color: transparent;
+  }
+
+  .gateway__card:hover {
+    transform: translateY(-4px) scale(1.02);
+    box-shadow: 0 20px 40px -10px rgba(var(--card-color), 0.25), var(--shadow-hover);
+  }
+
+  .gateway__card:active {
+    transform: scale(0.95);
+  }
+
+  /* === EFEK CAHAYA (GLOW & SWEEP) === */
+  .card__glow {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    background: linear-gradient(135deg, rgba(var(--card-color), 0.15) 0%, transparent 50%, rgba(var(--card-color), 0.05) 100%);
+  }
+
+  .card__sweep {
+    position: absolute;
+    inset: 0;
+    transform: translateX(-100%);
+    transition: transform 1s cubic-bezier(0, 0, 0.2, 1);
+    background: linear-gradient(to right, transparent, rgba(var(--card-color), 0.25), transparent);
+  }
+
+  .gateway__card:hover .card__glow { opacity: 1; }
+  .gateway__card:hover .card__sweep { transform: translateX(100%); }
+
+  /* === LAYER ELECTRIC BORDER === */
+  .electric-container {
+    position: absolute;
+    inset: -25px; 
+    opacity: 0;
+    transition: opacity 0.5s cubic-bezier(0, 0, 0.2, 1);
+    pointer-events: none;
+    z-index: 1;
+    --electric-light-color: color-mix(in srgb, var(--electric-border-color) 40%, white);
+  }
+
+  .gateway__card:hover .electric-container {
+    opacity: 1;
+  }
+
+  .electric-inner-container {
+    position: absolute;
+    inset: 25px; 
+    border-radius: var(--radius-card);
+  }
+
+  .electric-border-outer {
+    position: absolute;
+    inset: 0;
+    border: 2px solid color-mix(in srgb, var(--electric-border-color) 60%, transparent);
+    border-radius: inherit;
+  }
+
+  .electric-main-card {
+    position: absolute;
+    inset: -15px; 
+    width: calc(100% + 30px);
+    height: calc(100% + 30px);
+    border-radius: calc(var(--radius-card) + 10px);
+    border: 3px solid var(--electric-border-color);
+    filter: url(#turbulent-displace);
+  }
+
+  .electric-glow-layer-1 {
+    position: absolute;
+    inset: 0;
+    border: 2px solid color-mix(in srgb, var(--electric-border-color) 80%, transparent);
+    border-radius: inherit;
+    filter: blur(2px);
+  }
+
+  .electric-glow-layer-2 {
+    position: absolute;
+    inset: 0;
+    border: 2px solid var(--electric-light-color);
+    border-radius: inherit;
+    filter: blur(4px);
+  }
+
+  .electric-overlay-1, .electric-overlay-2 {
+    position: absolute;
+    inset: 25px; 
+    border-radius: var(--radius-card);
+    mix-blend-mode: overlay;
+    filter: blur(12px);
+    background: linear-gradient(-30deg, rgba(255, 255, 255, 0.2), transparent 30%, transparent 70%, rgba(255, 255, 255, 0.2));
+  }
+
+  .electric-overlay-2 { opacity: 0.3; }
+
+  .electric-background-glow {
+    position: absolute;
+    inset: 25px;
+    border-radius: var(--radius-card);
+    filter: blur(20px);
+    opacity: 0.15;
+    z-index: -1;
+    background: linear-gradient(-30deg, var(--electric-light-color), transparent, var(--electric-border-color));
+  }
+
+  /* === KONTEN KARTU Z-INDEX & ADAPTASI TEMA === */
+  .card__content {
+    position: relative;
+    z-index: 10;
+    width: 100%;
+    padding: 40px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .card__visual {
+    height: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 24px;
+    width: 100%;
+  }
+
+  .card__visual img {
+    max-height: 100%;
+    max-width: 80%;
+    object-fit: contain;
+    filter: var(--card-img-filter);
+    transition: transform 0.4s cubic-bezier(0, 0, 0.2, 1);
+  }
+
+  .gateway__card:hover .card__visual img {
+    transform: scale(1.1);
+  }
+
+  .gateway__card--wide {
+    grid-column: span 2;
+  }
+
+  .card__visual--dual { gap: 32px; }
+  .card__visual--dual img { max-width: 40%; }
+  
+  .card__visual--dual .divider {
+    width: 2px;
+    height: 60px;
+    background-color: var(--accent);
+    border-radius: 2px;
+  }
+
+  .card__label { text-align: center; }
+
+  .card__title {
+    display: block;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-primary); 
+    margin-bottom: 4px;
+    letter-spacing: -0.5px;
+  }
+
+  .card__sub {
+    display: block;
+    font-size: 1rem;
+    color: var(--text-secondary);
+    font-weight: 400;
+  }
+
+  /* === MOBILE RESPONSIVE === */
+  @media (max-width: 768px) {
+    .gateway__card--wide { grid-column: span 1; }
+    .card__visual { height: 100px; }
+    .card__visual--dual { gap: 16px; }
+    .card__visual--dual .divider { height: 40px; }
+  }
+</style>
