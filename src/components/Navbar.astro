@@ -1,8 +1,15 @@
 ---
 /* src/components/Navbar.astro */
+import ThemeToggle from './ThemeToggle.astro';
+import Hamburger from './Hamburger.astro';
+
+export interface Props {
+  isHome?: boolean;
+}
+const { isHome = false } = Astro.props;
 ---
 
-<header class="navbar-wrapper">
+<header class:list={["navbar-wrapper", { "navbar-wrapper--home": isHome }]}>
   <nav class="navbar" id="mainNav" aria-label="Main navigation">
     <a href="/" class="navbar__logo" aria-label="Jonathan Sinaga Logo">
       <svg viewBox="0 0 36 36" fill="none" aria-hidden="true" focusable="false">
@@ -18,19 +25,10 @@
       <a href="/game" class="navbar__link">Game Dev</a>
       <a href="/blender" class="navbar__link">3D Modeling</a>
       
-      <button id="themeToggle" class="theme-toggle" aria-label="Toggle Dark Mode">
-        <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
-        <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
-      </button>
+      <ThemeToggle variant="nav" />
     </div>
 
-    <button class="navbar__menu-toggle" id="menuToggle" aria-label="Open navigation menu" aria-controls="navbarNav" aria-expanded="false">
-      <svg class="navbar__menu-icon" viewBox="0 0 28 28" aria-hidden="true" focusable="false">
-        <rect y="5" width="28" height="3" rx="1.5" fill="currentColor"/>
-        <rect y="12" width="28" height="3" rx="1.5" fill="currentColor"/>
-        <rect y="19" width="28" height="3" rx="1.5" fill="currentColor"/>
-      </svg>
-    </button>
+    <Hamburger />
   </nav>
 </header>
 
@@ -41,12 +39,16 @@
     top: 0;
     left: 0;
     width: 100%;
-    z-index: 1000; /* Pastikan selalu di atas background */
+    z-index: 1000;
     transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
   .navbar-wrapper--hidden {
     transform: translateY(-100%);
+  }
+
+  .navbar-wrapper--home {
+    display: none;
   }
 
   .navbar {
@@ -65,8 +67,7 @@
   }
 
   .navbar__logo svg { width: 40px; height: 40px; }
-  .navbar__nav { display: flex; gap: 32px; }
-
+  .navbar__nav { display: flex; gap: 32px; align-items: center; }
   .navbar__link {
     text-decoration: none;
     color: var(--text-secondary);
@@ -75,61 +76,27 @@
     transition: color 0.2s;
     padding: 0;
   }
-
   .navbar__link:hover, .navbar__link--active { color: var(--text-primary); }
-
   .navbar__link:focus-visible {
     outline: none;
     box-shadow: var(--focus-ring);
     border-radius: var(--radius-nav);
   }
 
-  .navbar__menu-toggle {
-    display: none;
-    background: none;
-    border: none;
-    cursor: pointer;
-    color: var(--text-primary);
-    padding: 0;
-    margin-left: var(--space-2);
-  }
-
-  .navbar__menu-icon {
-    width: 28px;
-    height: 28px;
-    display: block;
-    fill: var(--text-primary);
-  }
-
-  /* --- Toggle Button Styles --- */
-  .theme-toggle {
-    background: none;
-    border: none;
-    cursor: pointer;
-    color: var(--text-secondary);
-    padding: 0;
-    margin-left: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: color 0.2s ease;
-  }
-  .theme-toggle:hover { color: var(--text-primary); }
-  
-  :global([data-theme="light"]) .icon-sun { display: none; }
-  :global([data-theme="dark"]) .icon-moon { display: none; }
-  
-  /* === Mobile Media Queries untuk Navbar === */
+  /* === Mobile Media Queries === */
   @media (max-width: 768px) {
+    .navbar-wrapper--home { display: block; }
     .navbar { padding: 1rem 20px; }
-    .navbar__menu-toggle { display: block; }
+    
     .navbar__nav {
       display: none;
       position: absolute;
       top: 100%;
       left: 0;
       right: 0;
-      background: #fff;
+      background: var(--glass-bg);
+      backdrop-filter: blur(var(--glass-blur));
+      -webkit-backdrop-filter: blur(var(--glass-blur));
       flex-direction: column;
       padding: 20px;
       gap: 16px;
@@ -137,37 +104,33 @@
       text-align: center;
     }
     .navbar__nav--open { display: flex; }
-    .theme-toggle { margin-left: 0; padding: 8px 0; }
   }
 </style>
 
 <script>
-  // === LOGIC THEME & MOBILE MENU ===
-  const menuToggle = document.getElementById("menuToggle");
+  // === MOBILE MENU & SCROLL LOGIC ===
+  const menuCheckbox = document.getElementById("menuCheckbox") as HTMLInputElement;
+  const menuToggleWrapper = document.getElementById("menuToggleWrapper");
   const navbarNav = document.getElementById("navbarNav");
   const navbarWrapper = document.querySelector(".navbar-wrapper");
-  const themeToggle = document.getElementById("themeToggle");
 
-  if (themeToggle) {
-    themeToggle.addEventListener("click", () => {
-      const currentTheme = document.documentElement.getAttribute("data-theme");
-      const newTheme = currentTheme === "dark" ? "light" : "dark";
-      document.documentElement.setAttribute("data-theme", newTheme);
-      localStorage.setItem("theme", newTheme);
+  if (menuCheckbox && navbarNav && menuToggleWrapper) {
+    // Toggle menu saat checkbox berubah (diklik)
+    menuCheckbox.addEventListener("change", (e) => {
+      const isChecked = (e.target as HTMLInputElement).checked;
+      if (isChecked) {
+        navbarNav.classList.add("navbar__nav--open");
+      } else {
+        navbarNav.classList.remove("navbar__nav--open");
+      }
     });
-  }
 
-  if (menuToggle && navbarNav) {
-    menuToggle.addEventListener("click", () => {
-      const isExpanded = navbarNav.classList.toggle("navbar__nav--open");
-      menuToggle.setAttribute("aria-expanded", isExpanded ? "true" : "false");
-    });
+    // Menutup menu jika klik di luar area menu/burger
     document.addEventListener("click", (e) => {
       if (window.innerWidth < 768 && navbarNav.classList.contains("navbar__nav--open")) {
-        // @ts-ignore
-        if (!navbarNav.contains(e.target) && !menuToggle.contains(e.target)) {
+        if (!navbarNav.contains(e.target as Node) && !menuToggleWrapper.contains(e.target as Node)) {
           navbarNav.classList.remove("navbar__nav--open");
-          menuToggle.setAttribute("aria-expanded", "false");
+          menuCheckbox.checked = false; // Kembalikan animasi burger ke awal
         }
       }
     });
@@ -183,24 +146,24 @@
     function updateNavbar() {
       const currentScrollY = window.scrollY;
       const isMenuOpen = navbarNav?.classList.contains("navbar__nav--open");
-      
+
       if (isMenuOpen) {
         ticking = false;
         return;
       }
 
       if (currentScrollY > lastScrollY + SCROLL_TOLERANCE && currentScrollY > SCROLL_THRESHOLD) {
-        if (!navbarWrapper.classList.contains('navbar-wrapper--hidden')) {
-          navbarWrapper.classList.add('navbar-wrapper--hidden');
+        if (!navbarWrapper?.classList.contains('navbar-wrapper--hidden')) {
+          navbarWrapper?.classList.add('navbar-wrapper--hidden');
         }
       } else if (currentScrollY < lastScrollY - SCROLL_TOLERANCE) {
-        if (navbarWrapper.classList.contains('navbar-wrapper--hidden')) {
+        if (navbarWrapper?.classList.contains('navbar-wrapper--hidden')) {
           navbarWrapper.classList.remove('navbar-wrapper--hidden');
         }
       }
       
       if (currentScrollY < SCROLL_THRESHOLD) {
-        navbarWrapper.classList.remove('navbar-wrapper--hidden');
+        navbarWrapper?.classList.remove('navbar-wrapper--hidden');
       }
       
       lastScrollY = currentScrollY;

@@ -1,0 +1,118 @@
+---
+/* src/components/ThemeToggle.astro */
+import './ThemeToggle.css';
+
+interface Props {
+  variant?: "nav" | "home";
+}
+const { variant = "nav" } = Astro.props;
+---
+
+{variant === "nav" && (
+  <Fragment>
+    <div class="desktop-switch" id="desktopToggle">
+      <input type="radio" id="d-opt-dark" name="desktop-theme" value="dark">
+      <label for="d-opt-dark" class="switch-button" aria-label="Dark Mode">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M6 .278a.77.77 0 0 1 .08.858 7.2 7.2 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277q.792-.001 1.533-.16a.79.79 0 0 1 .81.316.73.73 0 0 1-.031.893A8.35 8.35 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.75.75 0 0 1 6 .278"/></svg>
+      </label>
+
+      <input type="radio" id="d-opt-light" name="desktop-theme" value="light">
+      <label for="d-opt-light" class="switch-button" aria-label="Light Mode">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><circle cx="12" cy="12" r="8" fill="currentColor"/><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2" stroke-dasharray="2 2"/></svg>
+      </label>
+      <div class="switch-card"><div class="card-face card-front"></div><div class="card-face card-back"></div></div>
+    </div>
+
+    <div class="mobile-switch-container">
+      <div class="original-switch" id="mobileToggle">
+        <input type="radio" id="m-opt-dark" name="mobile-theme" value="dark">
+        <input type="radio" id="m-opt-light" name="mobile-theme" value="light">
+        <label for="m-opt-dark" class="switch-button">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 16 16"><path d="M6 .278a.77.77 0 0 1 .08.858 7.2 7.2 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277q.792-.001 1.533-.16a.79.79 0 0 1 .81.316.73.73 0 0 1-.031.893A8.35 8.35 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.75.75 0 0 1 6 .278"/></svg>
+          <span>dark</span>
+        </label>
+        <label for="m-opt-light" class="switch-button">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><circle cx="12" cy="12" r="8" fill="currentColor"/><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2" stroke-dasharray="2 2"/></svg>
+          <span>light</span>
+        </label>
+        <div class="switch-card"><div class="card-face card-front"></div><div class="card-face card-back"></div></div>
+      </div>
+    </div>
+  </Fragment>
+)}
+
+{variant === "home" && (
+  <div class="home-toggle-wrapper" id="homeToggleWrapper">
+    <div class="original-switch" id="homeToggle">
+      <input type="radio" id="h-opt-dark" name="home-theme" value="dark">
+      <input type="radio" id="h-opt-light" name="home-theme" value="light">
+      <label for="h-opt-dark" class="switch-button">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 16 16"><path d="M6 .278a.77.77 0 0 1 .08.858 7.2 7.2 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277q.792-.001 1.533-.16a.79.79 0 0 1 .81.316.73.73 0 0 1-.031.893A8.35 8.35 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.75.75 0 0 1 6 .278"/></svg>
+        <span>dark</span>
+      </label>
+      <label for="h-opt-light" class="switch-button">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><circle cx="12" cy="12" r="8" fill="currentColor"/><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2" stroke-dasharray="2 2"/></svg>
+        <span>light</span>
+      </label>
+      <div class="switch-card"><div class="card-face card-front"></div><div class="card-face card-back"></div></div>
+    </div>
+  </div>
+)}
+
+<script>
+  const desktopToggle = document.getElementById("desktopToggle");
+  const mobileToggle = document.getElementById("mobileToggle");
+  const homeToggle = document.getElementById("homeToggle");
+  
+  const dDark = document.getElementById("d-opt-dark") as HTMLInputElement;
+  const dLight = document.getElementById("d-opt-light") as HTMLInputElement;
+  const mDark = document.getElementById("m-opt-dark") as HTMLInputElement;
+  const mLight = document.getElementById("m-opt-light") as HTMLInputElement;
+  const hDark = document.getElementById("h-opt-dark") as HTMLInputElement;
+  const hLight = document.getElementById("h-opt-light") as HTMLInputElement;
+
+  function syncAndApplyTheme(newTheme: string) {
+    document.documentElement.setAttribute("data-theme", newTheme);
+    localStorage.setItem("theme", newTheme);
+    
+    if(dDark && dLight) { dDark.checked = (newTheme === "dark"); dLight.checked = (newTheme === "light"); }
+    if(mDark && mLight) { mDark.checked = (newTheme === "dark"); mLight.checked = (newTheme === "light"); }
+    if(hDark && hLight) { hDark.checked = (newTheme === "dark"); hLight.checked = (newTheme === "light"); }
+  }
+
+  const currentTheme = document.documentElement.getAttribute("data-theme") || "light";
+  syncAndApplyTheme(currentTheme);
+
+  const applyFromEvent = (e: Event) => syncAndApplyTheme((e.target as HTMLInputElement).value);
+  
+  if (desktopToggle) desktopToggle.addEventListener("change", applyFromEvent);
+  if (mobileToggle) mobileToggle.addEventListener("change", applyFromEvent);
+  if (homeToggle) homeToggle.addEventListener("change", applyFromEvent);
+
+  // === Scroll Logic Khusus Varian Home ===
+  const homeToggleWrapper = document.getElementById("homeToggleWrapper");
+  if (homeToggleWrapper) {
+    let lastScrollY = window.scrollY;
+    let ticking = false;
+    const SCROLL_THRESHOLD = 50;
+
+    window.addEventListener("scroll", () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const currentScrollY = window.scrollY;
+          if (currentScrollY > lastScrollY && currentScrollY > SCROLL_THRESHOLD) {
+            homeToggleWrapper.classList.add('home-toggle-wrapper--hidden');
+          } else if (currentScrollY < lastScrollY) {
+            homeToggleWrapper.classList.remove('home-toggle-wrapper--hidden');
+          }
+          if (currentScrollY < SCROLL_THRESHOLD) {
+            homeToggleWrapper.classList.remove('home-toggle-wrapper--hidden');
+          }
+          lastScrollY = currentScrollY;
+          ticking = false;
+        });
+        ticking = true;
+      }
+    }, { passive: true });
+  }
+</script>

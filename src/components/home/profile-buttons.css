@@ -1,0 +1,85 @@
+/* src/components/home/profile-buttons.css */
+
+.Btn {
+  width: 60px; 
+  height: 60px; 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background-color: transparent;
+  position: relative;
+  border-radius: 10px; 
+  cursor: pointer;
+  transition: all 0.3s;
+  z-index: 1; 
+  text-decoration: none; 
+}
+
+.iconContainer {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  border-radius: 10px;
+  transition: all 0.3s;
+  border: 1px solid var(--glass-border); 
+  z-index: 2; 
+}
+
+.logo-img {
+  width: 34px; 
+  height: 34px; 
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  transition: all 0.3s;
+}
+
+/* Path diarahkan ke folder public/Imagery/icons/ Astro */
+.logo-wa { background-image: url('/Imagery/icons/WhatsApp_logo.webp'); }
+.logo-ig { background-image: url('/Imagery/icons/Instagram_logo.webp'); }
+.logo-gmail { background-image: url('/Imagery/icons/Gmail_logo.webp'); }
+
+.BG {
+  position: absolute;
+  content: "";
+  width: 100%;
+  height: 100%;
+  z-index: -1; 
+  border-radius: 9px;
+  pointer-events: none;
+  transition: all 0.3s;
+}
+
+.bg-wa {
+  background-color: #25D366; 
+}
+
+.bg-ig {
+  background-color: #FFFFFF; 
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1); 
+}
+
+.bg-gmail {
+  background-color: #E8F0FE; 
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1); 
+}
+
+.Btn:hover .BG {
+  transform: rotate(35deg);
+  transform-origin: bottom;
+}
+
+.Btn:hover .iconContainer {
+  background-color: rgba(255, 255, 255, 0.2); 
+  border-color: transparent;
+}
+
+.Btn:hover .iconContainer .logo-img {
+  transform: scale(1.1);
+}

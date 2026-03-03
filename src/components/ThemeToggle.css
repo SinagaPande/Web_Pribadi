@@ -1,0 +1,132 @@
+/* src/components/ThemeToggle.css */
+
+/* === TAMPILAN DESKTOP NAV (Kapsul Kecil) === */
+.desktop-switch {
+  --card-width: 36px;
+  --card-height: 32px;
+  display: flex; position: relative; width: calc(var(--card-width) * 2); height: var(--card-height);
+  background: var(--glass-bg); border-radius: 20px; border: 1px solid var(--glass-border);
+  box-shadow: inset 0 4px 8px rgba(0, 0, 0, 0.05);
+  backdrop-filter: blur(var(--glass-blur)); -webkit-backdrop-filter: blur(var(--glass-blur));
+  perspective: 1000px; margin-left: 8px;
+}
+.desktop-switch input { display: none; }
+.desktop-switch .switch-button {
+  flex: 1; display: flex; align-items: center; justify-content: center;
+  cursor: pointer; z-index: 2; color: var(--text-secondary); transition: color 0.3s;
+}
+.desktop-switch .switch-button:hover,
+.desktop-switch input:checked + .switch-button { color: var(--text-primary); }
+
+.desktop-switch .switch-card {
+  position: absolute; top: 0; left: 0; width: var(--card-width); height: var(--card-height);
+  z-index: 1; transform-style: preserve-3d;
+}
+.desktop-switch .card-face {
+  position: absolute; width: 100%; height: 100%; border-radius: 20px;
+  background: var(--glass-bg-hover); border: 1px solid var(--glass-border);
+  box-shadow: var(--shadow-soft); backface-visibility: hidden; -webkit-backface-visibility: hidden;
+}
+.desktop-switch .card-back { transform: rotateY(180deg); }
+
+.desktop-switch #d-opt-light:checked ~ .switch-card { animation: flipRight 0.5s cubic-bezier(0.76, 0, 0.24, 1) forwards; }
+.desktop-switch #d-opt-dark:checked ~ .switch-card { animation: flipLeft 0.5s cubic-bezier(0.76, 0, 0.24, 1) forwards; }
+
+/* === TAMPILAN ORISINAL (Besar & Bewarna - Dipakai Mobile Nav & Floating Home) === */
+.original-switch {
+  --card-width: 110px;
+  --card-height: 120px;
+  --switch-bg: rgba(255, 255, 255, 0.1);
+  --switch-border-color: rgba(255, 255, 255, 0.2);
+  --text-color: #ffffff;
+  --inactive-text-color: rgba(255, 255, 255, 0.6);
+  --icon-shadow-color: rgba(0, 0, 0, 0.3);
+  --card-bg: linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.1));
+  --highlight-color: #64ffda;
+
+  display: flex; position: relative; width: calc(var(--card-width) * 2); height: var(--card-height);
+  background: var(--switch-bg); border-radius: 20px; border: 1px solid var(--switch-border-color);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37), inset 0 4px 8px rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); perspective: 1000px;
+  font-family: "Poppins", sans-serif;
+}
+.original-switch input { display: none; }
+.original-switch .switch-button {
+  flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 8px; cursor: pointer; z-index: 2; color: var(--inactive-text-color); transition: all 0.3s ease; position: relative;
+}
+.original-switch .switch-button span { font-size: 14px; font-weight: 500; letter-spacing: 0.5px; text-transform: lowercase; }
+.original-switch .switch-button:hover { color: var(--text-color); }
+.original-switch .switch-button:hover svg { transform: translateY(-3px); filter: drop-shadow(0 4px 6px var(--icon-shadow-color)) brightness(1.2); }
+.original-switch .switch-button svg { transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1); filter: drop-shadow(0 2px 3px var(--icon-shadow-color)); width: 24px; height: 24px; }
+
+/* Warna & Glow Effect */
+.original-switch input[value="dark"]:checked ~ [for$="-dark"] { color: #ffffff; text-shadow: 0 0 8px rgba(100, 255, 218, 0.5); }
+.original-switch input[value="dark"]:checked ~ [for$="-dark"] svg { color: #ffffff; }
+.original-switch input[value="light"]:checked ~ [for$="-light"] { color: #ffeb00; text-shadow: 0 0 8px rgba(255, 188, 0, 0.5); }
+.original-switch input[value="light"]:checked ~ [for$="-light"] svg { color: #ffeb00; }
+
+.original-switch input[value="dark"]:checked ~ [for$="-dark"]::after,
+.original-switch input[value="light"]:checked ~ [for$="-light"]::after {
+  content: ""; position: absolute; bottom: -5px; width: 30px; height: 3px; border-radius: 2px; animation: glow 1.5s infinite alternate;
+}
+.original-switch input[value="dark"]:checked ~ [for$="-dark"]::after { background: rgba(100, 255, 218, 0.5); box-shadow: 0 0 8px rgba(100, 255, 218, 0.5); }
+.original-switch input[value="light"]:checked ~ [for$="-light"]::after { background: #ffbc00; box-shadow: 0 0 8px #ffbc00; }
+
+.original-switch .switch-card {
+  position: absolute; top: 0; left: 0; width: var(--card-width); height: var(--card-height); z-index: 1; transform-style: preserve-3d;
+}
+.original-switch .card-face {
+  position: absolute; width: 100%; height: 100%; border-radius: 20px;
+  background: var(--card-bg); border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2), inset 0 2px 4px rgba(255, 255, 255, 0.1);
+  backface-visibility: hidden; -webkit-backface-visibility: hidden;
+}
+.original-switch .card-back { transform: rotateY(180deg); }
+
+.original-switch input[value="light"]:checked ~ .switch-card { animation: flipRight 0.6s cubic-bezier(0.76, 0, 0.24, 1) forwards; }
+.original-switch input[value="dark"]:checked ~ .switch-card { animation: flipLeft 0.6s cubic-bezier(0.76, 0, 0.24, 1) forwards; }
+
+/* === WADAH UNTUK MOBILE NAV === */
+.mobile-switch-container { display: none; width: 100%; justify-content: center; margin-top: 1rem; }
+
+/* === WADAH UNTUK FLOATING HOME === */
+.home-toggle-wrapper {
+  position: fixed;
+  top: 32px;
+  right: 32px;
+  z-index: 1000;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease;
+  transform: translateY(0);
+}
+.home-toggle-wrapper--hidden {
+  transform: translateY(-150%);
+  opacity: 0;
+}
+
+/* === ANIMASI & MEDIA QUERY === */
+@keyframes flipRight {
+  0% { transform: translateX(0%) rotateY(0deg); }
+  50% { transform: translateX(50%) rotateY(90deg) scale(1.05); }
+  100% { transform: translateX(100%) rotateY(180deg) scale(1); }
+}
+@keyframes flipLeft {
+  0% { transform: translateX(100%) rotateY(180deg); }
+  50% { transform: translateX(50%) rotateY(90deg) scale(1.05); }
+  100% { transform: translateX(0%) rotateY(0deg) scale(1); }
+}
+@keyframes glow {
+  from { box-shadow: 0 0 5px var(--highlight-color); }
+  to { box-shadow: 0 0 15px var(--highlight-color), 0 0 25px var(--highlight-color); }
+}
+
+/* Ganti blok media query ini di bagian paling bawah ThemeToggle.css */
+@media (max-width: 768px) {
+  .desktop-switch { display: none; }
+  .mobile-switch-container { display: flex; }
+  
+  /* Sembunyikan floating toggle di mobile agar tidak bertumpuk dengan Navbar burger */
+  .home-toggle-wrapper {
+    display: none; 
+  }
+}
