@@ -12,11 +12,7 @@ const { isHome = false } = Astro.props;
 <header class:list={["navbar-wrapper", { "navbar-wrapper--home": isHome }]}>
   <nav class="navbar" id="mainNav" aria-label="Main navigation">
     <a href="/" class="navbar__logo" aria-label="Jonathan Sinaga Logo">
-      <svg viewBox="0 0 36 36" fill="none" aria-hidden="true" focusable="false">
-        <rect x="6" y="6" width="24" height="24" rx="8" fill="#18181b"/>
-        <path d="M13 13v10h10V13" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
-        <path d="M13 13h10" stroke="#fff" stroke-width="2.2" stroke-linecap="round"/>
-      </svg>
+      <img src="/Imagery/icons/INGENTI_logo.webp" alt="INGENTI Logo" />
     </a>
     
     <div class="navbar__nav" id="navbarNav">
@@ -66,7 +62,14 @@ const { isHome = false } = Astro.props;
     box-sizing: border-box;
   }
 
-  .navbar__logo svg { width: 40px; height: 40px; }
+  /* Styling untuk logo img agar pas dan bersih di navbar */
+  .navbar__logo img { 
+    width: 40px; 
+    height: 40px; 
+    object-fit: contain; /* Menjaga proporsi asli tanpa distorsi */
+    display: block;
+  }
+  
   .navbar__nav { display: flex; gap: 32px; align-items: center; }
   .navbar__link {
     text-decoration: none;
@@ -115,7 +118,6 @@ const { isHome = false } = Astro.props;
   const navbarWrapper = document.querySelector(".navbar-wrapper");
 
   if (menuCheckbox && navbarNav && menuToggleWrapper) {
-    // Toggle menu saat checkbox berubah (diklik)
     menuCheckbox.addEventListener("change", (e) => {
       const isChecked = (e.target as HTMLInputElement).checked;
       if (isChecked) {
@@ -125,18 +127,16 @@ const { isHome = false } = Astro.props;
       }
     });
 
-    // Menutup menu jika klik di luar area menu/burger
     document.addEventListener("click", (e) => {
       if (window.innerWidth < 768 && navbarNav.classList.contains("navbar__nav--open")) {
         if (!navbarNav.contains(e.target as Node) && !menuToggleWrapper.contains(e.target as Node)) {
           navbarNav.classList.remove("navbar__nav--open");
-          menuCheckbox.checked = false; // Kembalikan animasi burger ke awal
+          menuCheckbox.checked = false;
         }
       }
     });
   }
 
-  // === Hide-on-Scroll Logic ===
   if (navbarWrapper) {
     let lastScrollY = window.scrollY;
     let ticking = false;

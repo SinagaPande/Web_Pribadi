@@ -6,12 +6,12 @@
   <div class="hero__container">
     <div class="hero__text">
       <p class="hero__subtitle">Jonathan Sinaga | 3D Modeling & Game Development</p>
-<h1 class="hero__title">
-  Developing Skills in
-  <span class="typewriter-wrapper">
-    <span class="typewriter-text"></span>
-  </span>
-</h1>
+      <h1 class="hero__title">
+        Developing Skills in
+        <span class="typewriter-wrapper">
+          <span class="typewriter-text"></span>
+        </span>
+      </h1>
     </div>
 
     <div class="hero__visual">
@@ -33,13 +33,12 @@
 </section>
 
 <style>
-  /* Import Font Terminal dari Google Fonts */
   @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
-
+  
   /* === HERO SECTION STYLES === */
   .hero {
     position: relative;
-    min-height: calc(100vh - 120px); 
+    min-height: calc(100vh - 120px);
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -54,8 +53,7 @@
     align-items: center;
     justify-content: space-between;
     width: 100%;
-    /* 1. Max-width diperbesar agar teks lebih ke kiri & logo lebih ke kanan */
-    max-width: 1250px; 
+    max-width: 1250px;
     gap: 40px;
     padding: 0 20px;
     z-index: 1;
@@ -78,8 +76,7 @@
   }
 
   .hero__title {
-    /* 2. Ukuran teks desktop diperbesar */
-    font-size: 4rem; 
+    font-size: 4rem;
     font-weight: 800;
     color: var(--text-primary);
     line-height: 1.3;
@@ -93,49 +90,59 @@
   }
 
   .typewriter-text {
-    /* Menerapkan gaya visual teks hijau neon */
     font-family: 'VT323', monospace, sans-serif;
-    color: #3f3; /* Warna hijau hacker */
-    text-shadow: 0 0 5px rgba(51, 255, 51, 0.75); /* Efek glow/cahaya */
+    color: #3f3; 
+    text-shadow: 0 0 5px rgba(51, 255, 51, 0.75);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     position: relative;
-    /* Menyesuaikan ukuran font karena font VT323 biasanya terlihat lebih kecil */
-    font-size: 1.15em; 
+    font-size: 1.15em;
   }
 
-  /* Mengubah kursor dari garis tipis menjadi kotak tebal (Block Cursor) */
   .typewriter-text::after {
-    content: "​"; /* Karakter kosong untuk menjaga tinggi elemen */
+    content: "​";
     position: absolute;
     right: -18px;
     top: 10%;
     height: 80%;
-    /* Menggunakan border-right sebagai kursor kotak */
-    border-right: 14px solid rgba(51, 255, 51, 0.75); 
-    box-shadow: 2px 0 5px rgba(51, 255, 51, 0.5); /* Glow pada kursor */
+    border-right: 14px solid rgba(51, 255, 51, 0.75);
+    box-shadow: 2px 0 5px rgba(51, 255, 51, 0.5); 
     animation: beam-blink 1s step-end infinite;
   }
 
-  /* Animasi kedip khusus untuk kursor kotak */
   @keyframes beam-blink {
     0%, 100% { border-color: rgba(51, 255, 51, 0.75); box-shadow: 2px 0 5px rgba(51, 255, 51, 0.5); }
     50% { border-color: transparent; box-shadow: none; }
   }
 
+  /* PENEGASAN RESET CSS PADA PEMBUNGKUS LOGO */
   .hero__visual {
     flex: 1;
     display: flex;
     justify-content: flex-end;
+    background: transparent !important;
+    box-shadow: none !important;
+    border: none !important;
   }
 
+  /* PENEGASAN RESET CSS PADA IMG LOGO */
   .hero__logo {
-    /* 4. Ukuran logo desktop diperbesar */
-    width: 550px; 
+    width: 550px;
     max-width: 100%;
     height: auto;
-    filter: var(--logo-glow);
-    transition: filter 0.5s ease, transform 0.3s ease;
+    object-fit: contain;
+    
+    /* Reset paksa efek card yang bocor */
+    background: transparent !important;
+    box-shadow: none !important;
+    border: none !important;
+    border-radius: 0 !important;
+    padding: 0 !important;
+    filter: none !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    
+    transition: transform 0.3s ease;
   }
 
   .hero__logo:hover {
@@ -172,34 +179,12 @@
       text-align: center;
       gap: 32px;
     }
-
-    .hero__text {
-      text-align: center;
-    }
-
-    .hero__subtitle {
-      font-size: 0.8rem;
-      white-space: normal;
-    }
-
-    .hero__title {
-      /* 5. Ukuran teks mobile diperbesar */
-      font-size: 2.75rem; 
-    }
-
-    .typewriter-wrapper {
-      /* 6. Kunci tinggi untuk 2 baris di mobile */
-      height: 3em; 
-    }
-
-    .hero__visual {
-      justify-content: center;
-    }
-    
-    .hero__logo {
-      /* 7. Ukuran logo mobile diperbesar */
-      width: 350px; 
-    }
+    .hero__text { text-align: center; }
+    .hero__subtitle { font-size: 0.8rem; white-space: normal; }
+    .hero__title { font-size: 2.75rem; }
+    .typewriter-wrapper { height: 3em; }
+    .hero__visual { justify-content: center; }
+    .hero__logo { width: 350px; }
   }
 </style>
 

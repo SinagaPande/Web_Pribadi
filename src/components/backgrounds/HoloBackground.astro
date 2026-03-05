@@ -1,0 +1,32 @@
+---
+// src/components/backgrounds/HoloBackground.astro
+import './HoloBackground.css';
+---
+
+<div id="hologram-bg" aria-hidden="true">
+  <div class="grid-plane"></div>
+
+  <div class="holo-numbers">
+    <div class="number" style="top: 15%; left: 10%; animation-delay: 0.5s;">0xFF</div>
+    <div class="number" style="top: 80%; left: 85%; animation-delay: 2.0s;">0x0A</div>
+    <div class="number" style="top: 85%; left: 15%; animation-delay: 3.5s;">0xB4</div>
+    <div class="number" style="top: 25%; left: 80%; animation-delay: 5.0s;">0x3D</div>
+    <div class="number" style="top: 45%; left: 5%; animation-delay: 1.5s;">0xC2</div>
+    <div class="number" style="top: 60%; left: 90%; animation-delay: 4.5s;">0x19</div>
+    <div class="number" style="top: 10%; left: 50%; animation-delay: 6.0s;">0x7E</div>
+    <div class="number" style="top: 90%; left: 45%; animation-delay: 2.5s;">0xA1</div>
+  </div>
+
+  <div class="loader-container">
+    <div class="code-lines">
+      <div class="code-line">01001001 01001110 01001001 01010100 01001001 01000001 01001100 01001001 01011010 01001001 01001110 01000111</div>
+      <div class="code-line">HeyAntekAntekAsing HeyAntekAntekAsing HeyAntekAntekAsing HeyAntekAntekAsing</div>
+      <div class="code-line">01010011 01011001 01010011 01010100 01000101 01001101 00100000 01001100 01001111 01000001 01000100 01001001 01001110 01000111</div>
+      <div class="code-line">HidupJokowi!!! HidupJokowi!!! HidupJokowi!!! HidupJokowi!!!</div>
+      <div class="code-line">19000000LapanganPekerjaan 19000000LapanganPekerjaan 19000000LapanganPekerjaan 19000000LapanganPekerjaan 19000000LapanganPekerjaan</div>
+      <div class="code-line">01010000 01010010 01001111 01000011 01000101 01010011 01010011 01001001 01001110 01000111 00100000 01000100 01000001 01010100 01000001</div>
+      <div class="code-line">19 JT Tapi Boong Pal Pale Pal Pale Pale 19 JT Tapi Boong Pal Pale Pal Pale Pale</div>
+      <div class="code-line">{"async function loadHolographicData() { await fetch('/api/quantum'); }"}</div>
+    </div>
+  </div>
+</div>
