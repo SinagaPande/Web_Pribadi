@@ -3,19 +3,40 @@
 import type { BlenderProject } from './_blenderData';
 
 type Props = BlenderProject;
-
-const { id, title, description, mainImageSrc, mainImageAlt, wireframes } = Astro.props;
+const { id, title, description, mainImageSrc, mainImageAlt, modelSrc, wireframes } = Astro.props;
 ---
 
 <div class="card-wrapper" id={id}>
-  <div class="card">
+  <div class={`card ${modelSrc ? 'has-3d' : ''}`} data-model-src={modelSrc}>
     <div class="card-content">
-      <img src={mainImageSrc} alt={mainImageAlt} class="main-image" loading="lazy" />
+      
+      <div class="image-container">
+        <img src={mainImageSrc} alt={mainImageAlt} class="main-image" loading="lazy" />
+        
+        {modelSrc && (
+          <>
+            <model-viewer 
+              class="model-preview"
+              auto-rotate 
+              rotation-per-second="30deg"
+              interaction-prompt="none"
+              shadow-intensity="1"
+              exposure="1">
+            </model-viewer>
+            <div class="hint-badge">
+              <span>&#x1F4E6; Klik untuk 3D Penuh</span>
+            </div>
+          </>
+        )}
+      </div>
+
       <div class="text-content">
         <h1>{title}</h1>
         <p>{description}</p>
       </div>
+      
     </div>
+    
     <button class="toggle-button down" aria-expanded="false">&#x25BC; Detail</button>
   </div>
 
@@ -59,6 +80,10 @@ const { id, title, description, mainImageSrc, mainImageAlt, wireframes } = Astro
     z-index: 1; 
   }
 
+  .card.has-3d {
+    cursor: pointer; /* Memberi sinyal bahwa seluruh card bisa diklik */
+  }
+
   .card:hover {
     transform: translateY(-5px);
     box-shadow: var(--shadow-hover);
@@ -74,11 +99,66 @@ const { id, title, description, mainImageSrc, mainImageAlt, wireframes } = Astro
     margin-bottom: var(--space-3);
   }
 
-  .main-image {
+  /* === IMAGE & 3D PREVIEW LAYOUT === */
+  .image-container {
     max-width: 60%;
-    height: auto;
     flex-shrink: 0;
+    position: relative;
     border-radius: 12px;
+  }
+
+  .main-image {
+    width: 100%;
+    height: auto;
+    border-radius: 12px;
+    display: block;
+    transition: opacity 0.5s ease;
+  }
+
+  .model-preview {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    pointer-events: none; /* Meneruskan klik ke bawah (ke card) */
+    transition: opacity 0.5s ease;
+    --poster-color: transparent;
+  }
+
+  .hint-badge {
+    position: absolute;
+    bottom: 12px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(4px);
+    color: #fff;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    white-space: nowrap;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    z-index: 10;
+  }
+
+  /* Animasi Transisi Saat Preview Aktif */
+  .card.is-previewing .main-image {
+    opacity: 0;
+  }
+  .card.is-previewing .model-preview,
+  .card.is-previewing .hint-badge {
+    opacity: 1;
+  }
+
+  /* === TEXT & BUTTONS === */
+  .text-content {
+    flex: 1;
   }
 
   .text-content h1 {
@@ -103,7 +183,7 @@ const { id, title, description, mainImageSrc, mainImageAlt, wireframes } = Astro
     font-size: 0.95rem;
     font-weight: 600;
     cursor: pointer;
-    color: var(--text-primary);
+    color: #18181B; 
     margin-top: var(--space-2);
     transition: 0.3s ease;
     align-self: center;
@@ -111,6 +191,8 @@ const { id, title, description, mainImageSrc, mainImageAlt, wireframes } = Astro
     align-items: center;
     gap: 6px;
     box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    position: relative;
+    z-index: 2; /* Agar klik tombol tidak men-trigger card lightbox */
   }
 
   .toggle-button:hover {
@@ -129,16 +211,14 @@ const { id, title, description, mainImageSrc, mainImageAlt, wireframes } = Astro
     z-index: 1;       
     position: relative;
     width: 96%;
-    background: var(--glass-bg); 
+    background: var(--glass-bg);
     border: 1px solid rgba(255, 255, 255, 0.4);
     border-radius: var(--radius-card); 
     padding: 20px;
     box-shadow: var(--shadow-soft);
   }
 
-  .hidden {
-    display: none !important;
-  }
+  .hidden { display: none !important; }
 
   /* === SCAN/MASK ANIMATION === */
   .transition-wrapper {
@@ -155,7 +235,7 @@ const { id, title, description, mainImageSrc, mainImageAlt, wireframes } = Astro
 
   .transition-wrapper.square {
     aspect-ratio: 1 / 1; 
-    max-width: 500px;    
+    max-width: 500px;
   }
 
   .transition-wrapper img {
@@ -181,22 +261,10 @@ const { id, title, description, mainImageSrc, mainImageAlt, wireframes } = Astro
 
   /* Responsiveness */
   @media (max-width: 768px) {
-    .card-content {
-      flex-direction: column;
-      text-align: center;
-      gap: var(--space-3);
-    }
-    .main-image {
-      max-width: 100%;
-      margin-bottom: var(--space-1);
-    }
+    .card-content { flex-direction: column; text-align: center; gap: var(--space-3); }
+    .image-container { max-width: 100%; margin-bottom: var(--space-1); }
     .text-content h1 { font-size: 1.5rem; }
-    .additional-images {
-      width: 100%;
-      margin-top: var(--space-2);
-      border-radius: var(--radius-card);
-      border-top: 1px solid rgba(255, 255, 255, 0.4);
-    }
+    .additional-images { width: 100%; margin-top: var(--space-2); border-radius: var(--radius-card); border-top: 1px solid rgba(255, 255, 255, 0.4); }
   }
 
   @media (max-width: 480px) {
@@ -206,60 +274,99 @@ const { id, title, description, mainImageSrc, mainImageAlt, wireframes } = Astro
 </style>
 
 <script>
-  // Script ini dieksekusi sekali di level client, tapi menggunakan event delegation
-  // sehingga satu script mengatur semua komponen kartu yang dirender.
-  const animationIntervals = new Map();
+  // === LOGIKA INTERSECTION OBSERVER & ANIMASI DETAIL ===
+  document.addEventListener("DOMContentLoaded", () => {
+    
+    // 1. Observer untuk Preview 3D
+    const timers = new Map();
+    const observerOptions = {
+      root: null,
+      rootMargin: '0px',
+      threshold: 0.6 // Card harus terlihat 60%
+    };
 
-  document.addEventListener("click", (event) => {
-    // @ts-ignore
-    const btn = event.target.closest(".toggle-button");
-    if (!btn) return;
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        const card = entry.target;
+        
+        if (entry.isIntersecting) {
+          // Jika masuk viewport, mulai timer 2 detik
+          const timer = setTimeout(() => {
+            const modelViewer = card.querySelector('.model-preview');
+            const src = card.getAttribute('data-model-src');
+            
+            // Injeksi source jika belum ada agar mulai load
+            if (modelViewer && src && !modelViewer.hasAttribute('src')) {
+              modelViewer.setAttribute('src', src);
+            }
+            card.classList.add('is-previewing');
+          }, 1000);
+          timers.set(card, timer);
+        } else {
+          // Batalkan timer jika scroll lewat cepat
+          if (timers.has(card)) {
+            clearTimeout(timers.get(card));
+            timers.delete(card);
+          }
+          // Kembalikan ke gambar saat keluar viewport
+          card.classList.remove('is-previewing');
+        }
+      });
+    }, observerOptions);
 
-    const cardWrapper = btn.closest(".card-wrapper");
-    if (!cardWrapper) return;
+    // Observasi semua card yang memiliki model 3D
+    document.querySelectorAll('.card[data-model-src]').forEach(card => {
+      observer.observe(card);
+    });
 
-    const additionalImages = cardWrapper.querySelector(".additional-images");
-    const downButton = cardWrapper.querySelector(".toggle-button.down");
+    // 2. Event Delegation untuk Tombol Detail (Sama seperti sebelumnya)
+    const animationIntervals = new Map();
+    document.addEventListener("click", (event) => {
+      // @ts-ignore
+      const btn = event.target.closest(".toggle-button");
+      if (!btn) return;
 
-    if (!additionalImages) return;
+      const cardWrapper = btn.closest(".card-wrapper");
+      if (!cardWrapper) return;
 
-    // Logic: Open Detail
-    if (btn.classList.contains("down")) {
-      additionalImages.classList.remove("hidden");
-      btn.classList.add("hidden");
-      btn.setAttribute("aria-expanded", "true");
-      startAnimation(cardWrapper);
-    }
-    // Logic: Close Detail
-    else if (btn.classList.contains("up")) {
-      additionalImages.classList.add("hidden");
-      if (downButton) {
-        downButton.classList.remove("hidden");
-        downButton.setAttribute("aria-expanded", "false");
+      const additionalImages = cardWrapper.querySelector(".additional-images");
+      const downButton = cardWrapper.querySelector(".toggle-button.down");
+
+      if (!additionalImages) return;
+
+      if (btn.classList.contains("down")) {
+        additionalImages.classList.remove("hidden");
+        btn.classList.add("hidden");
+        btn.setAttribute("aria-expanded", "true");
+        startAnimation(cardWrapper);
+      } else if (btn.classList.contains("up")) {
+        additionalImages.classList.add("hidden");
+        if (downButton) {
+          downButton.classList.remove("hidden");
+          downButton.setAttribute("aria-expanded", "false");
+        }
+        stopAnimation(cardWrapper);
       }
-      stopAnimation(cardWrapper);
+    });
+
+    function startAnimation(cardWrapper) {
+      const wrappers = cardWrapper.querySelectorAll(".transition-wrapper");
+      if (wrappers.length === 0) return;
+
+      wrappers.forEach((wrapper) => wrapper.classList.toggle("show-wireframe"));
+      const intervalId = setInterval(() => {
+        wrappers.forEach((wrapper) => wrapper.classList.toggle("show-wireframe"));
+      }, 4000);
+      animationIntervals.set(cardWrapper, intervalId);
+    }
+
+    function stopAnimation(cardWrapper) {
+      if (animationIntervals.has(cardWrapper)) {
+        clearInterval(animationIntervals.get(cardWrapper));
+        animationIntervals.delete(cardWrapper);
+      }
+      const wrappers = cardWrapper.querySelectorAll(".transition-wrapper");
+      wrappers.forEach((wrapper) => wrapper.classList.remove("show-wireframe"));
     }
   });
-
-  function startAnimation(cardWrapper) {
-    const wrappers = cardWrapper.querySelectorAll(".transition-wrapper");
-    if (wrappers.length === 0) return;
-
-    wrappers.forEach((wrapper) => wrapper.classList.toggle("show-wireframe"));
-
-    const intervalId = setInterval(() => {
-      wrappers.forEach((wrapper) => wrapper.classList.toggle("show-wireframe"));
-    }, 4000);
-
-    animationIntervals.set(cardWrapper, intervalId);
-  }
-
-  function stopAnimation(cardWrapper) {
-    if (animationIntervals.has(cardWrapper)) {
-      clearInterval(animationIntervals.get(cardWrapper));
-      animationIntervals.delete(cardWrapper);
-    }
-    const wrappers = cardWrapper.querySelectorAll(".transition-wrapper");
-    wrappers.forEach((wrapper) => wrapper.classList.remove("show-wireframe"));
-  }
 </script>

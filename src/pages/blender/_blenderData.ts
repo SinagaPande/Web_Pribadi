@@ -5,7 +5,7 @@ export interface WireframePair {
   normalAlt: string;
   wireframeSrc: string;
   wireframeAlt: string;
-  isSquare?: boolean; // Opsional, khusus untuk gambar rasio 1:1
+  isSquare?: boolean;
 }
 
 export interface BlenderProject {
@@ -14,6 +14,7 @@ export interface BlenderProject {
   description: string;
   mainImageSrc: string;
   mainImageAlt: string;
+  modelSrc?: string; // Properti ini akan membaca file gltf
   wireframes: WireframePair[];
 }
 
@@ -24,6 +25,7 @@ export const blenderProjects: BlenderProject[] = [
     description: "A detailed 3D model of the legendary Mitsubishi L300 pickup. Focused on automotive hard surface techniques, accurate vehicle proportions, and realistic shading using Blender.",
     mainImageSrc: "/Imagery/projects/blender/l300/L300_Tampak_Depan_Kanan.webp",
     mainImageAlt: "3D Model of Mitsubishi L300 Pickup",
+    modelSrc: "/3D_Asset/L300/L300.gltf", // Path diperbarui
     wireframes: [
       {
         normalSrc: "/Imagery/projects/blender/l300/L300_Tampak_Belakang_Kanan.webp",
@@ -51,6 +53,7 @@ export const blenderProjects: BlenderProject[] = [
     description: "Studi pemodelan organik detail dari Buah Kelapa Sawit. Fokus pada pembentukan geometri alami buah, tekstur organik, dan topologi yang rapi (quad-based topology).",
     mainImageSrc: "/Imagery/projects/blender/sawit/Sawit_Tampak_Depan.webp",
     mainImageAlt: "3D Model Buah Sawit",
+    modelSrc: "/3D_Asset/Sawit/Buah_Sawit.gltf", // Path ditambahkan
     wireframes: [
       {
         normalSrc: "/Imagery/projects/blender/sawit/Sawit_Tampak_Depan_Kanan.webp",
@@ -80,6 +83,7 @@ export const blenderProjects: BlenderProject[] = [
     description: "Model kendaraan taktis militer High Mobility Multipurpose Wheeled Vehicle. Detail chassis lengkap dengan 5 sudut pandang (Depan, Samping Kanan/Kiri, Belakang Kanan/Kiri).",
     mainImageSrc: "/Imagery/projects/blender/HMMWV/HMMWV_Tampak_Depan_Kanan.webp",
     mainImageAlt: "3D Model HMMWV",
+    modelSrc: "/3D_Asset/HMMWV/HMMWV.gltf", // Path ditambahkan
     wireframes: [
       {
         normalSrc: "/Imagery/projects/blender/HMMWV/HMMWV_Tampak_Samping_Kanan.webp",
@@ -119,6 +123,7 @@ export const blenderProjects: BlenderProject[] = [
     description: "Rekreasi senjata ikonik M16A1 dengan topologi efisien.",
     mainImageSrc: "/Imagery/projects/blender/m16a1/M16A1_Tampak_Depan_Kanan.webp",
     mainImageAlt: "3D Model M16A1",
+    modelSrc: "/3D_Asset/M16A1/M16A1.gltf", // Path ditambahkan
     wireframes: [
       {
         normalSrc: "/Imagery/projects/blender/m16a1/M16A1_Tampak_Samping.webp",
@@ -146,6 +151,7 @@ export const blenderProjects: BlenderProject[] = [
     description: "Model 3D AKM dengan detail stamped receiver dan popor kayu.",
     mainImageSrc: "/Imagery/projects/blender/akm/AKM_Tampak_Depan_Kanan.webp",
     mainImageAlt: "3D Model AKM",
+    modelSrc: "/3D_Asset/AKM/AKM.gltf", // Path ditambahkan
     wireframes: [
       {
         normalSrc: "/Imagery/projects/blender/akm/AKM_Tampak_Samping.webp",

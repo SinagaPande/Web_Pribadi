@@ -3,6 +3,7 @@
 import MainLayout from "../../layouts/MainLayout.astro";
 import PortfolioCard from "./_PortfolioCard.astro";
 import { blenderProjects } from "./_blenderData";
+import ModelLightbox from "./_ModelLightbox.astro"; // Import Lightbox
 ---
 
 <MainLayout title="3D Modeling Portfolio | Jonathan Sinaga">
@@ -18,9 +19,70 @@ import { blenderProjects } from "./_blenderData";
       ))}
     </div>
   </section>
+
+  <ModelLightbox />
 </MainLayout>
 
+// ... (Bagian atas HTML tetap sama) ...
+
+// ... (Bagian atas HTML tetap sama) ...
+
+<script>
+  // Script Logika Lightbox Penuh
+  document.addEventListener('DOMContentLoaded', () => {
+    const overlay = document.getElementById('lightbox-overlay');
+    const modelViewer = document.getElementById('lightbox-model');
+    const closeBtn = document.getElementById('lightbox-close');
+
+    if (!overlay || !modelViewer || !closeBtn) return;
+
+    // Event Buka Lightbox (Klik seluruh area Card)
+    document.addEventListener('click', (e) => {
+      // Pengecualian: Abaikan jika yang diklik adalah tombol Detail atau elemen tambahan di bawahnya
+      // @ts-ignore
+      if (e.target.closest('.toggle-button') || e.target.closest('.additional-images')) return;
+
+      // @ts-ignore
+      const card = e.target.closest('.card[data-model-src]'); 
+      if (!card) return;
+
+      const src = card.getAttribute('data-model-src');
+      if (src) {
+        modelViewer.setAttribute('src', src);
+        overlay.classList.remove('lightbox-hidden');
+        document.body.style.overflow = 'hidden'; 
+        document.body.classList.add('lightbox-active'); // CSS State untuk menyembunyikan footer
+      }
+    });
+
+    // Fungsi Tutup Lightbox
+    const closeLightbox = () => {
+      overlay.classList.add('lightbox-hidden');
+      document.body.classList.remove('lightbox-active'); 
+      setTimeout(() => {
+        modelViewer.removeAttribute('src'); 
+      }, 300); 
+      document.body.style.overflow = ''; 
+    };
+
+    // Event Tutup Lightbox
+    closeBtn.addEventListener('click', closeLightbox);
+    overlay.addEventListener('click', (e) => {
+      if (e.target === overlay) closeLightbox();
+    });
+  });
+</script>
+
 <style>
+  /* === STATE: LIGHTBOX ACTIVE === */
+  /* Menyembunyikan elemen yang z-indexnya menembus */
+  :global(body.lightbox-active footer),
+  :global(body.lightbox-active .additional-images) {
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+  }
+
   /* === PORTFOLIO HEADER STYLING === */
   .portfolio-section {
     width: 100%;

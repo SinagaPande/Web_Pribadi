@@ -20,7 +20,10 @@
   --color-3d: rgba(234, 118, 0, 0.6);
   --color-game: rgba(71, 140, 191, 0.6);
 
-  --footer: #18181B;
+  /* --- MODIFIKASI: Footer Light Mode --- */
+  --footer: #ffffff;
+  --footer-text: #18181B; 
+  
   --radius-card: 24px;
   --transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
   
@@ -51,7 +54,10 @@
   --glass-blur: 24px;
   --shadow-soft: 0 10px 40px -10px rgba(0,0,0,0.6);
   --shadow-hover: 0 20px 50px -12px rgba(0,0,0,0.9);
-  --footer: #08090A;
+  
+  /* --- MODIFIKASI: Footer Dark Mode --- */
+  --footer: #191E2A;
+  --footer-text: #ffffff;
 
   --card-img-filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.4));
   --logo-glow: drop-shadow(0 0 30px rgba(71, 140, 191, 0.4)) drop-shadow(0 0 60px rgba(128, 128, 0, 0.15));

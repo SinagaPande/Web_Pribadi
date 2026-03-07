@@ -1,0 +1,79 @@
+---
+// src/pages/blender/_ModelLightbox.astro
+---
+
+<div id="lightbox-overlay" class="lightbox-hidden">
+  <div class="lightbox-content">
+    <button id="lightbox-close" aria-label="Tutup 3D View">&times;</button>
+    <model-viewer 
+      id="lightbox-model" 
+      auto-rotate 
+      camera-controls 
+      shadow-intensity="1"
+      exposure="1"
+      interaction-prompt="auto">
+    </model-viewer>
+  </div>
+</div>
+
+<script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.4.0/model-viewer.min.js"></script>
+
+<style>
+  #lightbox-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(5px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+  }
+
+  #lightbox-overlay.lightbox-hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
+
+  .lightbox-content {
+    position: relative;
+    width: 90vw;
+    height: 85vh;
+    max-width: 1200px;
+    background: transparent;
+    border-radius: 12px;
+  }
+
+  #lightbox-model {
+    width: 100%;
+    height: 100%;
+    --poster-color: transparent;
+  }
+
+  #lightbox-close {
+    position: absolute;
+    top: -40px;
+    right: 0;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 2.5rem;
+    cursor: pointer;
+    line-height: 1;
+    transition: color 0.2s;
+    z-index: 10000;
+  }
+
+  #lightbox-close:hover {
+    color: var(--accent, #3b82f6);
+  }
+
+  @media (max-width: 768px) {
+    .lightbox-content { width: 100vw; height: 100vh; border-radius: 0; }
+    #lightbox-close { top: 15px; right: 20px; }
+  }
+</style>

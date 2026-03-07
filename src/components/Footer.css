@@ -18,11 +18,11 @@
 .footer-content {
   position: relative;
   background-color: var(--footer);
-  color: #fff;
+  color: var(--text-primary); 
   font-size: 0.95rem;
   text-align: center;
   padding: var(--space-3) 0 var(--space-2) 0;
-  transition: background-color 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: background-color 0.5s cubic-bezier(0.16, 1, 0.3, 1), color 0.5s ease;
 }
 
 /* Animasi */
