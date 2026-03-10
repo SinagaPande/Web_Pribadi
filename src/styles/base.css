@@ -21,12 +21,13 @@ body {
   display: flex;
   flex-direction: column;
   position: relative;
-  
-  /* Hapus background-color dan background-image dari sini */
   background: transparent; 
-  
   z-index: 0;
-  transition: color 0.5s ease; /* Hanya transisi warna teks UI */
+  transition: color 0.5s ease;
+  
+  /* TAMBAHKAN DUA BARIS INI UNTUK MENGUNCI LAYAR HORIZONTAL */
+  overflow-x: hidden;
+  width: 100%;
 }
 
 /* === Main Content Area === */
@@ -93,9 +94,13 @@ main {
 .delay-4 { animation-delay: 0.4s; }
 .delay-5 { animation-delay: 0.5s; }
 
-/* === Mobile Media Queries for Main === */
+/* === KHUSUS HALAMAN HOME (HANYA MOBILE) === */
 @media (max-width: 768px) {
-  main { padding: 120px 20px 32px 20px; }
+  main.main--home {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    max-width: 100%;
+  }
 }
 
 @media (max-width: 400px) {

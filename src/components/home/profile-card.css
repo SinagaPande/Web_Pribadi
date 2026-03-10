@@ -99,6 +99,7 @@
     align-items: center;
     height: auto;
     text-align: center;
+    padding-bottom: 20px; /* Tambahan ruang bawah untuk tombol */
   }
   .hero {
     position: relative;
@@ -120,18 +121,20 @@
     transform: none;
     width: 100%;
     padding: 40px 24px; 
-    margin-top: -50px; /* Overlap ke atas gambar saat di HP */
+    margin-top: -30px; /* Dikurangi sedikit agar tidak terlalu menimpa wajah */
     z-index: 2;
   }
   .content p {
     max-width: 100%;
   }
   .button-container {
-    position: relative; 
+    position: relative; /* Diubah dari absolute agar tidak bertabrakan dengan elemen lain */
     left: auto;
     bottom: auto;
-    margin-top: 30px; 
+    margin-top: 20px; 
     justify-content: center;
+    flex-wrap: wrap; /* Mencegah tombol keluar layar jika terlalu sempit */
     z-index: 3;
+    width: 100%;
   }
 }

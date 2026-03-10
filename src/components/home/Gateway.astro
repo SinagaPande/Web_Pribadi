@@ -74,10 +74,18 @@ import { gatewayCards } from './gatewayData';
     width: 100%;
   }
 
-  /* === MOBILE RESPONSIVE === */
+/* === MOBILE RESPONSIVE === */
   @media (max-width: 768px) {
+    .gateway {
+      padding-top: 40px;
+      overflow: hidden; /* Mengamankan efek yang meluber */
+    }
     .gateway__grid {
-      grid-template-columns: 1fr;
+      grid-template-columns: 1fr; /* Memaksa susunan vertikal */
+      gap: 40px; /* Jarak vertikal antar kartu */
+      padding: 20px; /* Memberi ruang untuk efek elektrik */
+      width: 100%;
+      box-sizing: border-box;
     }
   }
 </style>

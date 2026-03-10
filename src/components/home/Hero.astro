@@ -83,10 +83,11 @@
     margin: 0;
   }
 
-  /* Typewriter Effect Styles */
+/* Typewriter Effect Styles */
   .typewriter-wrapper {
     display: block;
-    height: 2.8em; 
+    height: 3.5em; /* Kunci tingginya secara absolut agar teks tidak hilang */
+    margin-top: 10px;
   }
 
   .typewriter-text {
@@ -149,9 +150,11 @@
     transform: scale(1.02);
   }
 
-  .hero__scroll {
-    position: absolute;
-    bottom: 20px;
+.hero__scroll {
+    position: absolute; /* Dikembalikan ke absolute khusus desktop */
+    bottom: -30px; /* Diletakkan pas di celah antara Hero dan garis Gateway */
+    left: 0;
+    width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -172,24 +175,46 @@
     50% { transform: translateY(10px); }
   }
 
-  /* === MOBILE RESPONSIVE UNTUK HERO === */
+/* === MOBILE RESPONSIVE UNTUK HERO === */
   @media (max-width: 768px) {
-    .hero__container {
-      flex-direction: column-reverse;
-      text-align: center;
-      gap: 32px;
+    .hero {
+      min-height: 100vh;
+      min-height: 100dvh; /* Kunci presisi 1 layar penuh */
+      padding-top: 20px;
+      padding-bottom: 10px;
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 0; /* Hapus margin agar Gateway rapat di bawah lipatan layar */
     }
-    .hero__text { text-align: center; }
-    .hero__subtitle { font-size: 0.8rem; white-space: normal; }
-    .hero__title { font-size: 2.75rem; }
-    .typewriter-wrapper { height: 3em; }
-    .hero__visual { justify-content: center; }
-    .hero__logo { width: 350px; }
-  }
-</style>
+    .hero__container {
+      flex-direction: column-reverse; /* Logo di atas, Teks di bawah */
+      justify-content: center;
+      flex: 1; /* Mengisi sisa ruang kosong di tengah layar */
+      gap: 16px;
+      padding: 0 20px;
+    }
+    .hero__text { text-align: center; width: 100%; }
+    .hero__subtitle { font-size: 0.8rem; white-space: normal; margin-bottom: 12px; }
+    .hero__title { font-size: 1.8rem; line-height: 1.4; }
+    
+    .typewriter-wrapper { 
+      height: 3.5em; /* Kunci tinggi teks animasi */
+    }
+    
+    .hero__visual { justify-content: center; width: 100%; }
+    .hero__logo { width: 100%; max-width: 200px; } /* Ukuran logo yang proporsional */
 
-<script>
-  // === TYPEWRITER BEHAVIOUR ===
+.hero__scroll {
+      position: relative;
+      bottom: auto; /* Mereset posisi absolute dari desktop */
+      margin-top: auto; 
+      margin-bottom: 10px;
+    }
+  }
+
+  </style>
+
+  <script>
   const texts = [
     "Game Development",
     "3D Design",
@@ -197,37 +222,49 @@
     "Web Development",
     "Mobile App Development"
   ];
+
   let count = 0;
   let index = 0;
+  let currentText = '';
+  let letter = '';
   let isDeleting = false;
 
   function type() {
-    const typewriterElement = document.querySelector('.typewriter-text');
-    if (!typewriterElement) return;
+    const element = document.querySelector('.typewriter-text');
+    if (!element) return;
 
-    const currentText = texts[count % texts.length];
+    if (count === texts.length) {
+      count = 0;
+    }
+    currentText = texts[count];
 
     if (isDeleting) {
-      typewriterElement.textContent = currentText.substring(0, index - 1);
-      index--;
+      letter = currentText.slice(0, --index);
     } else {
-      typewriterElement.textContent = currentText.substring(0, index + 1);
-      index++;
+      letter = currentText.slice(0, ++index);
     }
 
-    let typeSpeed = isDeleting ? 50 : 100;
+    element.textContent = letter;
 
-    if (!isDeleting && index === currentText.length) {
-      typeSpeed = 2000;
+    let typeSpeed = 100;
+    if (isDeleting) {
+      typeSpeed /= 2;
+    }
+
+    if (!isDeleting && letter.length === currentText.length) {
+      typeSpeed = 2000; // Jeda sebelum menghapus
       isDeleting = true;
-    } else if (isDeleting && index === 0) {
+    } else if (isDeleting && letter.length === 0) {
       isDeleting = false;
       count++;
-      typeSpeed = 500;
+      typeSpeed = 500; // Jeda sebelum mengetik kata baru
     }
 
     setTimeout(type, typeSpeed);
   }
 
-  document.addEventListener("DOMContentLoaded", type);
+  // Jalankan efek typewriter setelah HTML dimuat
+  document.addEventListener('DOMContentLoaded', () => {
+    setTimeout(type, 1000);
+  });
 </script>

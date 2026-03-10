@@ -256,11 +256,26 @@ const { href, delayClass, colorRGB, electricColor, title, sub, isWide, visuals }
     font-weight: 400;
   }
 
-  /* === MOBILE RESPONSIVE === */
+/* === MOBILE RESPONSIVE === */
   @media (max-width: 768px) {
     .gateway__card--wide { grid-column: span 1; }
-    .card__visual { height: 100px; }
+    .card__visual { height: 90px; }
     .card__visual--dual { gap: 16px; }
-    .card__visual--dual .divider { height: 40px; }
+    .card__visual--dual .divider { height: 35px; }
+    .card__content { padding: 30px 16px; }
+
+    /* Menyesuaikan ukuran inset efek listrik agar tidak menembus layar HP */
+    .electric-container { inset: -12px; }
+    .electric-inner-container { inset: 12px; }
+    .electric-main-card { 
+      inset: -8px; 
+      width: calc(100% + 16px); 
+      height: calc(100% + 16px); 
+    }
+    .electric-overlay-1, 
+    .electric-overlay-2, 
+    .electric-background-glow { 
+      inset: 12px; 
+    }
   }
 </style>

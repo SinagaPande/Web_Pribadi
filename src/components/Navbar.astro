@@ -108,6 +108,24 @@ const { isHome = false } = Astro.props;
     }
     .navbar__nav--open { display: flex; }
   }
+
+  /* === MODIFIKASI KHUSUS NAVBAR HOME (CLEAN LOOK) === */
+  .navbar-wrapper--home .navbar {
+    background: transparent !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding-top: 24px; /* Memberi jarak agar burger tidak terlalu menempel ke atas layar */
+  }
+
+  .navbar-wrapper--home .navbar__logo {
+    display: none !important; /* Sembunyikan logo khusus di Home */
+  }
+
+  .navbar-wrapper--home #menuToggleWrapper {
+    margin-left: auto; /* Dorong tombol burger otomatis mentok ke kanan */
+  }
 </style>
 
 <script>

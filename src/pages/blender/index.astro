@@ -3,7 +3,7 @@
 import MainLayout from "../../layouts/MainLayout.astro";
 import PortfolioCard from "./_PortfolioCard.astro";
 import { blenderProjects } from "./_blenderData";
-import ModelLightbox from "./_ModelLightbox.astro"; // Import Lightbox
+import ModelLightbox from "./_ModelLightbox.astro";
 ---
 
 <MainLayout title="3D Modeling Portfolio | Jonathan Sinaga">
@@ -22,10 +22,6 @@ import ModelLightbox from "./_ModelLightbox.astro"; // Import Lightbox
 
   <ModelLightbox />
 </MainLayout>
-
-// ... (Bagian atas HTML tetap sama) ...
-
-// ... (Bagian atas HTML tetap sama) ...
 
 <script>
   // Script Logika Lightbox Penuh
@@ -51,17 +47,17 @@ import ModelLightbox from "./_ModelLightbox.astro"; // Import Lightbox
         modelViewer.setAttribute('src', src);
         overlay.classList.remove('lightbox-hidden');
         document.body.style.overflow = 'hidden'; 
-        document.body.classList.add('lightbox-active'); // CSS State untuk menyembunyikan footer
+        document.body.classList.add('lightbox-active'); // CSS State untuk menyembunyikan elemen UI
       }
     });
 
     // Fungsi Tutup Lightbox
     const closeLightbox = () => {
       overlay.classList.add('lightbox-hidden');
-      document.body.classList.remove('lightbox-active'); 
+      document.body.classList.remove('lightbox-active');
       setTimeout(() => {
         modelViewer.removeAttribute('src'); 
-      }, 300); 
+      }, 300);
       document.body.style.overflow = ''; 
     };
 
@@ -75,7 +71,8 @@ import ModelLightbox from "./_ModelLightbox.astro"; // Import Lightbox
 
 <style>
   /* === STATE: LIGHTBOX ACTIVE === */
-  /* Menyembunyikan elemen yang z-indexnya menembus */
+  /* Menyembunyikan Navbar, Footer, dan animasi yang menembus saat 3D Penuh terbuka */
+  :global(body.lightbox-active .navbar-wrapper),
   :global(body.lightbox-active footer),
   :global(body.lightbox-active .additional-images) {
     opacity: 0 !important;

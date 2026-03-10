@@ -42,7 +42,7 @@ const isHome = pathname === '/' || pathname === '/index.html';
   
   {isHome && <ThemeToggle variant="home" />}
 
-  <main>
+<main class={isHome ? "main--home" : ""}>
     <slot />
   </main>
 
