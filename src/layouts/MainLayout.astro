@@ -42,10 +42,34 @@ const isHome = pathname === '/' || pathname === '/index.html';
   
   {isHome && <ThemeToggle variant="home" />}
 
-<main class={isHome ? "main--home" : ""}>
+  <main class={isHome ? "main--home" : ""}>
     <slot />
   </main>
 
   <Footer />
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const observerOptions = {
+        root: null,
+        rootMargin: '0px',
+        threshold: 0.15 // Animasi terpicu saat 15% bagian elemen sudah masuk layar
+      };
+
+      const scrollObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            observer.unobserve(entry.target); // Matikan pantauan agar hanya berjalan 1 kali
+          }
+        });
+      }, observerOptions);
+
+      // Pantau semua elemen yang memiliki class slide-in
+      document.querySelectorAll('.slide-in').forEach((el) => {
+        scrollObserver.observe(el);
+      });
+    });
+  </script>
 </body>
 </html>

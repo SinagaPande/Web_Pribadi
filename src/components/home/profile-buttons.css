@@ -70,16 +70,17 @@
   box-shadow: 0 4px 10px rgba(0,0,0,0.1); 
 }
 
-.Btn:hover .BG {
+/* Gabungkan :hover dengan .force-hover */
+.Btn:hover .BG, .Btn.force-hover .BG {
   transform: rotate(35deg);
   transform-origin: bottom;
 }
 
-.Btn:hover .iconContainer {
+.Btn:hover .iconContainer, .Btn.force-hover .iconContainer {
   background-color: rgba(255, 255, 255, 0.2); 
   border-color: transparent;
 }
 
-.Btn:hover .iconContainer .logo-img {
+.Btn:hover .iconContainer .logo-img, .Btn.force-hover .iconContainer .logo-img {
   transform: scale(1.1);
 }

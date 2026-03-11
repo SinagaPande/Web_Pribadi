@@ -18,7 +18,8 @@ const { href, delayClass, colorRGB, electricColor, title, sub, isWide, visuals }
 <a 
   href={href} 
   class={`gateway__card slide-in ${delayClass} ${isWide ? 'gateway__card--wide' : ''}`}
-  style={`--card-color: ${colorRGB}; --electric-border-color: ${electricColor};`}
+  style={`--card-color: ${colorRGB};
+  --electric-border-color: ${electricColor};`}
 >
   <div class="card__glass-bg">
     <div class="card__glow"></div>
@@ -38,7 +39,8 @@ const { href, delayClass, colorRGB, electricColor, title, sub, isWide, visuals }
   </div>
   
   <div class="card__content">
-    <div class={`card__visual ${visuals.length > 1 ? 'card__visual--dual' : ''}`}>
+    <div class={`card__visual ${visuals.length > 1 ?
+      'card__visual--dual' : ''}`}>
       {visuals.map((vis, index) => (
         <>
           <img src={vis.src} alt={vis.alt} loading="eager" />
@@ -55,6 +57,7 @@ const { href, delayClass, colorRGB, electricColor, title, sub, isWide, visuals }
 </a>
 
 <style>
+ 
   /* === ROOT KARTU === */
   .gateway__card {
     border-radius: var(--radius-card);
@@ -83,12 +86,14 @@ const { href, delayClass, colorRGB, electricColor, title, sub, isWide, visuals }
     z-index: 0;
   }
 
-  .gateway__card:hover .card__glass-bg {
+  .gateway__card:hover .card__glass-bg,
+  .gateway__card.force-hover .card__glass-bg {
     background: var(--glass-bg-hover);
     border-color: transparent;
   }
 
-  .gateway__card:hover {
+  .gateway__card:hover, 
+  .gateway__card.force-hover {
     transform: translateY(-4px) scale(1.02);
     box-shadow: 0 20px 40px -10px rgba(var(--card-color), 0.25), var(--shadow-hover);
   }
@@ -114,8 +119,11 @@ const { href, delayClass, colorRGB, electricColor, title, sub, isWide, visuals }
     background: linear-gradient(to right, transparent, rgba(var(--card-color), 0.25), transparent);
   }
 
-  .gateway__card:hover .card__glow { opacity: 1; }
-  .gateway__card:hover .card__sweep { transform: translateX(100%); }
+  .gateway__card:hover .card__glow, 
+  .gateway__card.force-hover .card__glow { opacity: 1;
+  }
+  .gateway__card:hover .card__sweep, 
+  .gateway__card.force-hover .card__sweep { transform: translateX(100%); }
 
 /* === LAYER ELECTRIC BORDER === */
   .electric-container {
@@ -127,7 +135,6 @@ const { href, delayClass, colorRGB, electricColor, title, sub, isWide, visuals }
     pointer-events: none;
     z-index: 1;
     --electric-light-color: color-mix(in srgb, var(--electric-border-color) 40%, white);
-    
     /* Hardware Acceleration (GPU) */
     will-change: opacity, transform;
     transform: translateZ(0);
@@ -135,7 +142,8 @@ const { href, delayClass, colorRGB, electricColor, title, sub, isWide, visuals }
 
   /* Tambahkan :active untuk mendukung sentuhan di layar mobile */
   .gateway__card:hover .electric-container,
-  .gateway__card:active .electric-container {
+  .gateway__card:active .electric-container,
+  .gateway__card.force-hover .electric-container {
     opacity: 1;
     visibility: visible;
   }
@@ -146,10 +154,6 @@ const { href, delayClass, colorRGB, electricColor, title, sub, isWide, visuals }
   .electric-glow-layer-2 {
     will-change: transform;
     transform: translateZ(0);
-  }
-
-  .gateway__card:hover .electric-container {
-    opacity: 1;
   }
 
   .electric-inner-container {
@@ -240,7 +244,8 @@ const { href, delayClass, colorRGB, electricColor, title, sub, isWide, visuals }
     transition: transform 0.4s cubic-bezier(0, 0, 0.2, 1);
   }
 
-  .gateway__card:hover .card__visual img {
+  .gateway__card:hover .card__visual img,
+  .gateway__card.force-hover .card__visual img {
     transform: scale(1.1);
   }
 
@@ -248,7 +253,8 @@ const { href, delayClass, colorRGB, electricColor, title, sub, isWide, visuals }
     grid-column: span 2;
   }
 
-  .card__visual--dual { gap: 32px; }
+  .card__visual--dual { gap: 32px;
+  }
   .card__visual--dual img { max-width: 40%; }
   
   .card__visual--dual .divider {
@@ -258,7 +264,8 @@ const { href, delayClass, colorRGB, electricColor, title, sub, isWide, visuals }
     border-radius: 2px;
   }
 
-  .card__label { text-align: center; }
+  .card__label { text-align: center;
+  }
 
   .card__title {
     display: block;
@@ -278,14 +285,18 @@ const { href, delayClass, colorRGB, electricColor, title, sub, isWide, visuals }
 
 /* === MOBILE RESPONSIVE === */
   @media (max-width: 768px) {
-    .gateway__card--wide { grid-column: span 1; }
+    .gateway__card--wide { grid-column: span 1;
+    }
     .card__visual { height: 90px; }
-    .card__visual--dual { gap: 16px; }
+    .card__visual--dual { gap: 16px;
+    }
     .card__visual--dual .divider { height: 35px; }
-    .card__content { padding: 30px 16px; }
+    .card__content { padding: 30px 16px;
+    }
 
     /* Menyesuaikan ukuran inset efek listrik agar tidak menembus layar HP */
-    .electric-container { inset: -12px; }
+    .electric-container { inset: -12px;
+    }
     .electric-inner-container { inset: 12px; }
     .electric-main-card { 
       inset: -8px;
@@ -302,13 +313,42 @@ const { href, delayClass, colorRGB, electricColor, title, sub, isWide, visuals }
     /* Matikan layer terberat yang tidak terlalu berdampak pada visual di layar kecil */
     .electric-overlay-1,
     .electric-overlay-2 {
-      display: none; 
+      display: none;
     }
     
     /* Kurangi beban kalkulasi blur di background */
     .electric-background-glow {
-      filter: blur(10px); /* Diturunkan dari 20px */
+      filter: blur(10px);
+      /* Diturunkan dari 20px */
       opacity: 0.1;
     }
   }
 </style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const gatewayCards = document.querySelectorAll('.gateway__card');
+
+    gatewayCards.forEach(card => {
+      card.addEventListener('click', (e) => {
+        // Cek jika pengguna klik link dengan tombol tengah mouse/ctrl-click, biarkan default
+        if (e.ctrlKey || e.metaKey || e.button === 1) return;
+        
+        e.preventDefault();
+        const href = card.getAttribute('href');
+        const target = card.getAttribute('target');
+        
+        card.classList.add('force-hover');
+        
+        setTimeout(() => {
+          card.classList.remove('force-hover');
+          if (target === '_blank') {
+            window.open(href, '_blank', 'noopener,noreferrer');
+          } else {
+            window.location.href = href;
+          }
+        }, 1000);
+      });
+    });
+  });
+</script>

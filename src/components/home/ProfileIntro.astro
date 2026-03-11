@@ -17,6 +17,7 @@ import './profile-buttons.css';
 
     <div class="button-container">
       <a href="https://wa.me/6285766904446" target="_blank" rel="noopener noreferrer" class="Btn" aria-label="WhatsApp">
+        
         <span class="iconContainer">
           <div class="logo-img logo-wa"></div>
         </span>
@@ -28,6 +29,7 @@ import './profile-buttons.css';
           <div class="logo-img logo-ig"></div>
         </span>
         <span class="BG bg-ig"></span>
+      
       </a>
 
       <a href="mailto:jonathan.123140153@student.itera.ad.id" target="_blank" rel="noopener noreferrer" class="Btn" aria-label="Email">
@@ -39,3 +41,55 @@ import './profile-buttons.css';
     </div>
   </div>
 </section>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const buttons = document.querySelectorAll('.Btn');
+    const buttonContainer = document.querySelector('.button-container');
+
+    // 1. Logika jeda 1 detik saat tombol diklik
+    buttons.forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault(); // Tahan navigasi langsung
+        const href = btn.getAttribute('href');
+        const target = btn.getAttribute('target');
+        
+        btn.classList.add('force-hover'); // Aktifkan efek visual
+        
+        setTimeout(() => {
+          btn.classList.remove('force-hover');
+          if (target === '_blank') {
+            window.open(href, '_blank', 'noopener,noreferrer');
+          } else {
+            window.location.href = href;
+          }
+        }, 1000); // Jeda 1 detik
+      });
+    });
+
+    // 2. Logika auto-hover berurutan saat masuk viewport
+    if (buttonContainer) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            buttons.forEach((btn, index) => {
+              // UBAH DI SINI: index * 1000
+              // (Memberi waktu 800ms untuk efek menyala + 200ms jeda sebelum tombol berikutnya)
+              setTimeout(() => {
+                btn.classList.add('force-hover');
+                
+                // Matikan efek setelah 800ms
+                setTimeout(() => {
+                  btn.classList.remove('force-hover');
+                }, 800); 
+              }, index * 1000); 
+            });
+            observer.disconnect(); // Matikan observer agar hanya terjadi 1 kali
+          }
+        });
+      }, { threshold: 0.5 }); 
+
+      observer.observe(buttonContainer);
+    }
+  });
+</script>
