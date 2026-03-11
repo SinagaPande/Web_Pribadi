@@ -17,7 +17,7 @@ const { isHome = false } = Astro.props;
     
     <div class="navbar__nav" id="navbarNav">
       <a href="/" class="navbar__link">Home</a>
-      <a href="/cad" class="navbar__link">3D Designs</a>
+      <a href="/cad" class="navbar__link">3D CAD</a>
       <a href="/game" class="navbar__link">Game Dev</a>
       <a href="/blender" class="navbar__link">3D Modeling</a>
       
@@ -48,29 +48,40 @@ const { isHome = false } = Astro.props;
   }
 
   .navbar {
-    width: 100%;
-    max-width: 100%;
-    margin: 0;
+    width: calc(100% - 40px);
+    /* Memberi jarak agar tidak mentok kiri-kanan */
+    max-width: 1200px; /* Kapsul dibuat jauh lebih panjang horizontal */
+    margin: 20px auto;
+    /* Membuatnya melayang (floating) di tengah */
+    border-radius: 50px;
+    /* Bentuk kapsul/pil sempurna */
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1rem 32px; 
+    padding: 12px 32px; 
     background: var(--glass-bg);
     backdrop-filter: blur(var(--glass-blur));
     -webkit-backdrop-filter: blur(var(--glass-blur));
-    border-bottom: 1px solid var(--glass-border);
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--shadow-soft);
     box-sizing: border-box;
   }
 
-  /* Styling untuk logo img agar pas dan bersih di navbar */
   .navbar__logo img { 
-    width: 40px; 
-    height: 40px; 
-    object-fit: contain; /* Menjaga proporsi asli tanpa distorsi */
+    width: 52px; /* Ukuran diperbesar */
+    height: 52px;
+    object-fit: contain; 
     display: block;
+    transition: transform 0.3s ease;
+  }
+
+  .navbar__logo:hover img {
+    transform: scale(1.05);
+    /* Efek membesar saat disentuh */
   }
   
-  .navbar__nav { display: flex; gap: 32px; align-items: center; }
+  .navbar__nav { display: flex; gap: 32px; align-items: center;
+  }
   .navbar__link {
     text-decoration: none;
     color: var(--text-secondary);
@@ -88,25 +99,29 @@ const { isHome = false } = Astro.props;
 
   /* === Mobile Media Queries === */
   @media (max-width: 768px) {
-    .navbar-wrapper--home { display: block; }
+    .navbar-wrapper--home { display: block;
+    }
     .navbar { padding: 1rem 20px; }
     
     .navbar__nav {
       display: none;
       position: absolute;
-      top: 100%;
-      left: 0;
-      right: 0;
+      top: calc(100% + 15px); /* Memberi celah pemisah dari navbar kapsul */
+      left: 10px; /* Jarak dari kiri layar */
+      right: 10px; /* Jarak dari kanan layar */
       background: var(--glass-bg);
       backdrop-filter: blur(var(--glass-blur));
       -webkit-backdrop-filter: blur(var(--glass-blur));
+      border: 1px solid var(--glass-border); /* Memberikan garis pinggir */
+      border-radius: 24px; /* Sudut melengkung agar terlihat seperti card terpisah */
       flex-direction: column;
-      padding: 20px;
+      padding: 24px;
       gap: 16px;
-      box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+      box-shadow: var(--shadow-hover); /* Shadow lebih tegas agar melayang */
       text-align: center;
     }
-    .navbar__nav--open { display: flex; }
+    .navbar__nav--open { display: flex;
+    }
   }
 
   /* === MODIFIKASI KHUSUS NAVBAR HOME (CLEAN LOOK) === */
@@ -116,15 +131,18 @@ const { isHome = false } = Astro.props;
     -webkit-backdrop-filter: none !important;
     border: none !important;
     box-shadow: none !important;
-    padding-top: 24px; /* Memberi jarak agar burger tidak terlalu menempel ke atas layar */
+    padding-top: 24px;
+    justify-content: flex-end !important;
+    /* Tambahan agar burger di kanan */
   }
 
   .navbar-wrapper--home .navbar__logo {
-    display: none !important; /* Sembunyikan logo khusus di Home */
+    display: none !important;
   }
 
   .navbar-wrapper--home #menuToggleWrapper {
-    margin-left: auto; /* Dorong tombol burger otomatis mentok ke kanan */
+    margin-left: 0;
+    /* Reset margin karena sudah didorong oleh flex-end */
   }
 </style>
 
@@ -134,7 +152,6 @@ const { isHome = false } = Astro.props;
   const menuToggleWrapper = document.getElementById("menuToggleWrapper");
   const navbarNav = document.getElementById("navbarNav");
   const navbarWrapper = document.querySelector(".navbar-wrapper");
-
   if (menuCheckbox && navbarNav && menuToggleWrapper) {
     menuCheckbox.addEventListener("change", (e) => {
       const isChecked = (e.target as HTMLInputElement).checked;
@@ -144,7 +161,6 @@ const { isHome = false } = Astro.props;
         navbarNav.classList.remove("navbar__nav--open");
       }
     });
-
     document.addEventListener("click", (e) => {
       if (window.innerWidth < 768 && navbarNav.classList.contains("navbar__nav--open")) {
         if (!navbarNav.contains(e.target as Node) && !menuToggleWrapper.contains(e.target as Node)) {
@@ -164,7 +180,6 @@ const { isHome = false } = Astro.props;
     function updateNavbar() {
       const currentScrollY = window.scrollY;
       const isMenuOpen = navbarNav?.classList.contains("navbar__nav--open");
-
       if (isMenuOpen) {
         ticking = false;
         return;

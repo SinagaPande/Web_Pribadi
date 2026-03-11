@@ -32,10 +32,22 @@
 .desktop-switch #d-opt-light:checked ~ .switch-card { animation: flipRight 0.5s cubic-bezier(0.76, 0, 0.24, 1) forwards; }
 .desktop-switch #d-opt-dark:checked ~ .switch-card { animation: flipLeft 0.5s cubic-bezier(0.76, 0, 0.24, 1) forwards; }
 
-/* === TAMPILAN ORISINAL (Besar & Bewarna - Dipakai Mobile Nav & Floating Home) === */
+/* Warna Ikon Aktif untuk Navbar Toggle */
+.desktop-switch input[value="light"]:checked ~ .switch-button[for$="-light"],
+.desktop-switch input[id*="light"]:checked + .switch-button { 
+  color: #ffbc00 !important; 
+  filter: drop-shadow(0 0 4px rgba(255, 188, 0, 0.5));
+}
+.desktop-switch input[value="dark"]:checked ~ .switch-button[for$="-dark"],
+.desktop-switch input[id*="dark"]:checked + .switch-button { 
+  color: #ffffff !important; 
+  filter: drop-shadow(0 0 4px rgba(100, 255, 218, 0.6));
+}
+
+/* === TAMPILAN 2: PETAK SUDUT TUMPUL (HOME DESKTOP) === */
 .original-switch {
-  --card-width: 110px;
-  --card-height: 120px;
+  --card-width: 90px; 
+  --card-height: 80px; /* Lebih tinggi dari kapsul navbar, tapi lebih pendek dari versi mobile lama */
   --switch-bg: rgba(255, 255, 255, 0.1);
   --switch-border-color: rgba(255, 255, 255, 0.2);
   --text-color: #ffffff;
@@ -45,15 +57,19 @@
   --highlight-color: #64ffda;
 
   display: flex; position: relative; width: calc(var(--card-width) * 2); height: var(--card-height);
-  background: var(--switch-bg); border-radius: 20px; border: 1px solid var(--switch-border-color);
+  background: var(--switch-bg); 
+  border-radius: 16px; /* Sudut tumpul, BUKAN kapsul */
+  border: 1px solid var(--switch-border-color);
   box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37), inset 0 4px 8px rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); perspective: 1000px;
   font-family: "Poppins", sans-serif;
 }
 .original-switch input { display: none; }
 .original-switch .switch-button {
-  flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center;
-  gap: 8px; cursor: pointer; z-index: 2; color: var(--inactive-text-color); transition: all 0.3s ease; position: relative;
+  flex: 1; display: flex; 
+  flex-direction: column; /* Mengembalikan teks di bawah ikon */
+  align-items: center; justify-content: center;
+  gap: 6px; cursor: pointer; z-index: 2; color: var(--inactive-text-color); transition: all 0.3s ease; position: relative;
 }
 .original-switch .switch-button span { font-size: 14px; font-weight: 500; letter-spacing: 0.5px; text-transform: lowercase; }
 .original-switch .switch-button:hover { color: var(--text-color); }
@@ -68,7 +84,7 @@
 
 .original-switch input[value="dark"]:checked ~ [for$="-dark"]::after,
 .original-switch input[value="light"]:checked ~ [for$="-light"]::after {
-  content: ""; position: absolute; bottom: -5px; width: 30px; height: 3px; border-radius: 2px; animation: glow 1.5s infinite alternate;
+  content: ""; position: absolute; bottom: 8px; width: 30px; height: 3px; border-radius: 2px; animation: glow 1.5s infinite alternate;
 }
 .original-switch input[value="dark"]:checked ~ [for$="-dark"]::after { background: rgba(100, 255, 218, 0.5); box-shadow: 0 0 8px rgba(100, 255, 218, 0.5); }
 .original-switch input[value="light"]:checked ~ [for$="-light"]::after { background: #ffbc00; box-shadow: 0 0 8px #ffbc00; }
@@ -77,7 +93,8 @@
   position: absolute; top: 0; left: 0; width: var(--card-width); height: var(--card-height); z-index: 1; transform-style: preserve-3d;
 }
 .original-switch .card-face {
-  position: absolute; width: 100%; height: 100%; border-radius: 20px;
+  position: absolute; width: 100%; height: 100%; 
+  border-radius: 16px; /* Samakan dengan wadah luarnya */
   background: var(--card-bg); border: 1px solid rgba(255, 255, 255, 0.15);
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2), inset 0 2px 4px rgba(255, 255, 255, 0.1);
   backface-visibility: hidden; -webkit-backface-visibility: hidden;
@@ -120,13 +137,25 @@
   to { box-shadow: 0 0 15px var(--highlight-color), 0 0 25px var(--highlight-color); }
 }
 
-/* Ganti blok media query ini di bagian paling bawah ThemeToggle.css */
+/* === TAMPILAN 3: PETAK BESAR (MOBILE SEMUA HALAMAN) === */
 @media (max-width: 768px) {
   .desktop-switch { display: none; }
   .mobile-switch-container { display: flex; }
+  .home-toggle-wrapper { display: none; }
   
-  /* Sembunyikan floating toggle di mobile agar tidak bertumpuk dengan Navbar burger */
-  .home-toggle-wrapper {
-    display: none; 
+  /* Mengembalikan ukuran besar spesifik untuk mobile */
+  .mobile-switch-container .original-switch {
+    --card-width: 110px;
+    --card-height: 120px;
+    border-radius: 20px;
+  }
+  
+  .mobile-switch-container .original-switch .card-face {
+    border-radius: 20px;
+  }
+
+  .mobile-switch-container .original-switch input[value="dark"]:checked ~ [for$="-dark"]::after,
+  .mobile-switch-container .original-switch input[value="light"]:checked ~ [for$="-light"]::after {
+    bottom: -5px; /* Sesuaikan posisi garis bercahaya ke bawah card */
   }
 }
