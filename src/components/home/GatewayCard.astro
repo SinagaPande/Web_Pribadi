@@ -117,15 +117,35 @@ const { href, delayClass, colorRGB, electricColor, title, sub, isWide, visuals }
   .gateway__card:hover .card__glow { opacity: 1; }
   .gateway__card:hover .card__sweep { transform: translateX(100%); }
 
-  /* === LAYER ELECTRIC BORDER === */
+/* === LAYER ELECTRIC BORDER === */
   .electric-container {
     position: absolute;
     inset: -25px; 
     opacity: 0;
-    transition: opacity 0.5s cubic-bezier(0, 0, 0.2, 1);
+    visibility: hidden; /* Mencegah browser merender elemen saat idle */
+    transition: opacity 0.5s cubic-bezier(0, 0, 0.2, 1), visibility 0.5s;
     pointer-events: none;
     z-index: 1;
     --electric-light-color: color-mix(in srgb, var(--electric-border-color) 40%, white);
+    
+    /* Hardware Acceleration (GPU) */
+    will-change: opacity, transform;
+    transform: translateZ(0);
+  }
+
+  /* Tambahkan :active untuk mendukung sentuhan di layar mobile */
+  .gateway__card:hover .electric-container,
+  .gateway__card:active .electric-container {
+    opacity: 1;
+    visibility: visible;
+  }
+  
+  /* Pindahkan proses filter berat ke GPU */
+  .electric-main-card, 
+  .electric-glow-layer-1, 
+  .electric-glow-layer-2 {
+    will-change: transform;
+    transform: translateZ(0);
   }
 
   .gateway__card:hover .electric-container {
@@ -268,14 +288,27 @@ const { href, delayClass, colorRGB, electricColor, title, sub, isWide, visuals }
     .electric-container { inset: -12px; }
     .electric-inner-container { inset: 12px; }
     .electric-main-card { 
-      inset: -8px; 
+      inset: -8px;
       width: calc(100% + 16px); 
       height: calc(100% + 16px); 
     }
     .electric-overlay-1, 
     .electric-overlay-2, 
     .electric-background-glow { 
-      inset: 12px; 
+      inset: 12px;
+    }
+
+    /* === OPTIMASI PERFORMA MOBILE === */
+    /* Matikan layer terberat yang tidak terlalu berdampak pada visual di layar kecil */
+    .electric-overlay-1,
+    .electric-overlay-2 {
+      display: none; 
+    }
+    
+    /* Kurangi beban kalkulasi blur di background */
+    .electric-background-glow {
+      filter: blur(10px); /* Diturunkan dari 20px */
+      opacity: 0.1;
     }
   }
 </style>
