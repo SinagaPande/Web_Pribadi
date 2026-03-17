@@ -1,6 +1,7 @@
 ---
 import MainLayout from '../../layouts/MainLayout.astro';
 import "./cad.css";
+import { cadProjects } from './_cadData';
 ---
 
 <MainLayout title="CAD Design Portfolio | Jonathan Sinaga">
@@ -9,8 +10,7 @@ import "./cad.css";
       <h1 class="section__title title-underline-red">CAD Design Portfolio</h1>
     </div>
     <p class="section-description">
-      Showcasing Mechanical &amp;
-      Industrial Design Projects using SolidWorks
+      Showcasing Mechanical & Industrial Design Projects using SolidWorks
     </p>
 
     <section class="carousel-section" aria-label="Featured CAD Projects">
@@ -20,126 +20,49 @@ import "./cad.css";
 
       <div class="carousel-viewport">
         <div class="carousel-track" id="carouselTrack">
-          <div class="carousel-card" data-category="akm_bolt">
-            <img src="/Imagery/projects/solidworks/AKM_Bolt/AKM_Bolt.webp" alt="AKM Bolt" />
-  
-            <div class="carousel-card-title">AKM Bolt</div>
-            <div class="carousel-card-desc">Detailed 3D model of an AKM Bolt.</div>
-          </div>
-          <div class="carousel-card" data-category="l_plate">
-            <img src="/Imagery/projects/solidworks/l_mounting_plate/L_plate.webp" alt="L Mounting Plate" />
-            <div class="carousel-card-title">L Mounting Plate</div>
-            <div class="carousel-card-desc">Structural mounting 
-              bracket design.</div>
-          </div>
-          <div class="carousel-card" data-category="spiral_tap">
-            <img src="/Imagery/projects/solidworks/spiral_flute_tap/Spiral_Tap.webp" alt="Spiral Flute Tap" />
-            <div class="carousel-card-title">Spiral Flute Tap</div>
-            <div class="carousel-card-desc">Precision machining tool design.</div>
-          </div>
-   
-          <div class="carousel-card" data-category="exercise_997">
-       
-            <img src="/Imagery/projects/solidworks/exercise_997/exercise_997.webp" alt="Exercise 997" />
-            <div class="carousel-card-title">Mechanical Part 997</div>
-            <div class="carousel-card-desc">Complex mechanical practice part.</div>
-          </div>
+          {cadProjects.map((project) => (
+            <div class="carousel-card" data-category={project.id}>
+              <img src={project.thumbnail} alt={project.title} />
+              <div class="carousel-card-title">{project.title}</div>
+              <div class="carousel-card-desc">{project.desc}</div>
+            </div>
+          ))}
         </div>
       </div>
 
       <button class="carousel-arrow carousel-arrow--right" id="carouselNext" aria-label="Next Project">
-  
         <svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-    
       </button>
     </section>
 
     <section class="gallery-section" aria-label="Project Gallery">
       <div class="gallery-masonry" id="galleryMasonry">
         
-        <div class="gallery-item gallery-item--drawing" data-category="akm_bolt">
-          <img src="/Imagery/projects/solidworks/AKM_Bolt/AKM_Bolt_Drawing.webp" alt="AKM Bolt Drawing" />
-          <div class="gallery-item-title">Technical Drawing</div>
-        </div>
-        <div class="gallery-item gallery-item--features" data-category="akm_bolt">
-          <img src="/Imagery/projects/solidworks/AKM_Bolt/AKM_Bolt_Features.webp" alt="AKM Bolt Features" />
-          <div class="gallery-item-title">Design Features</div>
-        </div>
-        <div class="gallery-item gallery-item--render" data-category="akm_bolt">
-          <img src="/Imagery/projects/solidworks/AKM_Bolt/AKM_Bolt_Isometric_Kiri.webp" alt="AKM Bolt Isometric Left" />
-          <div class="gallery-item-title">Isometric Left</div>
-        </div>
-        <div class="gallery-item gallery-item--render" data-category="akm_bolt">
-          <img src="/Imagery/projects/solidworks/AKM_Bolt/AKM_Bolt_isometric_%20Kanan.webp" alt="AKM Bolt Isometric Right" />
-          <div class="gallery-item-title">Isometric Right</div>
-        </div>
-        <div class="gallery-item gallery-item--render" data-category="akm_bolt">
-          <img src="/Imagery/projects/solidworks/AKM_Bolt/AKM_Bolt_Belakang.webp" alt="AKM Bolt Back View" />
-          <div class="gallery-item-title">Back View</div>
-        </div>
+        {cadProjects.map((project) => (
+          <>
+            <div class="gallery-item gallery-item--drawing" data-category={project.id}>
+              <img src={project.drawingSrc} alt={`${project.title} Drawing`} />
+            </div>
+            
+            <div class="gallery-item gallery-item--features" data-category={project.id}>
+              <img src={project.featuresSrc} alt={`${project.title} Features`} />
+            </div>
 
-        <div class="gallery-item gallery-item--drawing" data-category="l_plate">
-          <img src="/Imagery/projects/solidworks/l_mounting_plate/L_plate_drawing.webp" alt="L Plate Drawing" />
-          <div class="gallery-item-title">Technical Drawing</div>
-        </div>
-        <div class="gallery-item gallery-item--features" data-category="l_plate">
-          <img src="/Imagery/projects/solidworks/l_mounting_plate/L_plate_features.webp" alt="L Plate Features" />
-          <div class="gallery-item-title">Design Features</div>
-       
-        </div>
-        <div class="gallery-item gallery-item--render" data-category="l_plate">
- 
-          <img src="/Imagery/projects/solidworks/l_mounting_plate/L_plate_isometric_depan.webp" alt="L Plate Isometric" />
-          <div class="gallery-item-title">Isometric Front</div>
-        </div>
-        <div class="gallery-item gallery-item--render" data-category="l_plate">
-          <img src="/Imagery/projects/solidworks/l_mounting_plate/L_plate_unfolded.webp" alt="L Plate Unfolded" />
-          <div class="gallery-item-title">Unfolded Sheet</div>
-        </div>
+            {project.renders.map((render) => (
+              <div class="gallery-item gallery-item--render" data-category={project.id}>
+                <img src={render.src} alt={render.alt} />
+              </div>
+            ))}
+          </>
+        ))}
 
-       
-        <div class="gallery-item gallery-item--drawing" data-category="spiral_tap">
-  
-          <img src="/Imagery/projects/solidworks/spiral_flute_tap/Spiral_Tap_Drawing.webp" alt="Spiral Tap Drawing" />
-          <div class="gallery-item-title">Technical Drawing</div>
-        </div>
-        <div class="gallery-item gallery-item--features" data-category="spiral_tap">
-          <img src="/Imagery/projects/solidworks/spiral_flute_tap/Spiral_Tap_Features.webp" alt="Spiral Tap Features" />
-          <div class="gallery-item-title">Design Features</div>
-        </div>
-        <div class="gallery-item gallery-item--render" data-category="spiral_tap">
-    
-      
-          <img src="/Imagery/projects/solidworks/spiral_flute_tap/Spiral_Tap_Depan.webp" alt="Spiral Tap Front" />
-          <div class="gallery-item-title">Front View</div>
-        </div>
-        <div class="gallery-item gallery-item--render" data-category="spiral_tap">
-          <img src="/Imagery/projects/solidworks/spiral_flute_tap/Spiral_Tap_Isometric_Belakang.webp" alt="Spiral Tap Iso Back" />
-          <div class="gallery-item-title">Isometric Back</div>
-        </div>
-
-        <div class="gallery-item gallery-item--drawing" data-category="exercise_997">
-          <img 
-  
-            src="/Imagery/projects/solidworks/exercise_997/exercise_997_Drawing.webp" alt="Exercise 997 Drawing" />
-          <div class="gallery-item-title">Technical Drawing</div>
-        </div>
-        <div class="gallery-item gallery-item--features" data-category="exercise_997">
-          <img src="/Imagery/projects/solidworks/exercise_997/exercise_997_Features.webp" alt="Exercise 997 Features" />
-          <div class="gallery-item-title">Design Features</div>
-        </div>
-        <div class="gallery-item gallery-item--render" data-category="exercise_997">
-         
-          <img src="/Imagery/projects/solidworks/exercise_997/exercise_997_Isometric_Depan.webp" alt="Exercise 997 Isometric Front" />
-   
-          <div class="gallery-item-title">Isometric Front</div>
-        </div>
-        </div>
+      </div>
     </section>
   </main>
 </MainLayout>
 
 <script>
+  // Script navigasi carousel tetap sama seperti yang ada di file Anda
   const carouselTrack = document.getElementById("carouselTrack");
   const carouselPrev = document.getElementById("carouselPrev");
   const carouselNext = document.getElementById("carouselNext");
@@ -155,7 +78,6 @@ import "./cad.css";
     });
   }
 
-  // LOGIKA FILTER DIPERBARUI: Menampilkan SEMUA item tanpa batasan drawing/render count
   function filterGallery(category) {
     galleryItems.forEach((item) => {
       // @ts-ignore
@@ -169,7 +91,7 @@ import "./cad.css";
         item.classList.add("fade-out");
       }
     });
-    // Delay untuk menyembunyikan display setelah animasi fade-out selesai
+
     setTimeout(() => {
       galleryItems.forEach((item) => {
         if (item.classList.contains("fade-out")) {
@@ -181,6 +103,7 @@ import "./cad.css";
 
   function updateCarousel(triggerGallery = true) {
     if (!carouselTrack || carouselCards.length === 0) return;
+
     const isMobile = window.innerWidth <= 600;
     // @ts-ignore
     const gap = parseInt(getComputedStyle(carouselTrack).gap) || 0;
@@ -193,6 +116,7 @@ import "./cad.css";
     if (carouselIndex > maxIndex) carouselIndex = maxIndex;
 
     let calculateValue = 0;
+
     if (isMobile) {
       const currentCardCenter = carouselIndex * cardFullWidth + cardWidth / 2;
       const centerScreen = viewportWidth / 2;
@@ -208,6 +132,7 @@ import "./cad.css";
     carouselTrack.style.transform = `translateX(${finalTranslateX}px)`;
 
     setActiveCard(carouselIndex);
+
     if (triggerGallery) {
       // @ts-ignore
       const activeCategory = carouselCards[carouselIndex].dataset.category;
@@ -226,7 +151,6 @@ import "./cad.css";
     }
   }
 
-  // --- Event Listeners ---
   if (carouselTrack) {
     if (carouselPrev) {
       carouselPrev.addEventListener("click", () => {
@@ -248,9 +172,11 @@ import "./cad.css";
         updateCarousel();
       });
     });
+
     window.addEventListener("resize", () => {
       updateCarousel(false);
     });
+
     setTimeout(() => {
       updateCarousel();
     }, 100);

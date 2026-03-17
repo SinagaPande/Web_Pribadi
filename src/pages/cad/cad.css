@@ -1,7 +1,7 @@
 :root {
   /* Layout Variables specific to Cad Page */
   --carousel-card-width: 420px;  /* Lebar kartu diperbesar drastis */
-  --carousel-card-height: 220px; /* Tinggi kartu diperbesar */
+  --carousel-card-height: 250px; /* Diubah dari 220px ke 250px */
   --carousel-arrow-size: 40px;
   --gallery-bg: #fff;
   --gallery-border: #e5e7eb;
@@ -129,9 +129,10 @@
   cursor: pointer;
 }
 
+/* Memperbesar ukuran Thumbnail di Carousel */
 .carousel-card img {
-  width: 110px;  /* Gambar di dalam kartu diperbesar signifikan */
-  height: 110px; 
+  width: 150px;  /* Diperbesar dari 110px */
+  height: 150px; 
   object-fit: contain;
   border-radius: 8px;
   margin-bottom: 12px;
@@ -175,7 +176,7 @@
   transition: grid-template-columns 0.3s;
 }
 
-/* Gallery Item Base */
+/* Mengatur Gallery Item: Hapus warna hitam */
 .gallery-item {
   display: flex;
   position: relative; /* Penting untuk posisi teks overlay */
@@ -183,18 +184,18 @@
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
   transition: transform 0.3s ease, opacity 0.35s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.35s;
   overflow: hidden;
-  background: #000; /* Mencegah flash putih saat gambar dimuat */
-  /* Menghapus padding, border, dan background putih dari versi sebelumnya */
+  background: transparent; /* Diubah dari #000 agar tidak ada kotak hitam */
 }
 
 .gallery-item:hover {
   transform: translateY(-4px); /* Efek melayang saat di-hover */
 }
 
+/* Mengatur SEMUA gambar galeri (Drawing, Features, Render) agar tidak terpotong */
 .gallery-item img {
   width: 100%;
-  height: 100%;
-  object-fit: cover; /* Memastikan gambar memenuhi area tanpa terdistorsi */
+  height: auto; /* Gambar akan menyesuaikan tinggi aslinya */
+  object-fit: contain; /* Memastikan tidak ada bagian gambar yang dipangkas */
   display: block;
 }
 
@@ -214,29 +215,22 @@
   pointer-events: none;
 }
 
-/* === Bento Grid Spans === */
+/* Aturan Grid untuk Bento Spans (Desktop) */
 .gallery-item--drawing,
 .gallery-item--features {
   grid-column: span 4;
   grid-row: auto;
-  aspect-ratio: auto; /* Membuang rasio kaku agar tidak terpotong */
-  height: auto; /* Biarkan tinggi menyesuaikan gambar asli */
+  aspect-ratio: auto;
+  height: auto; 
   display: block; 
 }
 
-/* Memastikan gambar tampil utuh proporsional */
-.gallery-item--drawing img,
-.gallery-item--features img {
-  width: 100%;
-  height: auto; /* Gambar akan mengambil tinggi aslinya secara penuh */
-  object-fit: contain; 
-  display: block;
-}
-
 .gallery-item--render {
-  grid-column: span 2; /* Mengambil 50% lebar (2 gambar berjajar) */
-  grid-row: span 1;
-  aspect-ratio: 4 / 3; /* Bentuk sedikit kotak/lanskap pendek */
+  grid-column: span 2;
+  grid-row: auto; /* Menggunakan auto daripada span 1 */
+  aspect-ratio: auto; /* Dihapus agar render juga tampil utuh penuh */
+  height: auto;
+  display: block;
 }
 
 /* Animasi Filter */
