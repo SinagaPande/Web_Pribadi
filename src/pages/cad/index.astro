@@ -91,7 +91,6 @@ import { cadProjects } from './_cadData';
         item.classList.add("fade-out");
       }
     });
-
     setTimeout(() => {
       galleryItems.forEach((item) => {
         if (item.classList.contains("fade-out")) {
@@ -103,7 +102,6 @@ import { cadProjects } from './_cadData';
 
   function updateCarousel(triggerGallery = true) {
     if (!carouselTrack || carouselCards.length === 0) return;
-
     const isMobile = window.innerWidth <= 600;
     // @ts-ignore
     const gap = parseInt(getComputedStyle(carouselTrack).gap) || 0;
@@ -116,7 +114,6 @@ import { cadProjects } from './_cadData';
     if (carouselIndex > maxIndex) carouselIndex = maxIndex;
 
     let calculateValue = 0;
-
     if (isMobile) {
       const currentCardCenter = carouselIndex * cardFullWidth + cardWidth / 2;
       const centerScreen = viewportWidth / 2;
@@ -132,7 +129,6 @@ import { cadProjects } from './_cadData';
     carouselTrack.style.transform = `translateX(${finalTranslateX}px)`;
 
     setActiveCard(carouselIndex);
-
     if (triggerGallery) {
       // @ts-ignore
       const activeCategory = carouselCards[carouselIndex].dataset.category;
@@ -172,13 +168,51 @@ import { cadProjects } from './_cadData';
         updateCarousel();
       });
     });
-
     window.addEventListener("resize", () => {
       updateCarousel(false);
     });
-
     setTimeout(() => {
       updateCarousel();
     }, 100);
   }
+
+  // --- SCRIPT TAMBAHAN UNTUK LIGHTBOX (UPDATED) ---
+  const clickableImages = document.querySelectorAll('.gallery-item img, .carousel-card img');
+  
+  clickableImages.forEach((img) => {
+    img.style.cursor = 'zoom-in';
+    
+    img.addEventListener('click', (e) => {
+      e.stopPropagation();
+      
+      if (window.openGlobalLightbox) {
+        // Membersihkan nama file/alt dari kata-kata teknis dan underscore agar lebih rapi
+        const cleanTitle = img.alt.replace(/Drawing|Features|Render|_/gi, ' ').replace(/\s+/g, ' ').trim() || 'CAD Project';
+        
+        let customSubtitle = 'SolidWorks Design';
+
+        // Cek parent element untuk menentukan jenis gambar
+        const parentItem = img.closest('.gallery-item');
+        
+        if (parentItem) {
+          if (parentItem.classList.contains('gallery-item--render')) {
+            customSubtitle = 'Rendered with SOLIDWORKS Visualize';
+          } else if (parentItem.classList.contains('gallery-item--drawing')) {
+            customSubtitle = 'Drawing';
+          } else if (parentItem.classList.contains('gallery-item--features')) {
+            customSubtitle = 'Features';
+          }
+        } else if (img.closest('.carousel-card')) {
+          // Gambar di carousel utama juga kita anggap sebagai hasil render
+          customSubtitle = 'Rendered with SOLIDWORKS Visualize';
+        }
+        
+        window.openGlobalLightbox({
+          src: img.src,
+          title: cleanTitle,
+          subtitle: customSubtitle
+        });
+      }
+    });
+  });
 </script>

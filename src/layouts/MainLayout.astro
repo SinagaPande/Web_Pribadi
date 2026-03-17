@@ -7,6 +7,7 @@ import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
 import HoloBackground from '../components/backgrounds/HoloBackground.astro';
 import ThemeToggle from '../components/ThemeToggle.astro';
+import Lightbox from '../components/Lightbox/Lightbox.astro';
 
 const { title } = Astro.props;
 const pathname = Astro.url.pathname;
@@ -72,5 +73,6 @@ const isHome = pathname === '/' || pathname === '/index.html';
       });
     });
   </script>
+  <Lightbox />
 </body>
 </html>

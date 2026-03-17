@@ -21,7 +21,7 @@ export const cadProjects: CadProject[] = [
     renders: [
       { src: "/Imagery/projects/solidworks/AKM_Bolt/AKM_Bolt_Isometric_Kiri.webp", alt: "Isometric Left" },
       { src: "/Imagery/projects/solidworks/AKM_Bolt/AKM_Bolt_isometric_%20Kanan.webp", alt: "Isometric Right" },
-      { src: "/Imagery/projects/solidworks/AKM_Bolt/AKM_Bolt_Belakang.webp", alt: "Back View" }
+      { src: "/Imagery/projects/solidworks/AKM_Bolt/AKM_Bolt_Belakang.webp", alt: "Front View" }
     ]
   },
   {
@@ -33,7 +33,7 @@ export const cadProjects: CadProject[] = [
     featuresSrc: "/Imagery/projects/solidworks/l_mounting_plate/L_plate_features.webp",
     renders: [
       { src: "/Imagery/projects/solidworks/l_mounting_plate/L_plate_isometric_depan.webp", alt: "Isometric Front" },
-      { src: "/Imagery/projects/solidworks/l_mounting_plate/L_plate_unfolded.webp", alt: "Unfolded Sheet" }
+      { src: "/Imagery/projects/solidworks/l_mounting_plate/L_plate_unfolded.webp", alt: "Unfolded Plate" }
     ]
   },
   {
