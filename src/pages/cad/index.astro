@@ -35,6 +35,8 @@ import { cadProjects } from './_cadData';
       </button>
     </section>
 
+    <p class="gallery-hint">Klik gambar untuk memperbesar dan melihat detail desain</p>
+
     <section class="gallery-section" aria-label="Project Gallery">
       <div class="gallery-masonry" id="galleryMasonry">
         
@@ -178,7 +180,6 @@ import { cadProjects } from './_cadData';
 
   // --- SCRIPT TAMBAHAN UNTUK LIGHTBOX (UPDATED) ---
   const clickableImages = document.querySelectorAll('.gallery-item img, .carousel-card img');
-  
   clickableImages.forEach((img) => {
     img.style.cursor = 'zoom-in';
     

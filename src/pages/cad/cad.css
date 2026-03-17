@@ -140,19 +140,20 @@
   display: block;
 }
 
+/* Mengunci warna teks agar tetap gelap meskipun di dark mode */
 .carousel-card-title {
-  font-size: 1.3rem; /* Judul proyek diperbesar */
+  font-size: 1.3rem;
   font-weight: 700;
   margin-bottom: 6px;
   text-align: center;
-  color: var(--text-primary);
+  color: #111827; /* Diubah dari var(--text-primary) */
 }
 
 .carousel-card-desc {
-  font-size: 0.95rem; /* Deskripsi lebih terbaca */
-  color: var(--text-secondary);
+  font-size: 0.95rem;
   text-align: center;
   margin-bottom: 0;
+  color: #4b5563; /* Diubah dari var(--text-secondary) */
 }
 
 .carousel-card.active {
@@ -327,4 +328,15 @@
     grid-column: span 4;
     aspect-ratio: auto;
   }
+}
+
+/* Class baru untuk teks petunjuk (hint) */
+.gallery-hint {
+  text-align: center;
+  font-size: 0.85rem;
+  color: var(--text-secondary); /* Akan otomatis menyesuaikan dark/light mode */
+  margin-top: -8px; /* Ditarik sedikit ke atas agar dekat dengan carousel */
+  margin-bottom: 16px;
+  font-style: italic;
+  opacity: 0.8;
 }
