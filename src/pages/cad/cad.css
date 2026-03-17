@@ -1,7 +1,7 @@
 :root {
   /* Layout Variables specific to Cad Page */
-  --carousel-card-width: 340px;
-  --carousel-card-height: 180px;
+  --carousel-card-width: 420px;  /* Lebar kartu diperbesar drastis */
+  --carousel-card-height: 220px; /* Tinggi kartu diperbesar */
   --carousel-arrow-size: 40px;
   --gallery-bg: #fff;
   --gallery-border: #e5e7eb;
@@ -9,16 +9,45 @@
   --masonry-gap: 24px;
 }
 
+/* === Title Section === */
+/* Jika judul dibungkus dalam class .section, Anda bisa mengatur margin-top-nya di sini */
+.cad-section-wrapper { /* Sesuaikan dengan class parent di index.astro Anda jika ada */
+  margin-top: -20px; /* Nilai negatif untuk menarik keseluruhan konten ke atas */
+}
+
+.title-underline-red {
+  position: relative;
+  display: inline-block;
+  margin-top: -40px; /* Menarik konten ke atas mendekati navbar */
+  margin-bottom: 16px;
+}
+
+.title-underline-red::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 4px;
+  background-color: #ef4444; /* Warna merah ala SolidWorks */
+  border-radius: 4px;
+}
+
+.section-description {
+  margin-bottom: 24px;
+}
+
 /* === Carousel Section === */
 .carousel-section {
   width: 100%;
-  max-width: 800px;
-  margin: 0 auto var(--space-5) auto;
+  max-width: 1000px; /* Diperbesar agar ada ruang untuk panah */
+  margin: 0 auto 24px auto;
   display: flex;
   justify-content: center;
   align-items: center;
   position: relative;
-  min-height: calc(var(--carousel-card-height) + 2 * var(--space-2));
+  min-height: calc(var(--carousel-card-height) + 16px);
   overflow: visible;
 }
 
@@ -51,8 +80,9 @@
   transform: translateY(-50%) scale(1.1);
 }
 
-.carousel-arrow--left { left: -10px; }
-.carousel-arrow--right { right: -10px; }
+/* Membuang panah lebih jauh ke luar */
+.carousel-arrow--left { left: -50px; }
+.carousel-arrow--right { right: -50px; }
 
 .carousel-arrow svg {
   width: 24px;
@@ -64,7 +94,7 @@
 .carousel-viewport {
   overflow: hidden;
   width: 100%;
-  max-width: 720px;
+  max-width: 880px; /* Diperbesar agar 2 kartu (420px + 420px + gap) muat sempurna */
   margin: 0 auto;
   position: relative;
 }
@@ -91,7 +121,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  padding: var(--space-2);
+  padding: 24px; /* Padding dikembalikan menjadi luas */
   transition: box-shadow 0.3s ease, border-color 0.3s ease;
   position: relative;
   overflow: hidden;
@@ -100,104 +130,116 @@
 }
 
 .carousel-card img {
-  width: 80px;
-  height: 80px;
-  object-fit: cover;
-  border-radius: 10px;
-  margin-bottom: var(--space-2);
-  background: #e5e7eb;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+  width: 110px;  /* Gambar di dalam kartu diperbesar signifikan */
+  height: 110px; 
+  object-fit: contain;
+  border-radius: 8px;
+  margin-bottom: 12px;
+  background: transparent;
   display: block;
 }
 
 .carousel-card-title {
-  font-size: 1.15rem;
+  font-size: 1.3rem; /* Judul proyek diperbesar */
   font-weight: 700;
-  margin-bottom: var(--space-1);
+  margin-bottom: 6px;
   text-align: center;
   color: var(--text-primary);
 }
 
 .carousel-card-desc {
-  font-size: 0.98rem;
+  font-size: 0.95rem; /* Deskripsi lebih terbaca */
   color: var(--text-secondary);
   text-align: center;
   margin-bottom: 0;
 }
 
 .carousel-card.active {
-  border-color: #2563eb;
-  box-shadow: 0 4px 24px rgba(37, 99, 235, 0.1);
+  border-color: #ef4444; /* Tema merah SolidWorks saat aktif */
+  box-shadow: 0 4px 24px rgba(239, 68, 68, 0.15);
 }
 
-/* === Gallery Masonry Section === */
+/* === Gallery Bento Layout Section === */
 .gallery-section {
   width: 100%;
-  max-width: var(--section-max);
-}
-
-.gallery-title {
-  font-size: 1.5rem;
-  font-weight: 700;
-  text-align: center;
-  margin-bottom: var(--space-3);
-  color: var(--text-primary);
+  max-width: 850px; /* Dibatasi 850px agar gambar 100% tidak terlalu raksasa */
+  margin: 8px auto 0 auto; /* auto untuk memposisikan di tengah layar */
 }
 
 .gallery-masonry {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
+  grid-auto-rows: minmax(200px, auto);
   gap: var(--masonry-gap);
   width: 100%;
-  justify-items: center;
-  align-items: start;
   transition: grid-template-columns 0.3s;
 }
 
-/* Gallery Item Styles */
+/* Gallery Item Base */
 .gallery-item {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  transition: opacity 0.35s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.35s;
-  width: 100%;
+  position: relative; /* Penting untuk posisi teks overlay */
+  border-radius: var(--gallery-radius);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease, opacity 0.35s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.35s;
+  overflow: hidden;
+  background: #000; /* Mencegah flash putih saat gambar dimuat */
+  /* Menghapus padding, border, dan background putih dari versi sebelumnya */
+}
+
+.gallery-item:hover {
+  transform: translateY(-4px); /* Efek melayang saat di-hover */
 }
 
 .gallery-item img {
   width: 100%;
-  height: auto;
-  object-fit: cover;
-  border-radius: var(--gallery-radius);
-  margin-bottom: var(--space-1);
-  background: #e5e7eb;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
-  border: 1px solid var(--gallery-border);
+  height: 100%;
+  object-fit: cover; /* Memastikan gambar memenuhi area tanpa terdistorsi */
+  display: block;
 }
 
-.gallery-item--drawing img {
-  height: 180px;
-}
-
-.gallery-item--render img {
-  height: 120px;
-}
-
+/* Teks Galeri (Diubah menjadi Overlay) */
 .gallery-item-title {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 24px 16px 16px;
   font-size: 1.1rem;
   font-weight: 600;
-  text-align: center;
-  margin-bottom: 4px;
-  color: var(--text-primary);
+  text-align: left;
+  color: #ffffff; /* Teks putih agar kontras */
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0) 100%);
+  margin: 0;
+  pointer-events: none;
 }
 
-.gallery-item-desc {
-  font-size: 0.95rem;
-  color: var(--text-secondary);
-  text-align: center;
+/* === Bento Grid Spans === */
+.gallery-item--drawing,
+.gallery-item--features {
+  grid-column: span 4;
+  grid-row: auto;
+  aspect-ratio: auto; /* Membuang rasio kaku agar tidak terpotong */
+  height: auto; /* Biarkan tinggi menyesuaikan gambar asli */
+  display: block; 
 }
 
-/* Gallery Filtering Animation */
+/* Memastikan gambar tampil utuh proporsional */
+.gallery-item--drawing img,
+.gallery-item--features img {
+  width: 100%;
+  height: auto; /* Gambar akan mengambil tinggi aslinya secara penuh */
+  object-fit: contain; 
+  display: block;
+}
+
+.gallery-item--render {
+  grid-column: span 2; /* Mengambil 50% lebar (2 gambar berjajar) */
+  grid-row: span 1;
+  aspect-ratio: 4 / 3; /* Bentuk sedikit kotak/lanskap pendek */
+}
+
+/* Animasi Filter */
 .gallery-item.fade-out {
   opacity: 0;
   visibility: hidden;
@@ -213,7 +255,7 @@
 /* Tablets & Smaller Desktops */
 @media (max-width: 1100px) {
   .gallery-masonry {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr); /* Tetap 4 agar Bento berfungsi */
   }
 }
 
@@ -221,7 +263,7 @@
 @media (max-width: 900px) {
   .carousel-section { 
     max-width: 100%; 
-    padding: 0 var(--space-2); /* Memberi ruang agar panah tidak mepet layar */
+    padding: 0 var(--space-2);
   }
   
   .carousel-card {
@@ -232,88 +274,63 @@
 
   .gallery-masonry {
     grid-template-columns: repeat(2, 1fr);
-    gap: var(--space-2);
+  }
+  
+  /* Reset Span untuk Tablet */
+  .gallery-item--drawing,
+  .gallery-item--features,
+  .gallery-item--render {
+    grid-column: span 2; /* Di tablet tetap 2 kolom jika layout grid max 2 */
   }
 }
 
 /* Mobile Devices */
 @media (max-width: 600px) {
-  /* Carousel: Pakai lebar relatif viewport agar pas di layar kecil */
   .carousel-section {
     min-height: auto;
     margin-bottom: var(--space-4);
-    padding: 0; /* Reset padding container */
+    padding: 0;
   }
 
   .carousel-viewport {
     width: 100%;
-    padding: 10px 0; /* Ruang untuk bayangan kartu */
+    padding: 10px 0;
   }
   
-  /* Kartu Carousel menjadi lebih fleksibel */
   .carousel-card {
-    /* Lebar kartu = lebar layar dikurangi 64px (untuk margin kiri kanan) */
     width: calc(100vw - 80px); 
     min-width: calc(100vw - 80px);
-    height: auto; /* Tinggi otomatis mengikuti konten */
+    height: auto;
     min-height: 150px;
     padding: var(--space-2);
   }
 
-  .carousel-card img {
-    width: 50px;
-    height: 50px;
-  }
-
-  .carousel-card-title {
-    font-size: 1rem;
-  }
-
-  /* Panah Navigasi Carousel */
   .carousel-arrow {
     width: 32px;
     height: 32px;
-    background: white; /* Lebih kontras di mobile */
+    background: white;
     box-shadow: 0 4px 12px rgba(0,0,0,0.15);
   }
-  .carousel-arrow--left { left: 4px; }
-  .carousel-arrow--right { right: 4px; }
+
+  /* --- PERBAIKAN TOMBOL PANAH DI MOBILE --- */
+  .carousel-arrow--left {
+    left: 10px; /* Tarik tombol panah ke dalam layar */
+    z-index: 10;
+  }
+  .carousel-arrow--right {
+    right: 10px; /* Tarik tombol panah ke dalam layar */
+    z-index: 10;
+  }
   
-  /* Gallery: Ubah jadi 1 kolom agar gambar besar dan jelas */
   .gallery-masonry {
-    grid-template-columns: 1fr; /* 1 kolom penuh */
+    grid-template-columns: 1fr; 
     gap: var(--space-3);
-    padding: 0 var(--space-1);
   }
 
-  /* Ukuran gambar di galeri */
-  .gallery-item--drawing img { height: auto; max-height: 250px; }
-  .gallery-item--render img { height: auto; max-height: 200px; }
-  
-  .gallery-title {
-    font-size: 1.25rem;
+  .gallery-item--drawing,
+  .gallery-item--features,
+  .gallery-item--render {
+    grid-column: span 4;
+    aspect-ratio: auto;
   }
-}
-/* Extra Small Mobile Devices */
-@media (max-width: 400px) {
-  .carousel-section { min-height: 160px; margin-bottom: var(--space-3); }
-  
-  .carousel-card {
-    width: 92vw;
-    min-width: 92vw;
-    height: 140px;
-  }
-  .carousel-card img { width: 36px; height: 36px; margin-bottom: 6px; }
-  .carousel-card-title { font-size: 1rem; margin-bottom: 4px; }
-  .carousel-card-desc { font-size: 0.85rem; line-height: 1.3; }
-  
-  .carousel-arrow { width: 32px; height: 32px; }
-  .carousel-arrow svg { width: 18px; height: 18px; }
-  .carousel-arrow--left { left: -5px; }
-  .carousel-arrow--right { right: -5px; }
-  
-  .gallery-masonry { gap: var(--space-2); }
-  .gallery-item--drawing img { height: 140px; }
-  .gallery-item-title { font-size: 1rem; }
-  .gallery-item-desc { font-size: 0.9rem; }
 }
