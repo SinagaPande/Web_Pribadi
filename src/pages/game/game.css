@@ -76,16 +76,26 @@
   overflow-x: auto;
   scroll-behavior: smooth;
   scroll-snap-type: x mandatory;
-  padding: 0 20px 20px 20px; /* Padding bawah untuk ruang scrollbar */
+  padding: 0 20px 20px 20px;
   
-  /* Sembunyikan scrollbar tapi tetap bisa scroll */
   scrollbar-width: thin;
   scrollbar-color: rgba(0,0,0,0.2) transparent;
+  
+  /* Kembalikan kursor grab sebagai indikator area bisa digeser */
+  cursor: grab; 
+}
+
+/* Class tambahan saat gambar sedang ditarik (diatur oleh JS) */
+.game-gallery.active {
+  cursor: grabbing;
+  scroll-behavior: auto; /* Matikan smooth scroll saat drag agar responsif */
+  scroll-snap-type: none; /* Matikan snap saat drag agar tidak tersendat */
 }
 
 .game-gallery::-webkit-scrollbar {
   height: 6px;
 }
+
 .game-gallery::-webkit-scrollbar-thumb {
   background-color: rgba(0,0,0,0.2);
   border-radius: 10px;
@@ -95,19 +105,18 @@
 }
 
 .game-gallery img {
-  height: 280px; /* Tinggi tetap agar rapi */
-  width: auto;   /* Lebar menyesuaikan rasio */
+  height: 280px; 
+  width: auto;   
   border-radius: 12px;
   scroll-snap-align: center;
   box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-  transition: transform 0.3s ease;
+  /* transition: transform 0.3s ease; <-- Hapus baris ini juga karena hover sudah tidak ada */
   flex-shrink: 0;
-  background-color: rgba(0,0,0,0.05); /* Placeholder warna saat loading */
-}
-
-/* Hover effect pada gambar */
-.game-gallery img:hover {
-  transform: scale(1.02);
+  background-color: rgba(0,0,0,0.05); 
+  
+  /* KUNCI UTAMA: Matikan sifat bawaan browser yang suka menarik file gambar */
+  user-select: none;
+  -webkit-user-drag: none;
 }
 
 .scroll-hint {
@@ -199,4 +208,34 @@
   .game-gallery {
     padding: 0 24px 20px 24px;
   }
+}
+
+/* --- Tombol YouTube Khusus --- */
+.game-btn--youtube {
+  /* Warna merah khas YouTube */
+  background-color: #FF0000; 
+  color: #FFFFFF;
+  border: 1px solid #FF0000;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.game-btn--youtube:hover {
+  /* Warna merah sedikit lebih gelap saat hover */
+  background-color: #CC0000; 
+  transform: translateY(-2px); /* Efek angkat sedikit */
+}
+
+/* Penyesuaian ukuran ikon SVG di dalam tombol */
+.game-btn--youtube .youtube-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px; /* Sesuaikan ukuran ikon */
+  height: 20px;
+}
+
+.game-btn--youtube .youtube-icon svg {
+  width: 100%;
+  height: 100%;
+  /* currentColor memastikan warna stroke mengikuti warna teks tombol (putih) */
 }

@@ -1,122 +1,154 @@
 ---
 import MainLayout from "../../layouts/MainLayout.astro";
 import "./game.css";
+import { gameData } from "./_gameData";
 ---
 
 <MainLayout title="Game Dev Portfolio | Jonathan Sinaga">
   <section class="game-header slide-in delay-1">
     <h1 class="section__title">Game Development</h1>
     <p class="section-description">
-      Eksperimen interaktif dan prototipe game menggunakan <strong>Unity</strong
-      > & <strong>Godot</strong>.
+      Eksperimen interaktif dan prototipe game menggunakan <strong>Unity</strong> & <strong>Godot</strong>.
     </p>
   </section>
 
   <div class="game-container">
-    <article class="game-card slide-in delay-2">
-      <div class="game-card__header">
-        <div class="header-text">
-          <h2 class="game-title">Sawit Harvester</h2>
-          <span class="game-genre">Simulation / Arcade</span>
+    {gameData.map((game, index) => (
+      <article class={`game-card slide-in delay-${index + 2}`}>
+        <div class="game-card__header">
+          <div class="header-text">
+            <h2 class="game-title">{game.title}</h2>
+            <span class="game-genre">{game.genre}</span>
+          </div>
+          
+          {game.buttonDisabled 
+          ? (
+            <a 
+              href="https://www.youtube.com/watch?v=VIDEO_ID_KAMU" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              class="game-btn game-btn--youtube"
+            >
+              Watch Gameplay
+              <span class="icon youtube-icon">
+                <svg viewBox="0 0 24 24" id="youtube-you-tube-video" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M19.34,5.09A10.87,10.87,0,0,0,12,4a10.87,10.87,0,0,0-7.34,1.09,3.75,3.75,0,0,0-2.18,3.13C2.18,10.29,2,12.23,2,12s.18,1.71.48,3.78a3.75,3.75,0,0,0,2.18,3.13A10.87,10.87,0,0,0,12,20a10.87,10.87,0,0,0,7.34-1.09,3.75,3.75,0,0,0,2.18-3.13C21.82,13.71,22,11.77,22,12s-.18-1.71-.48-3.78A3.75,3.75,0,0,0,19.34,5.09Z" style="fill: none; stroke: currentColor; stroke-linecap: round; stroke-linejoin: round; stroke-width: 1.5;"></path>
+                  <polygon points="10 15 10 9 15 12 10 15" style="fill: none; stroke: currentColor; stroke-linecap: round; stroke-linejoin: round; stroke-width: 1.5;"></polygon>
+                </svg>
+              </span>
+            </a>
+          ) : (
+            <a
+              href={game.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              class={`game-btn game-btn--${game.buttonType}`}
+            >
+              {game.buttonText}
+              <span class="icon">{game.buttonIcon}</span>
+            </a>
+          )}
         </div>
-        <a
-          href="https://chillguys.itch.io/sawit-harvester"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="game-btn game-btn--primary"
-        >
-          Play on Itch.io
-          <span class="icon">►</span>
-        </a>
-      </div>
 
-      <div class="game-gallery-viewport">
-        <div class="game-gallery">
-          <img
-            src="/Imagery/projects/games/Sawit Harvester/1_Sawit_Harvester.webp"
-            alt="Sawit Harvester Gameplay 1"
-            loading="lazy"
-          />
-          <img
-            src="/Imagery/projects/games/Sawit Harvester/2_Sawit_Harvester.webp"
-            alt="Sawit Harvester Gameplay 2"
-            loading="lazy"
-          />
-          <img
-            src="/Imagery/projects/games/Sawit Harvester/3_Sawit_Harvester.webp"
-            alt="Sawit Harvester Gameplay 3"
-            loading="lazy"
-          />
-          <img
-            src="/Imagery/projects/games/Sawit Harvester/4_Sawit_Harvester.webp"
-            alt="Sawit Harvester Gameplay 4"
-            loading="lazy"
-          />
-          <img
-            src="/Imagery/projects/games/Sawit Harvester/5_Sawit_Harvester.webp"
-            alt="Sawit Harvester Gameplay 5"
-            loading="lazy"
-          />
+        <div class="game-gallery-viewport">
+          <div class="game-gallery">
+            {game.images.map((imgSrc, imgIndex) => (
+              <img
+                src={imgSrc}
+                alt={`${game.title} Gameplay ${imgIndex + 1}`}
+                loading="lazy"
+              />
+            ))}
+          </div>
+          <div class="scroll-hint">Geser untuk melihat galeri →</div>
         </div>
-        <div class="scroll-hint">Geser untuk melihat galeri →</div>
-      </div>
 
-      <div class="game-card__footer">
-        <p>
-          Game simulasi panen kelapa sawit dengan mekanisme arcade yang
-          menantang.
-        </p>
-      </div>
-    </article>
-
-    <article class="game-card slide-in delay-3">
-      <div class="game-card__header">
-        <div class="header-text">
-          <h2 class="game-title">Zombie Prototype Game</h2>
-          <span class="game-genre">Top-Down Shooter / Survival</span>
+        <div class="game-card__footer">
+          <p>{game.description}</p>
         </div>
-        <button
-          class="game-btn game-btn--secondary"
-          disabled
-          title="Video coming soon"
-        >
-          Watch Gameplay
-          <span class="icon">Instagram</span>
-        </button>
-      </div>
-
-      <div class="game-gallery-viewport">
-        <div class="game-gallery">
-          <img
-            src="/Imagery/projects/games/Zombie Prototype Game/1_Zombie_Shooter.webp"
-            alt="Zombie Shooter Gameplay 1"
-            loading="lazy"
-          />
-          <img
-            src="/Imagery/projects/games/Zombie Prototype Game/2_Zombie_Shooter.webp"
-            alt="Zombie Shooter Gameplay 2"
-            loading="lazy"
-          />
-          <img
-            src="/Imagery/projects/games/Zombie Prototype Game/3_Zombie_Shooter.webp"
-            alt="Zombie Shooter Gameplay 3"
-            loading="lazy"
-          />
-          <img
-            src="/Imagery/projects/games/Zombie Prototype Game/4_Zombie_Shooter.webp"
-            alt="Zombie Shooter Gameplay 4"
-            loading="lazy"
-          />
-        </div>
-        <div class="scroll-hint">Geser untuk melihat galeri →</div>
-      </div>
-
-      <div class="game-card__footer">
-        <p>
-          Prototipe game survival shooter melawan gelombang zombie dengan sistem
-          weapon mechanics dasar.
-        </p>
-      </div>
-    </article>
+      </article>
+    ))}
   </div>
 </MainLayout>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const galleries = document.querySelectorAll('.game-gallery') as NodeListOf<HTMLElement>;
+    galleries.forEach((gallery) => {
+      let isDown = false;
+      let startX: number;
+      let scrollLeft: number;
+      let isDragging = false; // Penanda untuk membedakan klik biasa dan drag
+
+      // Ubah scroll vertikal mouse menjadi horizontal
+      gallery.addEventListener('wheel', (e: WheelEvent) => {
+        if (e.deltaY !== 0) {
+          e.preventDefault();
+          gallery.scrollLeft += e.deltaY;
+        }
+      });
+
+      // Fitur drag-to-scroll
+      gallery.addEventListener('mousedown', (e: MouseEvent) => {
+        isDown = true;
+        isDragging = false; // Reset penanda saat mouse ditekan
+        gallery.classList.add('active');
+        startX = e.pageX - gallery.offsetLeft;
+        scrollLeft = gallery.scrollLeft;
+      });
+
+      gallery.addEventListener('mouseleave', () => {
+        isDown = false;
+        gallery.classList.remove('active');
+      });
+
+      gallery.addEventListener('mouseup', () => {
+        isDown = false;
+        gallery.classList.remove('active');
+        // setTimeout digunakan agar status isDragging tidak langsung hilang saat mouseup
+        setTimeout(() => {
+          isDragging = false;
+        }, 50);
+      });
+
+      gallery.addEventListener('mousemove', (e: MouseEvent) => {
+        if (!isDown) return;
+        e.preventDefault();
+        const x = e.pageX - gallery.offsetLeft;
+        const walk = (x - startX) * 2; // Kecepatan geser
+        
+        // Jika kursor bergerak lebih dari 5 pixel, anggap ini sebagai drag, bukan klik
+        if (Math.abs(walk) > 5) {
+          isDragging = true;
+        }
+
+        gallery.scrollLeft = scrollLeft - walk;
+      });
+
+      // --- SCRIPT TAMBAHAN UNTUK LIGHTBOX ---
+      const images = gallery.querySelectorAll('img');
+      images.forEach((img) => {
+        // Ubah kursor menjadi kaca pembesar saat berada di atas gambar
+        img.style.cursor = 'zoom-in';
+
+        img.addEventListener('click', (e) => {
+          // Jika gambar sedang digeser (drag), batalkan event klik agar lightbox tidak terbuka
+          if (isDragging) {
+            e.preventDefault();
+            e.stopPropagation();
+            return;
+          }
+
+          // Jika hanya diklik biasa, buka lightbox (hanya mengirim 'src' tanpa 'title'/'subtitle')
+          // @ts-ignore
+          if (window.openGlobalLightbox) {
+            // @ts-ignore
+            window.openGlobalLightbox({
+              src: img.src
+            });
+          }
+        });
+      });
+    });
+  });
+</script>
