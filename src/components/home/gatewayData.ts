@@ -1,5 +1,3 @@
-// src/components/home/gatewayData.ts
-
 export const gatewayCards = [
   {
     href: "/cad",
@@ -34,8 +32,16 @@ export const gatewayCards = [
     sub: "Interactive Experiences",
     isWide: true,
     visuals: [
-      { src: "/Imagery/icons/Unity_logo.webp", alt: "Unity Logo" },
-      { src: "/Imagery/icons/Godot_logo.svg", alt: "Godot Logo" }
+      { 
+        srcLight: "/Imagery/icons/Unity_logo_Black.webp", 
+        srcDark: "/Imagery/icons/Unity_logo_White.webp", 
+        alt: "Unity Logo" 
+      },
+      { 
+        srcLight: "/Imagery/icons/Godot_logo_Black.webp", 
+        srcDark: "/Imagery/icons/Godot_logo_White.webp", 
+        alt: "Godot Logo" 
+      }
     ]
   }
 ];

@@ -9,7 +9,7 @@ export interface Props {
   title: string;
   sub: string;
   isWide: boolean;
-  visuals: { src: string; alt: string }[];
+  visuals: { src?: string; srcLight?: string; srcDark?: string; alt: string }[];
 }
 
 const { href, delayClass, colorRGB, electricColor, title, sub, isWide, visuals } = Astro.props;
@@ -19,7 +19,7 @@ const { href, delayClass, colorRGB, electricColor, title, sub, isWide, visuals }
   href={href} 
   class={`gateway__card slide-in ${delayClass} ${isWide ? 'gateway__card--wide' : ''}`}
   style={`--card-color: ${colorRGB};
-  --electric-border-color: ${electricColor};`}
+--electric-border-color: ${electricColor};`}
 >
   <div class="card__glass-bg">
     <div class="card__glow"></div>
@@ -39,11 +39,17 @@ const { href, delayClass, colorRGB, electricColor, title, sub, isWide, visuals }
   </div>
   
   <div class="card__content">
-    <div class={`card__visual ${visuals.length > 1 ?
-      'card__visual--dual' : ''}`}>
+    <div class={`card__visual ${visuals.length > 1 ? 'card__visual--dual' : ''}`}>
       {visuals.map((vis, index) => (
         <>
-          <img src={vis.src} alt={vis.alt} loading="eager" />
+          {vis.src ? (
+            <img src={vis.src} alt={vis.alt} loading="eager" />
+          ) : (
+            <>
+              <img src={vis.srcLight} alt={vis.alt} loading="eager" class="img-light" />
+              <img src={vis.srcDark} alt={vis.alt} loading="eager" class="img-dark" />
+            </>
+          )}
           {visuals.length > 1 && index === 0 && <div class="divider"></div>}
         </>
       ))}
@@ -57,7 +63,18 @@ const { href, delayClass, colorRGB, electricColor, title, sub, isWide, visuals }
 </a>
 
 <style>
- 
+  /* === THEME ADAPTATION LOGO === */
+  .img-dark { display: none; }
+  .img-light { display: block; }
+
+  /* Sesuaikan selector ini dengan cara web Anda menandai Dark Mode 
+     (biasanya class .dark atau atribut data-theme="dark" pada tag <html>) */
+  :global(.dark) .img-light,
+  :global([data-theme="dark"]) .img-light { display: none; }
+  
+  :global(.dark) .img-dark,
+  :global([data-theme="dark"]) .img-dark { display: block; }
+
   /* === ROOT KARTU === */
   .gateway__card {
     border-radius: var(--radius-card);
@@ -123,7 +140,8 @@ const { href, delayClass, colorRGB, electricColor, title, sub, isWide, visuals }
   .gateway__card.force-hover .card__glow { opacity: 1;
   }
   .gateway__card:hover .card__sweep, 
-  .gateway__card.force-hover .card__sweep { transform: translateX(100%); }
+  .gateway__card.force-hover .card__sweep { transform: translateX(100%);
+  }
 
 /* === LAYER ELECTRIC BORDER === */
   .electric-container {

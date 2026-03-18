@@ -1,57 +1,124 @@
 ---
 // src/components/home/Gateway.astro
 
-import GatewayCard from './GatewayCard.astro';
-import { gatewayCards } from './gatewayData';
+import GatewayCard from "./GatewayCard.astro";
+import { gatewayCards } from "./gatewayData";
 ---
 
 <section class="gateway" aria-label="Portfolio Categories">
-  
-  <svg class="gateway__svg-defs" style="position: absolute; width: 0; height: 0;">
+  <svg
+    class="gateway__svg-defs"
+    style="position: absolute; width: 0; height: 0;"
+  >
     <defs>
-      <filter id="turbulent-displace" colorInterpolationFilters="sRGB" x="-20%" y="-20%" width="140%" height="140%">
-        <feTurbulence type="turbulence" baseFrequency="0.02" numOctaves="3" result="noise1" seed="1" />
+      <filter
+        id="turbulent-displace"
+        colorInterpolationFilters="sRGB"
+        x="-20%"
+        y="-20%"
+        width="140%"
+        height="140%"
+      >
+        <feTurbulence
+          type="turbulence"
+          baseFrequency="0.02"
+          numOctaves="3"
+          result="noise1"
+          seed="1"></feTurbulence>
         <feOffset in="noise1" dx="0" dy="0" result="offsetNoise1">
-          <animate attributeName="dy" values="700; 0" dur="6s" repeatCount="indefinite" calcMode="linear" />
+          <animate
+            attributeName="dy"
+            values="700; 0"
+            dur="6s"
+            repeatCount="indefinite"
+            calcMode="linear"></animate>
         </feOffset>
-        
-        <feTurbulence type="turbulence" baseFrequency="0.02" numOctaves="3" result="noise2" seed="1" />
+
+        <feTurbulence
+          type="turbulence"
+          baseFrequency="0.02"
+          numOctaves="3"
+          result="noise2"
+          seed="1"></feTurbulence>
         <feOffset in="noise2" dx="0" dy="0" result="offsetNoise2">
-          <animate attributeName="dy" values="0; -700" dur="6s" repeatCount="indefinite" calcMode="linear" />
+          <animate
+            attributeName="dy"
+            values="0; -700"
+            dur="6s"
+            repeatCount="indefinite"
+            calcMode="linear"></animate>
         </feOffset>
-        
-        <feTurbulence type="turbulence" baseFrequency="0.02" numOctaves="3" result="noise1" seed="2" />
+
+        <feTurbulence
+          type="turbulence"
+          baseFrequency="0.02"
+          numOctaves="3"
+          result="noise1"
+          seed="2"></feTurbulence>
         <feOffset in="noise1" dx="0" dy="0" result="offsetNoise3">
-          <animate attributeName="dx" values="490; 0" dur="6s" repeatCount="indefinite" calcMode="linear" />
+          <animate
+            attributeName="dx"
+            values="490; 0"
+            dur="6s"
+            repeatCount="indefinite"
+            calcMode="linear"></animate>
         </feOffset>
-        
-        <feTurbulence type="turbulence" baseFrequency="0.02" numOctaves="3" result="noise2" seed="2" />
+
+        <feTurbulence
+          type="turbulence"
+          baseFrequency="0.02"
+          numOctaves="3"
+          result="noise2"
+          seed="2"></feTurbulence>
         <feOffset in="noise2" dx="0" dy="0" result="offsetNoise4">
-          <animate attributeName="dx" values="0; -490" dur="6s" repeatCount="indefinite" calcMode="linear" />
+          <animate
+            attributeName="dx"
+            values="0; -490"
+            dur="6s"
+            repeatCount="indefinite"
+            calcMode="linear"></animate>
         </feOffset>
-        
-        <feComposite in="offsetNoise1" in2="offsetNoise2" result="part1" />
-        <feComposite in="offsetNoise3" in2="offsetNoise4" result="part2" />
-        <feBlend in="part1" in2="part2" mode="color-dodge" result="combinedNoise" />
-        
-        <feDisplacementMap in="SourceGraphic" in2="combinedNoise" scale="30" xChannelSelector="R" yChannelSelector="B" />
+
+        <feComposite in="offsetNoise1" in2="offsetNoise2" result="part1"
+        ></feComposite>
+        <feComposite in="offsetNoise3" in2="offsetNoise4" result="part2"
+        ></feComposite>
+        <feBlend
+          in="part1"
+          in2="part2"
+          mode="color-dodge"
+          result="combinedNoise"></feBlend>
+
+        <feDisplacementMap
+          in="SourceGraphic"
+          in2="combinedNoise"
+          scale="30"
+          xChannelSelector="R"
+          yChannelSelector="B"></feDisplacementMap>
       </filter>
     </defs>
   </svg>
 
+  <h2 class="gateway__cta slide-in delay-1">
+    <span class="cta-line-1">Jelajahi karya saya</span>
+    <span class="cta-line-2">berdasarkan kategori di bawah ini</span>
+  </h2>
+
   <div class="gateway__grid">
-    {gatewayCards.map((card) => (
-      <GatewayCard 
-        href={card.href}
-        delayClass={card.delayClass}
-        colorRGB={card.colorRGB}
-        electricColor={card.electricColor}
-        title={card.title}
-        sub={card.sub}
-        isWide={card.isWide}
-        visuals={card.visuals}
-      />
-    ))}
+    {
+      gatewayCards.map((card) => (
+        <GatewayCard
+          href={card.href}
+          delayClass={card.delayClass}
+          colorRGB={card.colorRGB}
+          electricColor={card.electricColor}
+          title={card.title}
+          sub={card.sub}
+          isWide={card.isWide}
+          visuals={card.visuals}
+        />
+      ))
+    }
   </div>
 </section>
 
@@ -74,7 +141,38 @@ import { gatewayCards } from './gatewayData';
     width: 100%;
   }
 
-/* === MOBILE RESPONSIVE === */
+  /* === CTA TEXT STYLES (CLEAN & HIGH CONTRAST) === */
+  .gateway__cta {
+    text-align: center;
+    margin: 0 auto var(--space-5) auto;
+    padding: 0 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 0px;
+    line-height: 1.1;
+    color: var(--text-primary); /* Hitam di Light, Putih di Dark */
+  }
+
+  .cta-line-1 {
+    font-weight: 500;
+    font-size: clamp(1.2rem, 4vw, 1.8rem);
+    opacity: 0.9;
+    letter-spacing: -0.5px;
+  }
+
+  .cta-line-2 {
+    font-weight: 800;
+    font-size: clamp(1.8rem, 6vw, 2.8rem); /* Ukuran lebih tegas */
+    letter-spacing: -1px;
+    text-transform: capitalize;
+  }
+
+  /* Tambahan sedikit bayangan halus agar teks tidak menyatu dengan background grid */
+  :global([data-theme="dark"]) .gateway__cta {
+    text-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  /* === MOBILE RESPONSIVE === */
   @media (max-width: 768px) {
     .gateway {
       padding-top: 40px;
