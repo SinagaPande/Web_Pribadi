@@ -8,116 +8,138 @@ import { gameData } from "./_gameData";
   <section class="game-header slide-in delay-1">
     <h1 class="section__title">Game Development</h1>
     <p class="section-description">
-      Eksperimen interaktif dan prototipe game menggunakan <strong>Unity</strong> & <strong>Godot</strong>.
+      Eksperimen interaktif dan prototipe game menggunakan <strong>Unity</strong
+      > & <strong>Godot</strong>.
     </p>
   </section>
 
   <div class="game-container">
-    {gameData.map((game, index) => (
-      <article class={`game-card slide-in delay-${index + 2}`}>
-        <div class="game-card__header">
-          <div class="header-text">
-            <h2 class="game-title">{game.title}</h2>
-            <span class="game-genre">{game.genre}</span>
-          </div>
-          
-          {game.buttonDisabled 
-          ? (
-            <a 
-              href="https://youtu.be/ynOYgDRP8OI?si=z582_-kj6Hy8CwbG" 
-              target="_blank" 
-              rel="noopener noreferrer" 
-              class="game-btn game-btn--youtube"
-            >
-              Watch Gameplay
-              <span class="icon youtube-icon">
-                <svg viewBox="0 0 24 24" id="youtube-you-tube-video" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M19.34,5.09A10.87,10.87,0,0,0,12,4a10.87,10.87,0,0,0-7.34,1.09,3.75,3.75,0,0,0-2.18,3.13C2.18,10.29,2,12.23,2,12s.18,1.71.48,3.78a3.75,3.75,0,0,0,2.18,3.13A10.87,10.87,0,0,0,12,20a10.87,10.87,0,0,0,7.34-1.09,3.75,3.75,0,0,0,2.18-3.13C21.82,13.71,22,11.77,22,12s-.18-1.71-.48-3.78A3.75,3.75,0,0,0,19.34,5.09Z" style="fill: none; stroke: currentColor; stroke-linecap: round; stroke-linejoin: round; stroke-width: 1.5;"></path>
-                  <polygon points="10 15 10 9 15 12 10 15" style="fill: none; stroke: currentColor; stroke-linecap: round; stroke-linejoin: round; stroke-width: 1.5;"></polygon>
-                </svg>
-              </span>
-            </a>
-          ) : (
-            <a
-              href={game.link}
-              target="_blank"
-              rel="noopener noreferrer"
-              class={`game-btn game-btn--${game.buttonType}`}
-            >
-              {game.buttonText}
-              <span class="icon">{game.buttonIcon}</span>
-            </a>
-          )}
-        </div>
+    {
+      gameData.map((game, index) => (
+        <article class={`game-card slide-in delay-${index + 2}`}>
+          <div class="game-card__header">
+            <div class="header-text">
+              <h2 class="game-title">{game.title}</h2>
+              <span class="game-genre">{game.genre}</span>
+            </div>
 
-        <div class="game-gallery-viewport">
-          <div class="game-gallery">
-            {game.images.map((imgSrc, imgIndex) => (
-              <img
-                src={imgSrc}
-                alt={`${game.title} Gameplay ${imgIndex + 1}`}
-                loading="lazy"
-              />
-            ))}
+            {game.buttonDisabled ? (
+              <a
+                href="https://youtu.be/ynOYgDRP8OI?si=z582_-kj6Hy8CwbG"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="game-btn game-btn--youtube"
+              >
+                Watch Gameplay
+                <span class="icon youtube-icon">
+                  <svg
+                    viewBox="0 0 24 24"
+                    id="youtube-you-tube-video"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M19.34,5.09A10.87,10.87,0,0,0,12,4a10.87,10.87,0,0,0-7.34,1.09,3.75,3.75,0,0,0-2.18,3.13C2.18,10.29,2,12.23,2,12s.18,1.71.48,3.78a3.75,3.75,0,0,0,2.18,3.13A10.87,10.87,0,0,0,12,20a10.87,10.87,0,0,0,7.34-1.09,3.75,3.75,0,0,0,2.18-3.13C21.82,13.71,22,11.77,22,12s-.18-1.71-.48-3.78A3.75,3.75,0,0,0,19.34,5.09Z"
+                      style="fill: none; stroke: currentColor; stroke-linecap: round; stroke-linejoin: round; stroke-width: 1.5;"
+                    />
+                    <polygon
+                      points="10 15 10 9 15 12 10 15"
+                      style="fill: none; stroke: currentColor; stroke-linecap: round; stroke-linejoin: round; stroke-width: 1.5;"
+                    />
+                  </svg>
+                </span>
+              </a>
+            ) : (
+              <a
+                href={game.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                class={`game-btn game-btn--${game.buttonType}`}
+              >
+                {game.buttonText}
+                <span class="icon">{game.buttonIcon}</span>
+              </a>
+            )}
           </div>
-          <div class="scroll-hint">Geser untuk melihat galeri →</div>
-        </div>
 
-        <div class="game-card__footer">
-          <p>{game.description}</p>
-        </div>
-      </article>
-    ))}
+          <div class="game-gallery-viewport">
+            <div class="game-gallery">
+              {game.images.map((imgSrc, imgIndex) => (
+                <img
+                  src={imgSrc}
+                  alt={`${game.title} Gameplay ${imgIndex + 1}`}
+                  loading="lazy"
+                />
+              ))}
+            </div>
+            <div class="scroll-hint">Geser untuk melihat galeri →</div>
+          </div>
+
+          <div class="game-card__footer">
+            <p>{game.description}</p>
+          </div>
+        </article>
+      ))
+    }
   </div>
 </MainLayout>
 
 <script>
-  document.addEventListener('DOMContentLoaded', () => {
-    const galleries = document.querySelectorAll('.game-gallery') as NodeListOf<HTMLElement>;
+  document.addEventListener("DOMContentLoaded", () => {
+    const galleries = document.querySelectorAll(
+      ".game-gallery",
+    ) as NodeListOf<HTMLElement>;
+
     galleries.forEach((gallery) => {
       let isDown = false;
       let startX: number;
       let scrollLeft: number;
-      let isDragging = false; // Penanda untuk membedakan klik biasa dan drag
+      let isDragging = false;
 
-      // Ubah scroll vertikal mouse menjadi horizontal
-      gallery.addEventListener('wheel', (e: WheelEvent) => {
-        if (e.deltaY !== 0) {
-          e.preventDefault();
-          gallery.scrollLeft += e.deltaY;
+      // FIX 2: Perbaikan Scroll Wheel agar geser 1 gambar per putaran
+      gallery.addEventListener("wheel", (e: WheelEvent) => {
+        e.preventDefault(); // Matikan scroll bawaan yang kasar
+
+        // Hitung lebar 1 gambar + gap (16px) untuk jarak geser
+        const firstImage = gallery.querySelector("img");
+        const scrollAmount = firstImage ? firstImage.clientWidth + 16 : 300;
+
+        if (e.deltaY > 0) {
+          gallery.scrollBy({ left: scrollAmount, behavior: "smooth" }); // Geser kanan
+        } else {
+          gallery.scrollBy({ left: -scrollAmount, behavior: "smooth" }); // Geser kiri
         }
       });
 
       // Fitur drag-to-scroll
-      gallery.addEventListener('mousedown', (e: MouseEvent) => {
+      gallery.addEventListener("mousedown", (e: MouseEvent) => {
         isDown = true;
-        isDragging = false; // Reset penanda saat mouse ditekan
-        gallery.classList.add('active');
+        isDragging = false;
+        gallery.classList.add("active");
         startX = e.pageX - gallery.offsetLeft;
         scrollLeft = gallery.scrollLeft;
       });
 
-      gallery.addEventListener('mouseleave', () => {
+      gallery.addEventListener("mouseleave", () => {
         isDown = false;
-        gallery.classList.remove('active');
+        gallery.classList.remove("active");
       });
 
-      gallery.addEventListener('mouseup', () => {
+      gallery.addEventListener("mouseup", () => {
         isDown = false;
-        gallery.classList.remove('active');
-        // setTimeout digunakan agar status isDragging tidak langsung hilang saat mouseup
+        gallery.classList.remove("active");
         setTimeout(() => {
           isDragging = false;
         }, 50);
       });
 
-      gallery.addEventListener('mousemove', (e: MouseEvent) => {
+      gallery.addEventListener("mousemove", (e: MouseEvent) => {
         if (!isDown) return;
         e.preventDefault();
         const x = e.pageX - gallery.offsetLeft;
-        const walk = (x - startX) * 2; // Kecepatan geser
-        
-        // Jika kursor bergerak lebih dari 5 pixel, anggap ini sebagai drag, bukan klik
+
+        // FIX 3: Ubah multiplier dari * 2 menjadi * 1 agar drag tidak terlalu sensitif
+        const walk = (x - startX) * 1;
+
         if (Math.abs(walk) > 5) {
           isDragging = true;
         }
@@ -126,25 +148,23 @@ import { gameData } from "./_gameData";
       });
 
       // --- SCRIPT TAMBAHAN UNTUK LIGHTBOX ---
-      const images = gallery.querySelectorAll('img');
-      images.forEach((img) => {
-        // Ubah kursor menjadi kaca pembesar saat berada di atas gambar
-        img.style.cursor = 'zoom-in';
+      const images = gallery.querySelectorAll("img");
 
-        img.addEventListener('click', (e) => {
-          // Jika gambar sedang digeser (drag), batalkan event klik agar lightbox tidak terbuka
+      images.forEach((img) => {
+        img.style.cursor = "zoom-in";
+
+        img.addEventListener("click", (e) => {
           if (isDragging) {
             e.preventDefault();
             e.stopPropagation();
             return;
           }
 
-          // Jika hanya diklik biasa, buka lightbox (hanya mengirim 'src' tanpa 'title'/'subtitle')
           // @ts-ignore
           if (window.openGlobalLightbox) {
             // @ts-ignore
             window.openGlobalLightbox({
-              src: img.src
+              src: img.src,
             });
           }
         });
