@@ -1,7 +1,7 @@
 ---
-import MainLayout from '../../layouts/MainLayout.astro';
+import MainLayout from "../../layouts/MainLayout.astro";
 import "./cad.css";
-import { cadProjects } from './_cadData';
+import { cadProjects } from "./_cadData";
 ---
 
 <MainLayout title="CAD Design Portfolio | Jonathan Sinaga">
@@ -13,51 +13,98 @@ import { cadProjects } from './_cadData';
       Showcasing Mechanical & Industrial Design Projects using SolidWorks
     </p>
 
-    <section class="carousel-section" aria-label="Featured CAD Projects">
-      <button class="carousel-arrow carousel-arrow--left" id="carouselPrev" aria-label="Previous Project">
-        <svg viewBox="0 0 24 24"><path d="M15 19l-7-7 7-7" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+    <section
+      class="carousel-section"
+      id="carouselSection"
+      aria-label="Featured CAD Projects"
+    >
+      <button
+        class="carousel-arrow carousel-arrow--left"
+        id="carouselPrev"
+        aria-label="Previous Project"
+      >
+        <svg viewBox="0 0 24 24"
+          ><path
+            d="M15 19l-7-7 7-7"
+            stroke="currentColor"
+            stroke-width="2"
+            fill="none"
+            stroke-linecap="round"
+            stroke-linejoin="round"></path></svg
+        >
       </button>
 
       <div class="carousel-viewport">
         <div class="carousel-track" id="carouselTrack">
-          {cadProjects.map((project) => (
-            <div class="carousel-card" data-category={project.id}>
-              <img src={project.thumbnail} alt={project.title} />
-              <div class="carousel-card-title">{project.title}</div>
-              <div class="carousel-card-desc">{project.desc}</div>
-            </div>
-          ))}
+          {
+            cadProjects.map((project) => (
+              <div class="carousel-card" data-category={project.id}>
+                <img src={project.thumbnail} alt={project.title} />
+                <div class="carousel-card-title">{project.title}</div>
+                <div class="carousel-card-desc">{project.desc}</div>
+              </div>
+            ))
+          }
         </div>
       </div>
 
-      <button class="carousel-arrow carousel-arrow--right" id="carouselNext" aria-label="Next Project">
-        <svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+      <button
+        class="carousel-arrow carousel-arrow--right"
+        id="carouselNext"
+        aria-label="Next Project"
+      >
+        <svg viewBox="0 0 24 24"
+          ><path
+            d="M9 5l7 7-7 7"
+            stroke="currentColor"
+            stroke-width="2"
+            fill="none"
+            stroke-linecap="round"
+            stroke-linejoin="round"></path></svg
+        >
       </button>
     </section>
 
-    <p class="gallery-hint">Klik gambar untuk memperbesar dan melihat detail desain</p>
+    <p class="gallery-hint">
+      Klik gambar untuk memperbesar dan melihat detail desain
+    </p>
 
     <section class="gallery-section" aria-label="Project Gallery">
       <div class="gallery-masonry" id="galleryMasonry">
-        
-        {cadProjects.map((project) => (
-          <>
-            <div class="gallery-item gallery-item--drawing" data-category={project.id}>
-              <img src={project.drawingSrc} alt={`${project.title} Drawing`} />
-            </div>
-            
-            <div class="gallery-item gallery-item--features" data-category={project.id}>
-              <img src={project.featuresSrc} alt={`${project.title} Features`} />
-            </div>
-
-            {project.renders.map((render) => (
-              <div class="gallery-item gallery-item--render" data-category={project.id}>
-                <img src={render.src} alt={render.alt} />
+        {
+          cadProjects.map((project) => (
+            <>
+              <div
+                class="gallery-item gallery-item--drawing"
+                data-category={project.id}
+              >
+                <img
+                  src={project.drawingSrc}
+                  alt={`${project.title} Drawing`}
+                />
               </div>
-            ))}
-          </>
-        ))}
 
+              <div
+                class="gallery-item gallery-item--features"
+                data-category={project.id}
+              >
+                <img
+                  src={project.featuresSrc}
+                  alt={`${project.title} Features`}
+                />
+              </div>
+
+              {project.renders.map((render) => (
+                <div
+                  class="gallery-item gallery-item--render"
+                  data-category={project.id}
+                >
+                  <img src={render.src} alt={render.alt} />
+                </div>
+              ))}
+            </>
+          ))
+        }
       </div>
     </section>
   </main>
@@ -178,40 +225,82 @@ import { cadProjects } from './_cadData';
     }, 100);
   }
 
+// --- TAMBAHAN SCRIPT UNTUK FITUR SWIPE (MOBILE) ---
+  // Ubah target menjadi tag <main> agar mencakup kartu dan galeri di bawahnya
+  const swipeArea = document.querySelector("main"); 
+  let touchStartX = 0;
+  let touchEndX = 0;
+
+  if (swipeArea) {
+    swipeArea.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+    }, { passive: true });
+
+    swipeArea.addEventListener('touchend', (e) => {
+      touchEndX = e.changedTouches[0].screenX;
+      handleSwipe();
+    }, { passive: true });
+  }
+
+  function handleSwipe() {
+    // Hanya aktifkan swipe jika di tampilan mobile (lebar layar <= 600px)
+    if (window.innerWidth <= 600) {
+      const swipeThreshold = 50; // Minimal geseran jari 50px
+      const deltaX = touchStartX - touchEndX;
+
+      if (deltaX > swipeThreshold) {
+        // Swipe ke kiri -> Pindah ke kartu selanjutnya (Next)
+        carouselIndex = Math.min(carouselCards.length - 1, carouselIndex + 1);
+        updateCarousel();
+      } else if (deltaX < -swipeThreshold) {
+        // Swipe ke kanan -> Pindah ke kartu sebelumnya (Prev)
+        carouselIndex = Math.max(0, carouselIndex - 1);
+        updateCarousel();
+      }
+    }
+  }
+  // ---------------------------------------------------
+
   // --- SCRIPT TAMBAHAN UNTUK LIGHTBOX (UPDATED) ---
-  const clickableImages = document.querySelectorAll('.gallery-item img, .carousel-card img');
+  const clickableImages = document.querySelectorAll(
+    ".gallery-item img, .carousel-card img",
+  );
   clickableImages.forEach((img) => {
-    img.style.cursor = 'zoom-in';
-    
-    img.addEventListener('click', (e) => {
+    img.style.cursor = "zoom-in";
+
+    img.addEventListener("click", (e) => {
       e.stopPropagation();
-      
+
       if (window.openGlobalLightbox) {
         // Membersihkan nama file/alt dari kata-kata teknis dan underscore agar lebih rapi
-        const cleanTitle = img.alt.replace(/Drawing|Features|Render|_/gi, ' ').replace(/\s+/g, ' ').trim() || 'CAD Project';
-        
-        let customSubtitle = 'SolidWorks Design';
+        const cleanTitle =
+          img.alt
+            .replace(/Drawing|Features|Render|_/gi, " ")
+            .replace(/\s+/g, " ")
+            .trim() || "CAD Project";
+
+        let customSubtitle = "SolidWorks Design";
 
         // Cek parent element untuk menentukan jenis gambar
-        const parentItem = img.closest('.gallery-item');
-        
+        const parentItem = img.closest(".gallery-item");
+
         if (parentItem) {
-          if (parentItem.classList.contains('gallery-item--render')) {
-            customSubtitle = 'Rendered with SOLIDWORKS Visualize';
-          } else if (parentItem.classList.contains('gallery-item--drawing')) {
-            customSubtitle = 'Drawing';
-          } else if (parentItem.classList.contains('gallery-item--features')) {
-            customSubtitle = 'Features';
+          if (parentItem.classList.contains("gallery-item--render")) {
+            customSubtitle = "Rendered with SOLIDWORKS Visualize";
+          } else if (parentItem.classList.contains("gallery-item--drawing")) {
+            customSubtitle = "Drawing";
+          } else if (parentItem.classList.contains("gallery-item--features")) {
+            customSubtitle = "Features";
           }
-        } else if (img.closest('.carousel-card')) {
+        } else if (img.closest(".carousel-card")) {
           // Gambar di carousel utama juga kita anggap sebagai hasil render
-          customSubtitle = 'Rendered with SOLIDWORKS Visualize';
+          customSubtitle = "Rendered with SOLIDWORKS Visualize";
         }
-        
+
         window.openGlobalLightbox({
           src: img.src,
           title: cleanTitle,
-          subtitle: customSubtitle
+          subtitle: customSubtitle,
         });
       }
     });
