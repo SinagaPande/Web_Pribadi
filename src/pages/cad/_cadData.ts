@@ -14,7 +14,7 @@ export const cadProjects: CadProject[] = [
   {
     id: "akm_bolt",
     title: "AKM Bolt",
-    desc: "Detailed 3D model of an AKM Bolt.",
+    desc: "Detailed 3D model of an AKM Bolt",
     thumbnail: "/Imagery/projects/solidworks/AKM_Bolt/AKM_Bolt.webp",
     drawingSrc: "/Imagery/projects/solidworks/AKM_Bolt/AKM_Bolt_Drawing.webp",
     featuresSrc: "/Imagery/projects/solidworks/AKM_Bolt/AKM_Bolt_Features.webp",
@@ -27,7 +27,7 @@ export const cadProjects: CadProject[] = [
   {
     id: "l_plate",
     title: "L Mounting Plate",
-    desc: "Structural mounting bracket design.",
+    desc: "Practice model for sheet metal unfolding",
     thumbnail: "/Imagery/projects/solidworks/l_mounting_plate/L_plate.webp",
     drawingSrc: "/Imagery/projects/solidworks/l_mounting_plate/L_plate_drawing.webp",
     featuresSrc: "/Imagery/projects/solidworks/l_mounting_plate/L_plate_features.webp",
@@ -39,7 +39,7 @@ export const cadProjects: CadProject[] = [
   {
     id: "spiral_tap",
     title: "Spiral Flute Tap",
-    desc: "Precision machining tool design.",
+    desc: "Practice model for creating spiral geometry",
     thumbnail: "/Imagery/projects/solidworks/spiral_flute_tap/Spiral_Tap.webp",
     drawingSrc: "/Imagery/projects/solidworks/spiral_flute_tap/Spiral_Tap_Drawing.webp",
     featuresSrc: "/Imagery/projects/solidworks/spiral_flute_tap/Spiral_Tap_Features.webp",
@@ -51,7 +51,7 @@ export const cadProjects: CadProject[] = [
   {
     id: "exercise_997",
     title: "Mechanical Part 997",
-    desc: "Complex mechanical practice part.",
+    desc: "Basic mechanical modeling practice",
     thumbnail: "/Imagery/projects/solidworks/exercise_997/exercise_997.webp",
     drawingSrc: "/Imagery/projects/solidworks/exercise_997/exercise_997_Drawing.webp",
     featuresSrc: "/Imagery/projects/solidworks/exercise_997/exercise_997_Features.webp",

@@ -22,7 +22,7 @@ export const blenderProjects: BlenderProject[] = [
   {
     id: "card-l300",
     title: "Mitsubishi L300 - Automotive Modeling",
-    description: "A detailed 3D model of the legendary Mitsubishi L300 pickup. Focused on automotive hard surface techniques, accurate vehicle proportions, and realistic shading using Blender.",
+    description: "Kendaraan pickup yang digunakan sebagai aset dalam game Sawit Harvester. Kendaraan ini cocok untuk memperkuat nuansa game bertema pertanian maupun konteks lokal Indonesia, sehingga terasa lebih autentik dan relevan.",
     mainImageSrc: "/Imagery/projects/blender/l300/L300_Tampak_Depan_Kanan.webp",
     mainImageAlt: "3D Model of Mitsubishi L300 Pickup",
     modelSrc: "/3D_Asset/L300/L300.gltf", // Path diperbarui
@@ -50,7 +50,7 @@ export const blenderProjects: BlenderProject[] = [
   {
     id: "card-sawit",
     title: "Palm Fruit (Sawit) - Organic Modeling",
-    description: "Studi pemodelan organik detail dari Buah Kelapa Sawit. Fokus pada pembentukan geometri alami buah, tekstur organik, dan topologi yang rapi (quad-based topology).",
+    description: "Nyawit",
     mainImageSrc: "/Imagery/projects/blender/sawit/Sawit_Tampak_Depan.webp",
     mainImageAlt: "3D Model Buah Sawit",
     modelSrc: "/3D_Asset/Sawit/Buah_Sawit.gltf", // Path ditambahkan
@@ -80,7 +80,7 @@ export const blenderProjects: BlenderProject[] = [
   {
     id: "card-hmmwv",
     title: "HMMWV (Humvee) - Military Vehicle",
-    description: "Model kendaraan taktis militer High Mobility Multipurpose Wheeled Vehicle. Detail chassis lengkap dengan 5 sudut pandang (Depan, Samping Kanan/Kiri, Belakang Kanan/Kiri).",
+    description: "Kendaraan militer yang digunakan oleh US Army dan identik dengan berbagai operasi militer Amerika. Sering muncul dalam film, serta menjadi aset yang umum digunakan dalam game bertema perang karena nilai visual dan ikoniknya.",
     mainImageSrc: "/Imagery/projects/blender/HMMWV/HMMWV_Tampak_Depan_Kanan.webp",
     mainImageAlt: "3D Model HMMWV",
     modelSrc: "/3D_Asset/HMMWV/HMMWV.gltf", // Path ditambahkan
@@ -120,7 +120,7 @@ export const blenderProjects: BlenderProject[] = [
   {
     id: "card-m16a1",
     title: "M16A1 Rifle - Weapon Asset",
-    description: "Rekreasi senjata ikonik M16A1 dengan topologi efisien.",
+    description: "Model senjata yang banyak digunakan dalam game bertema perang, khususnya yang mengangkat latar Perang Vietnam.",
     mainImageSrc: "/Imagery/projects/blender/m16a1/M16A1_Tampak_Depan_Kanan.webp",
     mainImageAlt: "3D Model M16A1",
     modelSrc: "/3D_Asset/M16A1/M16A1.gltf", // Path ditambahkan
@@ -148,7 +148,7 @@ export const blenderProjects: BlenderProject[] = [
   {
     id: "card-akm",
     title: "AKM Rifle - Weapon Asset",
-    description: "Model 3D AKM dengan detail stamped receiver dan popor kayu.",
+    description: "Model senjata yang banyak digunakan dalam game bertema perang.",
     mainImageSrc: "/Imagery/projects/blender/akm/AKM_Tampak_Depan_Kanan.webp",
     mainImageAlt: "3D Model AKM",
     modelSrc: "/3D_Asset/AKM/AKM.gltf", // Path ditambahkan

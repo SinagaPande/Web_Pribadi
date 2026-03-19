@@ -15,7 +15,7 @@ export const gameData = [
       "/Imagery/projects/games/Sawit Harvester/4_Sawit_Harvester.webp",
       "/Imagery/projects/games/Sawit Harvester/5_Sawit_Harvester.webp",
     ],
-    description: "Game simulasi panen kelapa sawit dengan mekanisme arcade yang menantang."
+    description: "Game tentang memanen kelapa sawit, di mana pemain harus mengumpulkan sebanyak mungkin buah dalam waktu terbatas. Pemain dituntut untuk memilah buah yang matang dan menghindari yang mentah, karena kesalahan akan mengurangi pendapatan. Selain itu, pemain juga harus menghadapi pencuri yang mencuri hasil panen serta babi hutan yang menyerang dan harus diusir menggunakan ketapel."
   },
   {
     title: "Zombie Prototype Game",
@@ -32,6 +32,6 @@ export const gameData = [
       "/Imagery/projects/games/Zombie Prototype Game/3_Zombie_Shooter.webp",
       "/Imagery/projects/games/Zombie Prototype Game/4_Zombie_Shooter.webp",
     ],
-    description: "Prototipe game survival shooter melawan gelombang zombie dengan sistem weapon mechanics dasar."
+    description: "Game survival shooter di mana pemain melawan gelombang zombie yang terus bertambah setiap ronde. Pemain dibekali senjata AK-47 dan shotgun dengan amunisi terbatas sejak awal, sehingga strategi penggunaan peluru menjadi kunci. Game ini masih dalam tahap pengembangan."
   }
 ];
