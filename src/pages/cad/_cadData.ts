@@ -12,6 +12,22 @@ export interface CadProject {
 
 export const cadProjects: CadProject[] = [
   {
+    id: "laptop_casing",
+    title: "Laptop Casing",
+    desc: "A reverse-engineered 3D CAD model and detailed component assembly of a physical laptop",
+    thumbnail: "/Imagery/projects/solidworks/Laptop_Casing/Laptop_Casing.webp",
+    drawingSrc: "/Imagery/projects/solidworks/Laptop_Casing/Laptop%20Casing.png",
+    featuresSrc: "/Imagery/projects/solidworks/Laptop_Casing/Laptop%20Casing_Features.webp",
+    renders: [
+      { src: "/Imagery/projects/solidworks/Laptop_Casing/Top%20cover.webp", alt: "Top Cover" },
+      { src: "/Imagery/projects/solidworks/Laptop_Casing/Bezel.webp", alt: "Bezel" },
+      { src: "/Imagery/projects/solidworks/Laptop_Casing/Keyboard.webp", alt: "Keyboard" },
+      { src: "/Imagery/projects/solidworks/Laptop_Casing/Keyboard_1.webp", alt: "Keyboard View" },
+      { src: "/Imagery/projects/solidworks/Laptop_Casing/Bottom%20Case.webp", alt: "Bottom Case" },
+      { src: "/Imagery/projects/solidworks/Laptop_Casing/Bottom%20Case_1.webp", alt: "Bottom Case View" }
+    ]
+  },
+  {
     id: "akm_bolt",
     title: "AKM Bolt",
     desc: "Detailed 3D model of an AKM Bolt",
