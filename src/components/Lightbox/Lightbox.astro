@@ -1,0 +1,68 @@
+---
+import './lightbox.css';
+---
+
+<div id="global-lightbox" class="global-lightbox" aria-hidden="true">
+    <div class="global-lightbox-wrapper">
+        <img id="global-lightbox-img" class="global-lightbox-content" src="" alt="Preview" />
+        
+        <div id="global-lightbox-caption" class="global-lightbox-caption">
+            <h3 id="gl-title" class="gl-title"></h3>
+            <span id="gl-subtitle" class="gl-subtitle"></span>
+        </div>
+    </div>
+</div>
+
+<script>
+    const lightbox = document.getElementById('global-lightbox');
+    const lightboxImg = document.getElementById('global-lightbox-img');
+    const titleEl = document.getElementById('gl-title');
+    const subtitleEl = document.getElementById('gl-subtitle');
+
+    // Mendaftarkan fungsi ke window agar bisa dipanggil dari halaman manapun
+    window.openGlobalLightbox = (payload) => {
+        if (!lightbox || !lightboxImg) return;
+
+        lightboxImg.src = payload.src;
+
+        if (titleEl && subtitleEl) {
+            if (payload.title) {
+                titleEl.textContent = payload.title;
+                subtitleEl.textContent = payload.subtitle || '';
+                titleEl.style.display = 'block';
+                subtitleEl.style.display = payload.subtitle ? 'block' : 'none';
+            } else {
+                titleEl.style.display = 'none';
+                subtitleEl.style.display = 'none';
+            }
+        }
+
+        lightbox.classList.add('active');
+        document.body.classList.add('no-scroll');
+    };
+
+    function closeGlobalLightbox() {
+        if (!lightbox) return;
+        lightbox.classList.remove('active');
+        document.body.classList.remove('no-scroll');
+
+        setTimeout(() => {
+            if (lightboxImg) lightboxImg.src = '';
+        }, 300);
+    }
+
+    if (lightbox) {
+        lightbox.addEventListener('click', (e) => {
+            if (e.target === lightbox || e.target.closest('.global-lightbox-wrapper') === null) {
+                if (e.target !== lightboxImg && e.target.closest('.global-lightbox-caption')) return;
+                closeGlobalLightbox();
+            }
+        });
+    }
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === "Escape" && lightbox?.classList.contains('active')) {
+            closeGlobalLightbox();
+        }
+    });
+</script>

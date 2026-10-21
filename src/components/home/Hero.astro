@@ -1,0 +1,300 @@
+---
+// src/components/home/Hero.astro
+---
+
+<section class="hero slide-in" aria-label="Hero Introduction">
+  <div class="hero__container">
+    <div class="hero__text">
+      <p class="hero__subtitle">Jonathan Sinaga |
+ Informatics Engineering Student</p>
+      <h1 class="hero__title">
+        Developing Skills in
+        <span class="typewriter-wrapper">
+          <span class="typewriter-text"></span>
+        </span>
+      </h1>
+    </div>
+
+    <div class="hero__visual">
+      <img
+        src="/Imagery/icons/INGENTI_logo.webp"
+        alt="INGENTI Logo"
+        class="hero__logo"
+     
+        loading="eager"
+      />
+    </div>
+  </div>
+
+  <div class="hero__scroll">
+    <span class="scroll-text">Scroll to Explore</span>
+    <svg class="scroll-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="6 9 12 15 18 9"></polyline>
+    </svg>
+  </div>
+</section>
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+ /* === HERO SECTION STYLES === */
+  .hero {
+    position: relative;
+    min-height: calc(100vh - 120px);
+ width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 60px;
+ }
+
+  .hero__container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 1250px;
+ gap: 40px;
+    padding: 0 20px;
+    z-index: 1;
+  }
+
+  .hero__text {
+    flex: 1;
+    text-align: left;
+ }
+
+  .hero__subtitle {
+    font-size: 0.95rem; /* Diperkecil sedikit */
+    font-weight: 600;
+    color: var(--text-secondary);
+    letter-spacing: 1.5px;
+    margin-bottom: 12px;
+    text-transform: uppercase;
+    opacity: 0.9;
+    white-space: nowrap;
+  }
+
+  .hero__title {
+    font-size: 3.5rem; /* Diperkecil dari 5rem agar lebih proporsional */
+    font-weight: 800;
+    color: var(--text-primary);
+    line-height: 1.2;
+    margin: 0;
+  }
+
+/* Typewriter Effect Styles */
+  .typewriter-wrapper {
+    display: block;
+    height: 3.5em;
+ /* Kunci tingginya secara absolut agar teks tidak hilang */
+    margin-top: 10px;
+ }
+
+  .typewriter-text {
+    font-family: 'VT323', monospace, sans-serif;
+    color: #3f3;
+ text-shadow: 0 0 5px rgba(51, 255, 51, 0.75);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    position: relative;
+    font-size: 1.15em;
+ }
+
+  .typewriter-text::after {
+    content: "​";
+    position: absolute;
+    right: -18px;
+    top: 10%;
+    height: 80%;
+ border-right: 14px solid rgba(51, 255, 51, 0.75);
+    box-shadow: 2px 0 5px rgba(51, 255, 51, 0.5); 
+    animation: beam-blink 1s step-end infinite;
+ }
+
+  @keyframes beam-blink {
+    0%, 100% { border-color: rgba(51, 255, 51, 0.75);
+ box-shadow: 2px 0 5px rgba(51, 255, 51, 0.5); }
+    50% { border-color: transparent; box-shadow: none;
+ }
+  }
+
+  /* PENEGASAN RESET CSS PADA PEMBUNGKUS LOGO */
+  .hero__visual {
+    flex: 1;
+ display: flex;
+    justify-content: flex-end;
+    background: transparent !important;
+    box-shadow: none !important;
+    border: none !important;
+ }
+
+  /* PENEGASAN RESET CSS PADA IMG LOGO */
+  .hero__logo {
+    width: 100%; 
+    max-width: 750px;
+    height: auto;
+    object-fit: contain;
+    transform: scale(1.2); /* Trik untuk membesarkan logo secara visual */
+    
+    /* Reset paksa efek card yang bocor */
+    background: transparent !important;
+    box-shadow: none !important;
+    border: none !important;
+    border-radius: 0 !important;
+    padding: 0 !important;
+    filter: none !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    
+    transition: transform 0.3s ease;
+  }
+
+  .hero__logo:hover {
+    transform: scale(1.25); /* Disesuaikan dengan skala baru */
+  }
+
+  .hero__scroll {
+    position: absolute;
+    bottom: 10px;
+ /* Dinaikkan agar tidak terlalu ke bawah/tertutup */
+    left: 0;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+ align-items: center;
+    color: var(--text-secondary);
+    animation: floatBounce 2.5s infinite ease-in-out;
+    opacity: 1;
+ /* Diperjelas dari 0.7 menjadi 1 (Maksimal) */
+  }
+
+  .scroll-text {
+    font-size: 1rem;
+ /* Diperbesar agar lebih mudah dibaca */
+    font-weight: 500;
+    margin-bottom: 4px;
+    letter-spacing: 1px;
+ }
+
+  @keyframes floatBounce {
+    0%, 100% { transform: translateY(0);
+ }
+    50% { transform: translateY(10px); }
+  }
+
+/* === MOBILE RESPONSIVE UNTUK HERO === */
+  @media (max-width: 768px) {
+    .hero {
+      min-height: 100dvh;
+ /* Kunci presisi 1 layar penuh */
+      padding-top: 0;
+      padding-bottom: 0;
+      display: flex;
+      flex-direction: column;
+ justify-content: center; /* Mengunci konten tepat di tengah vertikal */
+      align-items: center;
+      margin-bottom: 0;
+ }
+    .hero__container {
+      flex-direction: column-reverse;
+ /* Logo di atas, Teks di bawah */
+      justify-content: center;
+      flex: none;
+ /* Dihapus dari flex: 1 agar tidak melar, mengikuti justify-content parent */
+      gap: 24px;
+ /* Jarak antara logo dan teks */
+      padding: 0 20px;
+ }
+    .hero__text { text-align: center; width: 100%;
+ }
+    .hero__subtitle { 
+      font-size: 0.85rem; /* Diperkecil */
+      white-space: normal;
+      margin-bottom: 12px; 
+    }
+    .hero__title { 
+      font-size: 1.9rem; /* Diperkecil dari 2.3rem */
+      line-height: 1.2;
+    }
+    
+    .typewriter-wrapper { 
+      height: 3.2em; /* Disesuaikan dengan font yang lebih kecil */
+    }
+    
+    .hero__visual { justify-content: center; width: 100%;
+ }
+    .hero__logo { 
+      width: 100%; 
+      max-width: 320px; /* Diperbesar (aman karena ruang sisa teks lebih banyak) */
+      transform: scale(1); /* Reset trik scale dari desktop */
+    } 
+
+    .hero__logo:hover {
+      transform: scale(1.05); /* Efek hover khusus mobile */
+    }
+
+    .hero__scroll {
+      position: absolute;
+ /* Dibuat absolute agar tidak merusak titik tengah elemen utama */
+      bottom: 20px;
+      left: 0;
+ right: 0;
+      margin-top: 0; 
+      margin-bottom: 0;
+    }
+  }
+
+  </style>
+
+  <script>
+  const texts = [
+    "Game Development",
+    "3D Design",
+    "3D CAD",
+    "Web Development",
+    "Mobile App Development"
+  ];
+ let count = 0;
+  let index = 0;
+  let currentText = '';
+  let letter = '';
+  let isDeleting = false;
+ function type() {
+    const element = document.querySelector('.typewriter-text');
+    if (!element) return;
+ if (count === texts.length) {
+      count = 0;
+    }
+    currentText = texts[count];
+ if (isDeleting) {
+      letter = currentText.slice(0, --index);
+ } else {
+      letter = currentText.slice(0, ++index);
+    }
+
+    element.textContent = letter;
+ let typeSpeed = 100;
+    if (isDeleting) {
+      typeSpeed /= 2;
+ }
+
+    if (!isDeleting && letter.length === currentText.length) {
+      typeSpeed = 2000;
+ // Jeda sebelum menghapus
+      isDeleting = true;
+ } else if (isDeleting && letter.length === 0) {
+      isDeleting = false;
+      count++;
+ typeSpeed = 500; // Jeda sebelum mengetik kata baru
+    }
+
+    setTimeout(type, typeSpeed);
+ }
+
+  // Jalankan efek typewriter setelah HTML dimuat
+  document.addEventListener('DOMContentLoaded', () => {
+    setTimeout(type, 1000);
+  });
+ </script>

@@ -1,0 +1,213 @@
+---
+/* src/components/Navbar.astro */
+import ThemeToggle from './ThemeToggle.astro';
+import Hamburger from './Hamburger.astro';
+
+export interface Props {
+  isHome?: boolean;
+}
+const { isHome = false } = Astro.props;
+---
+
+<header class:list={["navbar-wrapper", { "navbar-wrapper--home": isHome }]}>
+  <nav class="navbar" id="mainNav" aria-label="Main navigation">
+    <a href="/" class="navbar__logo" aria-label="Jonathan Sinaga Logo">
+      <img src="/Imagery/icons/INGENTI_logo.webp" alt="INGENTI Logo" />
+    </a>
+    
+    <div class="navbar__nav" id="navbarNav">
+      <a href="/" class="navbar__link">Home</a>
+      <a href="/cad" class="navbar__link">3D CAD</a>
+      <a href="/game" class="navbar__link">Game Dev</a>
+      <a href="/blender" class="navbar__link">3D Modeling</a>
+      
+      <ThemeToggle variant="nav" />
+    </div>
+
+    <Hamburger />
+  </nav>
+</header>
+
+<style>
+  /* === Header/Navbar Styles === */
+  .navbar-wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .navbar-wrapper--hidden {
+    transform: translateY(-100%);
+  }
+
+  .navbar-wrapper--home {
+    display: none;
+  }
+
+  .navbar {
+    width: calc(100% - 40px);
+    /* Memberi jarak agar tidak mentok kiri-kanan */
+    max-width: 1200px; /* Kapsul dibuat jauh lebih panjang horizontal */
+    margin: 20px auto;
+    /* Membuatnya melayang (floating) di tengah */
+    border-radius: 50px;
+    /* Bentuk kapsul/pil sempurna */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 32px; 
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--shadow-soft);
+    box-sizing: border-box;
+  }
+
+  .navbar__logo img { 
+    width: 52px; /* Ukuran diperbesar */
+    height: 52px;
+    object-fit: contain; 
+    display: block;
+    transition: transform 0.3s ease;
+  }
+
+  .navbar__logo:hover img {
+    transform: scale(1.05);
+    /* Efek membesar saat disentuh */
+  }
+  
+  .navbar__nav { display: flex; gap: 32px; align-items: center;
+  }
+  .navbar__link {
+    text-decoration: none;
+    color: var(--text-secondary);
+    font-weight: 500;
+    font-size: 0.95rem;
+    transition: color 0.2s;
+    padding: 0;
+  }
+  .navbar__link:hover, .navbar__link--active { color: var(--text-primary); }
+  .navbar__link:focus-visible {
+    outline: none;
+    box-shadow: var(--focus-ring);
+    border-radius: var(--radius-nav);
+  }
+
+  /* === Mobile Media Queries === */
+  @media (max-width: 768px) {
+    .navbar-wrapper--home { display: block;
+    }
+    .navbar { padding: 1rem 20px; }
+    
+    .navbar__nav {
+      display: none;
+      position: absolute;
+      top: calc(100% + 15px); /* Memberi celah pemisah dari navbar kapsul */
+      left: 10px; /* Jarak dari kiri layar */
+      right: 10px; /* Jarak dari kanan layar */
+      background: var(--glass-bg-hover);
+      backdrop-filter: blur(var(--glass-blur));
+      -webkit-backdrop-filter: blur(var(--glass-blur));
+      border: 1px solid var(--glass-border); /* Memberikan garis pinggir */
+      border-radius: 24px; /* Sudut melengkung agar terlihat seperti card terpisah */
+      flex-direction: column;
+      padding: 24px;
+      gap: 16px;
+      box-shadow: var(--shadow-hover); /* Shadow lebih tegas agar melayang */
+      text-align: center;
+    }
+    .navbar__nav--open { display: flex;
+    }
+  }
+
+  /* === MODIFIKASI KHUSUS NAVBAR HOME (CLEAN LOOK) === */
+  .navbar-wrapper--home .navbar {
+    background: transparent !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding-top: 24px;
+    justify-content: flex-end !important;
+    /* Tambahan agar burger di kanan */
+  }
+
+  .navbar-wrapper--home .navbar__logo {
+    display: none !important;
+  }
+
+  .navbar-wrapper--home #menuToggleWrapper {
+    margin-left: 0;
+    /* Reset margin karena sudah didorong oleh flex-end */
+  }
+</style>
+
+<script>
+  // === MOBILE MENU & SCROLL LOGIC ===
+  const menuCheckbox = document.getElementById("menuCheckbox") as HTMLInputElement;
+  const menuToggleWrapper = document.getElementById("menuToggleWrapper");
+  const navbarNav = document.getElementById("navbarNav");
+  const navbarWrapper = document.querySelector(".navbar-wrapper");
+  if (menuCheckbox && navbarNav && menuToggleWrapper) {
+    menuCheckbox.addEventListener("change", (e) => {
+      const isChecked = (e.target as HTMLInputElement).checked;
+      if (isChecked) {
+        navbarNav.classList.add("navbar__nav--open");
+      } else {
+        navbarNav.classList.remove("navbar__nav--open");
+      }
+    });
+    document.addEventListener("click", (e) => {
+      if (window.innerWidth < 768 && navbarNav.classList.contains("navbar__nav--open")) {
+        if (!navbarNav.contains(e.target as Node) && !menuToggleWrapper.contains(e.target as Node)) {
+          navbarNav.classList.remove("navbar__nav--open");
+          menuCheckbox.checked = false;
+        }
+      }
+    });
+  }
+
+  if (navbarWrapper) {
+    let lastScrollY = window.scrollY;
+    let ticking = false;
+    const SCROLL_THRESHOLD = 50;
+    const SCROLL_TOLERANCE = 5;
+
+    function updateNavbar() {
+      const currentScrollY = window.scrollY;
+      const isMenuOpen = navbarNav?.classList.contains("navbar__nav--open");
+      if (isMenuOpen) {
+        ticking = false;
+        return;
+      }
+
+      if (currentScrollY > lastScrollY + SCROLL_TOLERANCE && currentScrollY > SCROLL_THRESHOLD) {
+        if (!navbarWrapper?.classList.contains('navbar-wrapper--hidden')) {
+          navbarWrapper?.classList.add('navbar-wrapper--hidden');
+        }
+      } else if (currentScrollY < lastScrollY - SCROLL_TOLERANCE) {
+        if (navbarWrapper?.classList.contains('navbar-wrapper--hidden')) {
+          navbarWrapper.classList.remove('navbar-wrapper--hidden');
+        }
+      }
+      
+      if (currentScrollY < SCROLL_THRESHOLD) {
+        navbarWrapper?.classList.remove('navbar-wrapper--hidden');
+      }
+      
+      lastScrollY = currentScrollY;
+      ticking = false;
+    }
+
+    window.addEventListener("scroll", () => {
+      if (!ticking) {
+        window.requestAnimationFrame(updateNavbar);
+        ticking = true;
+      }
+    }, { passive: true });
+  }
+</script>

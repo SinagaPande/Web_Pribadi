@@ -1,0 +1,192 @@
+/* src/components/backgrounds/HoloBackground.css */
+
+/* Dark Theme (Default) */
+#hologram-bg {
+  --bg-color: #050505;
+  --grid-color: 0, 162, 255; 
+  --cyan-rgb: 0, 221, 255;
+  --magenta-rgb: 255, 0, 222;
+  --green-rgb: 51, 255, 51;
+  --sw-red: #DA291C;
+  --godot-lightblue: #478CBF;
+  --blend-orange: #EA7600;
+  --blend-darkblue: #236192;
+  --hacker-green: #33ff33;
+  --ring-glow: 0 0 15px; 
+
+  position: fixed;
+  top: 0; left: 0; width: 100vw; height: 100vh;
+  display: flex; justify-content: center; align-items: center;
+  overflow: hidden; z-index: -1; pointer-events: none;
+  background-color: var(--bg-color);
+  font-family: monospace;
+}
+
+/* Light Theme Variables */
+[data-theme="light"] #hologram-bg {
+  --bg-color: #A5D8F7;
+  --grid-color: 255, 255, 255; 
+  --cyan-rgb: 2, 132, 199;
+  --magenta-rgb: 192, 38, 211;
+  --green-rgb: 22, 163, 74;
+  --sw-red: #ef4444;          
+  --godot-lightblue: #0ea5e9; 
+  --blend-orange: #f97316;    
+  --blend-darkblue: #0284c7;  
+  --hacker-green: #10b981;    
+  --ring-glow: 0 0 8px; 
+}
+
+[data-theme="light"] #hologram-bg .grid-plane { opacity: 0.8; }
+
+#hologram-bg::before {
+  content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+  background: linear-gradient(135deg, #A5D8F7 0%, #54BCFD 50%, #249DE8 100%);
+  opacity: 0; transition: opacity 0.5s ease-in-out; z-index: -1;
+}
+[data-theme="light"] #hologram-bg::before { opacity: 1; }
+
+:global([data-theme="light"]) #hologram-bg .grid-plane { opacity: 0.8; }
+:global([data-theme="light"]) #hologram-bg::before { opacity: 1; }
+
+/* Transisi - dibersihkan dari class yg tidak ada */
+#hologram-bg, .grid-plane, .code-line {
+  transition: background-color 0.5s ease-in-out, border-color 0.5s ease-in-out, 
+              box-shadow 0.5s ease-in-out, color 0.5s ease-in-out, 
+              opacity 0.5s ease-in-out, border-width 0.5s ease-in-out, text-shadow 0.5s ease-in-out;
+}
+
+.grid-plane {
+  position: absolute; width: 200%; height: 200%; top: -50%; left: -50%;
+  background-image: linear-gradient(rgba(var(--grid-color), 0.15) 1px, transparent 1px),
+                    linear-gradient(90deg, rgba(var(--grid-color), 0.15) 1px, transparent 1px);
+  background-size: 40px 40px; transform: perspective(500px) rotateX(60deg);
+  transform-origin: center; animation: grid-move 20s linear infinite; opacity: 0.6;
+  -webkit-mask-image: linear-gradient(to bottom, transparent 10%, black 70%);
+  mask-image: linear-gradient(to bottom, transparent 10%, black 70%);
+}
+@keyframes grid-move {
+  0% { transform: perspective(500px) rotateX(60deg) translateY(0); }
+  100% { transform: perspective(500px) rotateX(60deg) translateY(40px); }
+}
+
+.loader-container {
+  position: relative; width: 400px; height: 400px; display: flex;
+  justify-content: center; align-items: center; perspective: 800px;
+  transform-style: preserve-3d; z-index: 10;
+}
+
+.holo-numbers {
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 5;
+  overflow: hidden;
+}
+
+.number {
+  position: absolute;
+  font-size: 14px;
+  font-weight: bold;
+  color: rgba(0, 221, 255, 0.4);
+  text-shadow: 0 0 8px rgba(0, 221, 255, 0.3);
+  animation: float-number 10s infinite linear;
+  opacity: 0;
+}
+
+@keyframes float-number {
+  0% { opacity: 0; transform: translateZ(100px) translateY(0); }
+  10% { opacity: 0.7; }
+  90% { opacity: 0.7; }
+  100% { opacity: 0; transform: translateZ(-100px) translateY(-50px); }
+}
+
+.code-lines {
+  position: absolute;
+  width: 200%;
+  height: 200%;
+  top: -50%;
+  left: -50%;
+  pointer-events: none;
+  perspective: 500px;
+  transform-style: preserve-3d;
+  z-index: 8;
+}
+
+.code-line {
+  position: absolute;
+  font-size: 10px;
+  color: rgba(0, 221, 255, 0.7);
+  white-space: nowrap;
+  text-shadow: 0 0 5px rgba(0, 221, 255, 0.3);
+  animation: code-scroll 15s infinite linear;
+  opacity: 0;
+}
+
+/* Delay disetel negatif agar teks muncul langsung sejak website dirender */
+.code-line:nth-child(1) { top: 10%; animation-duration: 22s; animation-delay: -11s; color: rgb(var(--cyan-rgb)); }
+.code-line:nth-child(2) { top: 20%; animation-duration: 25s; animation-delay: -8s; color: rgb(var(--green-rgb)); text-shadow: 0 0 5px rgba(var(--green-rgb), 0.5); }
+.code-line:nth-child(3) { top: 30%; animation-duration: 28s; animation-delay: -14s; color: rgb(var(--magenta-rgb)); }
+.code-line:nth-child(4) { top: 40%; animation-duration: 24s; animation-delay: -5s; color: rgb(var(--cyan-rgb)); }
+.code-line:nth-child(5) { top: 50%; animation-duration: 20s; animation-delay: -17s; color: rgb(var(--green-rgb)); text-shadow: 0 0 5px rgba(var(--green-rgb), 0.5); }
+.code-line:nth-child(6) { top: 60%; animation-duration: 26s; animation-delay: -9s; color: rgb(var(--magenta-rgb)); }
+.code-line:nth-child(7) { top: 70%; animation-duration: 21s; animation-delay: -18s; color: rgb(var(--green-rgb)); text-shadow: 0 0 5px rgba(var(--green-rgb), 0.5); }
+.code-line:nth-child(8) { top: 80%; animation-duration: 29s; animation-delay: -12s; color: rgb(var(--magenta-rgb)); }
+
+@keyframes code-scroll {
+  0% { transform: translateX(800px) rotateY(20deg); opacity: 0; }
+  10% { opacity: 0.7; }
+  90% { opacity: 0.7; }
+  100% { transform: translateX(-800px) rotateY(20deg); opacity: 0; }
+}
+
+/* --- RESPONSIVE LAYOUT & SCALING --- */
+
+@media (max-width: 1024px) {
+  .loader-container { transform: scale(0.8); }
+}
+
+@keyframes code-scroll-mobile {
+  0% { transform: translateX(600px) rotateY(20deg); opacity: 0; }
+  15% { opacity: 0.7; }
+  85% { opacity: 0.7; }
+  100% { transform: translateX(-600px) rotateY(20deg); opacity: 0; }
+}
+
+@media (max-width: 768px) {
+  .loader-container { transform: scale(0.85); }
+  
+  .code-lines {
+    height: 400%; 
+    top: -150%;   
+  }
+
+  .code-line {
+    font-size: 12px;
+    font-weight: bold;
+    animation-name: code-scroll-mobile; 
+  }
+  
+  .holo-numbers {
+    width: 600px;
+    height: 600px;
+    top: -100px;
+    left: -100px;
+  }
+
+  .number {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .loader-container { transform: scale(0.75); }
+  
+  .code-lines {
+    height: 500%;
+    top: -200%;
+  }
+}

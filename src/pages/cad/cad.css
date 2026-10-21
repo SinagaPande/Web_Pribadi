@@ -1,0 +1,342 @@
+:root {
+  /* Layout Variables specific to Cad Page */
+  --carousel-card-width: 420px;  /* Lebar kartu diperbesar drastis */
+  --carousel-card-height: 250px; /* Diubah dari 220px ke 250px */
+  --carousel-arrow-size: 40px;
+  --gallery-bg: #fff;
+  --gallery-border: #e5e7eb;
+  --gallery-radius: 16px;
+  --masonry-gap: 24px;
+}
+
+/* === Title Section === */
+/* Jika judul dibungkus dalam class .section, Anda bisa mengatur margin-top-nya di sini */
+.cad-section-wrapper { /* Sesuaikan dengan class parent di index.astro Anda jika ada */
+  margin-top: -20px; /* Nilai negatif untuk menarik keseluruhan konten ke atas */
+}
+
+.title-underline-red {
+  position: relative;
+  display: inline-block;
+  margin-top: -40px; /* Menarik konten ke atas mendekati navbar */
+  margin-bottom: 16px;
+}
+
+.title-underline-red::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 4px;
+  background-color: #ef4444; /* Warna merah ala SolidWorks */
+  border-radius: 4px;
+}
+
+.section-description {
+  margin-bottom: 24px;
+}
+
+/* === Carousel Section === */
+.carousel-section {
+  width: 100%;
+  max-width: 1000px; /* Diperbesar agar ada ruang untuk panah */
+  margin: 0 auto 24px auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  min-height: calc(var(--carousel-card-height) + 16px);
+  overflow: visible;
+}
+
+.carousel-arrow {
+  width: var(--carousel-arrow-size);
+  height: var(--carousel-arrow-size);
+  background: var(--muted, #f3f4f6);
+  border: none;
+  border-radius: 50%;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+  transition: all 0.2s ease;
+}
+
+.carousel-arrow:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
+}
+
+.carousel-arrow:hover {
+  background: #e0e7ef;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  transform: translateY(-50%) scale(1.1);
+}
+
+/* Membuang panah lebih jauh ke luar */
+.carousel-arrow--left { left: -50px; }
+.carousel-arrow--right { right: -50px; }
+
+.carousel-arrow svg {
+  width: 24px;
+  height: 24px;
+  color: #222;
+  display: block;
+}
+
+.carousel-viewport {
+  overflow: hidden;
+  width: 100%;
+  max-width: 880px; /* Diperbesar agar 2 kartu (420px + 420px + gap) muat sempurna */
+  margin: 0 auto;
+  position: relative;
+}
+
+.carousel-track {
+  display: flex;
+  gap: var(--space-3);
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform;
+  width: fit-content;
+  align-items: center;
+}
+
+.carousel-card {
+  background: var(--gallery-bg);
+  border-radius: var(--gallery-radius);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+  border: 1px solid var(--gallery-border);
+  width: var(--carousel-card-width);
+  min-width: var(--carousel-card-width);
+  max-width: 100%;
+  height: var(--carousel-card-height);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 24px; /* Padding dikembalikan menjadi luas */
+  transition: box-shadow 0.3s ease, border-color 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  user-select: none;
+  cursor: pointer;
+}
+
+/* Memperbesar ukuran Thumbnail di Carousel */
+.carousel-card img {
+  width: 150px;  /* Diperbesar dari 110px */
+  height: 150px; 
+  object-fit: contain;
+  border-radius: 8px;
+  margin-bottom: 12px;
+  background: transparent;
+  display: block;
+}
+
+/* Mengunci warna teks agar tetap gelap meskipun di dark mode */
+.carousel-card-title {
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin-bottom: 6px;
+  text-align: center;
+  color: #111827; /* Diubah dari var(--text-primary) */
+}
+
+.carousel-card-desc {
+  font-size: 0.95rem;
+  text-align: center;
+  margin-bottom: 0;
+  color: #4b5563; /* Diubah dari var(--text-secondary) */
+}
+
+.carousel-card.active {
+  border-color: #ef4444; /* Tema merah SolidWorks saat aktif */
+  box-shadow: 0 4px 24px rgba(239, 68, 68, 0.15);
+}
+
+/* === Gallery Bento Layout Section === */
+.gallery-section {
+  width: 100%;
+  max-width: 850px; /* Dibatasi 850px agar gambar 100% tidak terlalu raksasa */
+  margin: 8px auto 0 auto; /* auto untuk memposisikan di tengah layar */
+}
+
+.gallery-masonry {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-auto-rows: minmax(200px, auto);
+  gap: var(--masonry-gap);
+  width: 100%;
+  transition: grid-template-columns 0.3s;
+}
+
+/* Mengatur Gallery Item: Hapus warna hitam */
+.gallery-item {
+  display: flex;
+  position: relative; /* Penting untuk posisi teks overlay */
+  border-radius: var(--gallery-radius);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease, opacity 0.35s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.35s;
+  overflow: hidden;
+  background: transparent; /* Diubah dari #000 agar tidak ada kotak hitam */
+}
+
+.gallery-item:hover {
+  transform: translateY(-4px); /* Efek melayang saat di-hover */
+}
+
+/* Mengatur SEMUA gambar galeri (Drawing, Features, Render) agar tidak terpotong */
+.gallery-item img {
+  width: 100%;
+  height: auto; /* Gambar akan menyesuaikan tinggi aslinya */
+  object-fit: contain; /* Memastikan tidak ada bagian gambar yang dipangkas */
+  display: block;
+}
+
+/* Teks Galeri (Diubah menjadi Overlay) */
+.gallery-item-title {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 24px 16px 16px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  text-align: left;
+  color: #ffffff; /* Teks putih agar kontras */
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0) 100%);
+  margin: 0;
+  pointer-events: none;
+}
+
+/* Aturan Grid untuk Bento Spans (Desktop) */
+.gallery-item--drawing,
+.gallery-item--features {
+  grid-column: span 4;
+  grid-row: auto;
+  aspect-ratio: auto;
+  height: auto; 
+  display: block; 
+}
+
+.gallery-item--render {
+  grid-column: span 2;
+  grid-row: auto; /* Menggunakan auto daripada span 1 */
+  aspect-ratio: auto; /* Dihapus agar render juga tampil utuh penuh */
+  height: auto;
+  display: block;
+}
+
+/* Animasi Filter */
+.gallery-item.fade-out {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.gallery-item.hidden {
+  display: none !important;
+}
+
+/* === Media Queries === */
+
+/* Tablets & Smaller Desktops */
+@media (max-width: 1100px) {
+  .gallery-masonry {
+    grid-template-columns: repeat(4, 1fr); /* Tetap 4 agar Bento berfungsi */
+  }
+}
+
+/* Tablets */
+@media (max-width: 900px) {
+  .carousel-section { 
+    max-width: 100%; 
+    padding: 0 var(--space-2);
+  }
+  
+  .carousel-card {
+    width: 280px; 
+    min-width: 280px;
+    height: 160px;
+  }
+
+  .gallery-masonry {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  /* Reset Span untuk Tablet */
+  .gallery-item--drawing,
+  .gallery-item--features,
+  .gallery-item--render {
+    grid-column: span 2; /* Di tablet tetap 2 kolom jika layout grid max 2 */
+  }
+}
+
+/* Mobile Devices */
+@media (max-width: 600px) {
+  .carousel-section {
+    min-height: auto;
+    margin-bottom: var(--space-4);
+    padding: 0;
+  }
+
+  .carousel-viewport {
+    width: 100%;
+    padding: 10px 0;
+  }
+  
+  .carousel-card {
+    width: calc(100vw - 80px); 
+    min-width: calc(100vw - 80px);
+    height: auto;
+    min-height: 150px;
+    padding: var(--space-2);
+  }
+
+  .carousel-arrow {
+    width: 32px;
+    height: 32px;
+    background: white;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  }
+
+  /* --- PERBAIKAN TOMBOL PANAH DI MOBILE --- */
+  .carousel-arrow--left {
+    left: 10px; /* Tarik tombol panah ke dalam layar */
+    z-index: 10;
+  }
+  .carousel-arrow--right {
+    right: 10px; /* Tarik tombol panah ke dalam layar */
+    z-index: 10;
+  }
+  
+  .gallery-masonry {
+    grid-template-columns: 1fr; 
+    gap: var(--space-3);
+  }
+
+  .gallery-item--drawing,
+  .gallery-item--features,
+  .gallery-item--render {
+    grid-column: span 4;
+    aspect-ratio: auto;
+  }
+}
+
+/* Class baru untuk teks petunjuk (hint) */
+.gallery-hint {
+  text-align: center;
+  font-size: 0.85rem;
+  color: var(--text-secondary); /* Akan otomatis menyesuaikan dark/light mode */
+  margin-top: -8px; /* Ditarik sedikit ke atas agar dekat dengan carousel */
+  margin-bottom: 16px;
+  font-style: italic;
+  opacity: 0.8;
+}
